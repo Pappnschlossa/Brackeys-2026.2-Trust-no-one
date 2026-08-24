@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://bv0o1kuyl8te6"]
 
-[ext_resource type="Script" uid="uid://d37c1qoisagq6" path="res://scripts/title_scene.gd" id="1_6jsh8"]
+[ext_resource type="Script" uid="uid://d37c1qoisagq6" path="res://scripts/title.gd" id="1_6jsh8"]
 
 [node name="TitleScene" type="Control" unique_id=945108710]
 layout_mode = 3
@@ -11,13 +11,25 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_6jsh8")
 
-[node name="RichTextLabel" type="RichTextLabel" parent="." unique_id=459163126]
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=1636310916]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+
+[node name="RichTextLabel" type="RichTextLabel" parent="VBoxContainer" unique_id=459163126]
+layout_mode = 2
+size_flags_vertical = 3
 text = "TITLE"
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="StartButton" type="Button" parent="VBoxContainer" unique_id=516420891]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 6
+text = "Start"
+
+[connection signal="pressed" from="VBoxContainer/StartButton" to="." method="_on_start_button_pressed"]

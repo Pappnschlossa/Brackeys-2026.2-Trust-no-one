@@ -9,7 +9,9 @@ extends Node
 @export var wipe_fade_out_duration = 0.3
 
 const SCENES = {
-	"title_scene" : "uid://bv0o1kuyl8te6"
+	"title_scene" : "uid://bv0o1kuyl8te6",
+	"level_scene" : "uid://cfpx4aji2a1nu",
+	"shop_scene" : "uid://bswonif37ehh8"
 }
 
 # Called when the node enters the scene tree for the first time.
