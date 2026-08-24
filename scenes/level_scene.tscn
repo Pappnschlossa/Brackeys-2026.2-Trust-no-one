@@ -1,8 +1,8 @@
 [gd_scene format=3 uid="uid://cfpx4aji2a1nu"]
 
-[ext_resource type="Script" uid="uid://chawitpunjksv" path="res://scripts/level.gd" id="1_386oa"]
+[ext_resource type="Script" uid="uid://chawitpunjksv" path="res://scripts/level_scene.gd" id="1_386oa"]
 
-[node name="Level" type="Control" unique_id=1635183676]
+[node name="Level" type="Control" unique_id=1635183676 node_paths=PackedStringArray("A", "B", "C", "D", "E", "F")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -10,6 +10,12 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_386oa")
+A = NodePath("VBoxContainer/HBoxContainer2/A")
+B = NodePath("VBoxContainer/HBoxContainer2/B")
+C = NodePath("VBoxContainer/HBoxContainer2/C")
+D = NodePath("VBoxContainer/HBoxContainer2/D")
+E = NodePath("VBoxContainer/HBoxContainer2/E")
+F = NodePath("VBoxContainer/HBoxContainer2/F")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=695245961]
 layout_mode = 1
@@ -44,24 +50,171 @@ text = "Door 2"
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="RichTextLabel" type="RichTextLabel" parent="VBoxContainer/HBoxContainer2" unique_id=634285301]
+[node name="A" type="Control" parent="VBoxContainer/HBoxContainer2" unique_id=2002476856]
 layout_mode = 2
 size_flags_horizontal = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/HBoxContainer2/A" unique_id=778241446]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Text" type="RichTextLabel" parent="VBoxContainer/HBoxContainer2/A/VBoxContainer" unique_id=634285301]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
 text = "A"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="RichTextLabel2" type="RichTextLabel" parent="VBoxContainer/HBoxContainer2" unique_id=353144204]
+[node name="ID" type="RichTextLabel" parent="VBoxContainer/HBoxContainer2/A/VBoxContainer" unique_id=1608787681]
 layout_mode = 2
 size_flags_horizontal = 3
+size_flags_vertical = 3
+text = "A"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="B" type="Control" parent="VBoxContainer/HBoxContainer2" unique_id=1745464541]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/HBoxContainer2/B" unique_id=1007001787]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Text" type="RichTextLabel" parent="VBoxContainer/HBoxContainer2/B/VBoxContainer" unique_id=1818965700]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
 text = "B"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="RichTextLabel3" type="RichTextLabel" parent="VBoxContainer/HBoxContainer2" unique_id=605135005]
+[node name="ID" type="RichTextLabel" parent="VBoxContainer/HBoxContainer2/B/VBoxContainer" unique_id=1968951337]
 layout_mode = 2
 size_flags_horizontal = 3
+size_flags_vertical = 3
+text = "B"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="C" type="Control" parent="VBoxContainer/HBoxContainer2" unique_id=630184891]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/HBoxContainer2/C" unique_id=418457172]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Text" type="RichTextLabel" parent="VBoxContainer/HBoxContainer2/C/VBoxContainer" unique_id=1004249225]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
 text = "C"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ID" type="RichTextLabel" parent="VBoxContainer/HBoxContainer2/C/VBoxContainer" unique_id=646534774]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+text = "C"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="D" type="Control" parent="VBoxContainer/HBoxContainer2" unique_id=412518679]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/HBoxContainer2/D" unique_id=1204707655]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Text" type="RichTextLabel" parent="VBoxContainer/HBoxContainer2/D/VBoxContainer" unique_id=1419599876]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+text = "D"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ID" type="RichTextLabel" parent="VBoxContainer/HBoxContainer2/D/VBoxContainer" unique_id=164577322]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+text = "D"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="E" type="Control" parent="VBoxContainer/HBoxContainer2" unique_id=1961559971]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/HBoxContainer2/E" unique_id=1821166460]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Text" type="RichTextLabel" parent="VBoxContainer/HBoxContainer2/E/VBoxContainer" unique_id=757960990]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+text = "E"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ID" type="RichTextLabel" parent="VBoxContainer/HBoxContainer2/E/VBoxContainer" unique_id=1244291881]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+text = "E"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="F" type="Control" parent="VBoxContainer/HBoxContainer2" unique_id=2137788967]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/HBoxContainer2/F" unique_id=811869710]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Text" type="RichTextLabel" parent="VBoxContainer/HBoxContainer2/F/VBoxContainer" unique_id=1594807316]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+text = "F"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ID" type="RichTextLabel" parent="VBoxContainer/HBoxContainer2/F/VBoxContainer" unique_id=936003344]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+text = "F"
 horizontal_alignment = 1
 vertical_alignment = 1
 
