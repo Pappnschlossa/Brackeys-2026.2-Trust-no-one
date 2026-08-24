@@ -74,28 +74,52 @@ func generate_text() -> void:
 	var id = 0
 	for N in numbers:
 		var possible_types : Array[bool] = [true, false]
-		if N.val != 1:
-			if can_be_equation(id):
-				N.clue.is_equation = possible_types.pick_random()
-			else:
-				N.clue.is_equation = false
-			if !N.clue.is_equation:
-				var possible_targets : Array[int] = [max(0, id-1), id, min(id+1, MAX_ID)]
-				N.clue.target = possible_targets.pick_random()
-				if randi_range(0, 1) == 1: # 1 in 2 chances to show parity:
-					if numbers[N.clue.target].val % 2 == 0: # Even
-						N.clue.value = -2
-					else: # Odd
-						N.clue.value = -1
-				else: # Directly announce the number
-					N.clue.value = numbers[N.clue.target].val
-				print("%s says %s is %s" % [ID_TO_LETTER[id], ID_TO_LETTER[N.clue.target], FORMAT_PARITY[N.clue.value]])
-			else: # N.clue.is_equation:
+		if can_be_equation(id) or N.val == 1:
+			N.clue.is_equation = possible_types.pick_random()
+		else:
+			N.clue.is_equation = false
+		if !N.clue.is_equation:
+			var possible_targets : Array[int] = [max(0, id-1), id, min(id+1, MAX_ID)]
+			N.clue.target = possible_targets.pick_random()
+			if randf() < 0.2: # chances to show parity:
+				if numbers[N.clue.target].val % 2 == 0: # Even
+					N.clue.value = -2
+				else: # Odd
+					N.clue.value = -1
+			else: # Directly announce the number
+				N.clue.value = numbers[N.clue.target].val
+			if N.val == 1: # Turn clue into a lie if number is 1
+				var old_value : int = N.clue.value
+				match N.clue.value:
+					-2: N.clue.value = -1
+					-1: N.clue.value = -2
+					_:
+						N.clue.value = randi_range(0, 9)
+						if N.clue.value >= old_value:
+							N.clue.value = (N.clue.value + 1) % 10
+			print("%s says %s is %s" % [ID_TO_LETTER[id], ID_TO_LETTER[N.clue.target], FORMAT_PARITY[N.clue.value]])
+		else: # N.clue.is_equation:
+			if N.val != 1:
 				var possible_equations : Array[Array] = find_equations(id)
-				var equation = possible_equations.pick_random()
+				var equation : Array = possible_equations.pick_random()
 				N.clue.equation_targets = [equation[0], equation[1]]
 				N.clue.operator = equation[2]
-				print("%s says %s %s %s = %s" % [ID_TO_LETTER[id], ID_TO_LETTER[N.clue.equation_targets[0]], OPERATOR_TO_SIGN[N.clue.operator], ID_TO_LETTER[N.clue.equation_targets[1]], ID_TO_LETTER[id]])
+			else: # N.val == 1: # Turn clue into a lie if number is 1
+				var possible_targets : Array = Array(range(AMOUNT))
+				possible_targets.erase(id)
+				var first_member : int = possible_targets.pick_random()
+				possible_targets.erase(first_member)
+				var second_member : int = possible_targets.pick_random()
+				N.clue.equation_targets = [first_member, second_member]
+				N.clue.operator = ["plus", "minus", "mult"].pick_random()
+				if N.clue.operator == "minus":
+					if randf() < 0.5: # if substraction then 1/2 chances to swap
+						N.clue.equation_targets.reverse()
+					if numbers[N.clue.equation_targets[0]].val - numbers[N.clue.equation_targets[1]].val == 1:
+						# Checks if equation remains false
+						# (mult or plus are always false with 1 imposter and no multiple occurence of the same number in the equation so we only check minus)
+						N.clue.equation_targets.reverse()
+			print("%s says %s %s %s = %s" % [ID_TO_LETTER[id], ID_TO_LETTER[N.clue.equation_targets[0]], OPERATOR_TO_SIGN[N.clue.operator], ID_TO_LETTER[N.clue.equation_targets[1]], ID_TO_LETTER[id]])
 		id += 1
 
 func update_nodes() -> void:
@@ -108,8 +132,10 @@ func update_nodes() -> void:
 
 func can_be_equation(id) -> bool:
 	for i in range(AMOUNT-1):
+		if i == id: continue
 		for j in range(i+1, AMOUNT):
-			if numbers[i].val + numbers[j].val == numbers[id].val:
+			if j == id: continue
+			elif numbers[i].val + numbers[j].val == numbers[id].val:
 				return true
 			elif numbers[i].val - numbers[j].val == numbers[id].val or numbers[j].val - numbers[i].val == numbers[id].val:
 				return true
@@ -120,7 +146,9 @@ func can_be_equation(id) -> bool:
 func find_equations(id) -> Array[Array]:
 	var equations : Array[Array] = []
 	for i in range(AMOUNT-1):
+		if i == id: continue
 		for j in range(i+1, AMOUNT):
+			if j == id: continue
 			if numbers[i].val + numbers[j].val == numbers[id].val:
 				equations.append([i, j, "plus"])
 			if numbers[i].val - numbers[j].val == numbers[id].val:
