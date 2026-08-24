@@ -10,6 +10,8 @@ signal add_scene_as_an_overlay
 @export var E : Control
 @export var F : Control
 @onready var number_nodes : Array[Control] = [A, B, C, D, E, F]
+@export var info : Control
+@export var numbers_container : GridContainer
 
 const TRUE_NUMBERS = [0, 2, 3, 4, 5, 6, 7, 8, 9]
 const ID_TO_LETTER : Dictionary[int, String] = {
@@ -48,10 +50,23 @@ var numbers : Array[Number]
 var AMOUNT : int # Amount of numbers
 var MAX_ID : int
 
+var active_numpad : int = -1
+var number_guesses : Array[int]
+
 func _ready() -> void:
 	initialize_level_variables()
 	generate_text()
 	update_nodes()
+	numbers_container.add_numpad.connect(_on_add_numpad)
+
+func _on_add_numpad(numpad_id: int) -> void:
+	var pos = Vector2(numpad_id*400 + 300, 1080/2)
+	add_scene_as_an_overlay.emit("numpad_overlay", pos)
+	active_numpad = numpad_id
+
+func _on_numpad_button_pressed(n: int) -> void:
+	# Update the visuals to see which is selected
+	number_guesses[active_numpad] = n # STOPPED HERE FOR TODAY
 
 func initialize_level_variables() -> void:
 	TRUE_DOOR_ID = randi_range(0, 1)
@@ -59,6 +74,8 @@ func initialize_level_variables() -> void:
 	AMOUNT = g.amount_of_numbers()
 	MAX_ID = AMOUNT - 1
 	var possible_ids : Array[int]
+	number_guesses.resize(AMOUNT)
+	number_guesses.fill(-1)
 	for i in range(AMOUNT):
 		var N : Number = Number.new()
 		N.clue = Clue.new()
@@ -97,7 +114,6 @@ func generate_text() -> void:
 						N.clue.value = randi_range(0, 9)
 						if N.clue.value >= old_value:
 							N.clue.value = (N.clue.value + 1) % 10
-			print("%s says %s is %s" % [ID_TO_LETTER[id], ID_TO_LETTER[N.clue.target], FORMAT_PARITY[N.clue.value]])
 		else: # N.clue.is_equation:
 			if N.val != 1:
 				var possible_equations : Array[Array] = find_equations(id)
@@ -119,16 +135,22 @@ func generate_text() -> void:
 						# Checks if equation remains false
 						# (mult or plus are always false with 1 imposter and no multiple occurence of the same number in the equation so we only check minus)
 						N.clue.equation_targets.reverse()
-			print("%s says %s %s %s = %s" % [ID_TO_LETTER[id], ID_TO_LETTER[N.clue.equation_targets[0]], OPERATOR_TO_SIGN[N.clue.operator], ID_TO_LETTER[N.clue.equation_targets[1]], ID_TO_LETTER[id]])
 		id += 1
 
 func update_nodes() -> void:
 	for i in range(len(number_nodes)):
 		if i <= MAX_ID:
-			number_nodes[i].get_node("VBoxContainer/Text").text = str(numbers[i].val)
+			#number_nodes[i].get_node("VBoxContainer/Text").text = str(numbers[i].val)
+			var N = numbers[i]
+			if !N.clue.is_equation:
+				number_nodes[i].get_node("VBoxContainer/Text").text = "%s says %s is %s" % [ID_TO_LETTER[i], ID_TO_LETTER[N.clue.target], FORMAT_PARITY[N.clue.value]]
+			else:
+				number_nodes[i].get_node("VBoxContainer/Text").text = "%s says %s %s %s = %s" % [ID_TO_LETTER[i], ID_TO_LETTER[N.clue.equation_targets[0]], OPERATOR_TO_SIGN[N.clue.operator], ID_TO_LETTER[N.clue.equation_targets[1]], ID_TO_LETTER[i]]
 			number_nodes[i].visible = true
+			g.number_occurences[numbers[i].val] += 1
 		else:
 			number_nodes[i].visible = false
+	info.get_node("Text").text = str(g.number_occurences)
 
 func can_be_equation(id) -> bool:
 	for i in range(AMOUNT-1):

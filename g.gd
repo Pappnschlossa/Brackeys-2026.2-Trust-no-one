@@ -9,5 +9,20 @@ func amount_of_numbers():
 	else:
 		return 6
 
+var number_occurences : Dictionary[int, int] = {
+	0 : 0,
+	1 : 0,
+	2 : 0,
+	3 : 0,
+	4 : 0,
+	5 : 0,
+	6 : 0,
+	7 : 0,
+	8 : 0,
+	9 : 0
+}
+
 func reinitialize():
 	level = 1
+	for n in g.number_occurences:
+		g.number_occurences[n] = 0

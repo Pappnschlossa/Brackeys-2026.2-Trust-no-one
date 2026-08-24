@@ -1,0 +1,102 @@
+[gd_scene format=3 uid="uid://cdtr5twexbdo3"]
+
+[ext_resource type="Script" uid="uid://bc4ovrn2uoh1l" path="res://scripts/numpad_overlay.gd" id="1_i04uq"]
+
+[node name="Numpad" type="Control" unique_id=1768687218 node_paths=PackedStringArray("button_0", "button_1", "button_2", "button_3", "button_4", "button_5", "button_6", "button_7", "button_8", "button_9")]
+layout_mode = 3
+anchor_right = 0.080729164
+anchor_bottom = 0.027777778
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_i04uq")
+button_0 = NodePath("MarginContainer/HBoxContainer/Button0")
+button_1 = NodePath("MarginContainer/HBoxContainer/Button1")
+button_2 = NodePath("MarginContainer/HBoxContainer/Button2")
+button_3 = NodePath("MarginContainer/HBoxContainer/Button3")
+button_4 = NodePath("MarginContainer/HBoxContainer/Button4")
+button_5 = NodePath("MarginContainer/HBoxContainer/Button5")
+button_6 = NodePath("MarginContainer/HBoxContainer/Button6")
+button_7 = NodePath("MarginContainer/HBoxContainer/Button7")
+button_8 = NodePath("MarginContainer/HBoxContainer/Button8")
+button_9 = NodePath("MarginContainer/HBoxContainer/Button9")
+metadata/_edit_use_anchors_ = true
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=791390162]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -1920.0
+offset_top = -1080.0
+offset_right = 1765.0
+offset_bottom = 1050.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.7607843)
+
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=1804334626]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer" unique_id=240472711]
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="Button0" type="Button" parent="MarginContainer/HBoxContainer" unique_id=51841438]
+layout_mode = 2
+text = "0"
+
+[node name="Button1" type="Button" parent="MarginContainer/HBoxContainer" unique_id=1451136170]
+layout_mode = 2
+text = "1"
+
+[node name="Button2" type="Button" parent="MarginContainer/HBoxContainer" unique_id=1400925153]
+visible = false
+layout_mode = 2
+text = "2"
+
+[node name="Button3" type="Button" parent="MarginContainer/HBoxContainer" unique_id=284406433]
+layout_mode = 2
+text = "3"
+
+[node name="Button4" type="Button" parent="MarginContainer/HBoxContainer" unique_id=1262743728]
+visible = false
+layout_mode = 2
+text = "4"
+
+[node name="Button5" type="Button" parent="MarginContainer/HBoxContainer" unique_id=665987668]
+visible = false
+layout_mode = 2
+text = "5"
+
+[node name="Button6" type="Button" parent="MarginContainer/HBoxContainer" unique_id=1221250302]
+visible = false
+layout_mode = 2
+text = "6"
+
+[node name="Button7" type="Button" parent="MarginContainer/HBoxContainer" unique_id=1665447591]
+layout_mode = 2
+text = "7"
+
+[node name="Button8" type="Button" parent="MarginContainer/HBoxContainer" unique_id=1423843105]
+layout_mode = 2
+text = "8"
+
+[node name="Button9" type="Button" parent="MarginContainer/HBoxContainer" unique_id=1901919217]
+layout_mode = 2
+text = "9"
+
+[connection signal="pressed" from="MarginContainer/HBoxContainer/Button0" to="." method="_on_button_pressed" binds= [0]]
+[connection signal="pressed" from="MarginContainer/HBoxContainer/Button1" to="." method="_on_button_pressed" binds= [1]]
+[connection signal="pressed" from="MarginContainer/HBoxContainer/Button2" to="." method="_on_button_pressed" binds= [2]]
+[connection signal="pressed" from="MarginContainer/HBoxContainer/Button3" to="." method="_on_button_pressed" binds= [3]]
+[connection signal="pressed" from="MarginContainer/HBoxContainer/Button4" to="." method="_on_button_pressed" binds= [4]]
+[connection signal="pressed" from="MarginContainer/HBoxContainer/Button5" to="." method="_on_button_pressed" binds= [5]]
+[connection signal="pressed" from="MarginContainer/HBoxContainer/Button6" to="." method="_on_button_pressed" binds= [6]]
+[connection signal="pressed" from="MarginContainer/HBoxContainer/Button7" to="." method="_on_button_pressed" binds= [7]]
+[connection signal="pressed" from="MarginContainer/HBoxContainer/Button8" to="." method="_on_button_pressed" binds= [8]]
+[connection signal="pressed" from="MarginContainer/HBoxContainer/Button9" to="." method="_on_button_pressed" binds= [9]]

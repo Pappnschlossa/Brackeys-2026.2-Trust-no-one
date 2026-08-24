@@ -11,7 +11,8 @@ extends Node
 const SCENES = {
 	"title_scene" : "uid://bv0o1kuyl8te6",
 	"level_scene" : "uid://cfpx4aji2a1nu",
-	"shop_scene" : "uid://bswonif37ehh8"
+	"shop_scene" : "uid://bswonif37ehh8",
+	"numpad_overlay" : "uid://cdtr5twexbdo3"
 }
 
 # Called when the node enters the scene tree for the first time.
@@ -41,38 +42,42 @@ func _on_change_scene(scene_name, transition_type):
 	#music_node._ready()
 	
 
-func _on_add_scene_as_an_overlay(scene_name):
+func _on_add_scene_as_an_overlay(scene_name, pos = Vector2(0, 0)):
 	var scene = load(SCENES[scene_name])
 	var instance = scene.instantiate()
+	instance.position = pos
 	instance.change_scene.connect(_on_change_scene)
 	instance.add_scene_as_an_overlay.connect(_on_add_scene_as_an_overlay)
 	instance.remove_overlay.connect(_on_remove_overlay)
 	
-	# Animation
-	instance.position.y = 1080
-	var tween = create_tween()
-	tween.tween_property(
-			instance,
-			"position",
-			Vector2(0, 0),
-			wipe_fade_in_duration
-		).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
+	if scene_name == "numpad_overlay":
+		instance.numpad_button_pressed.connect(get_node("Level")._on_numpad_button_pressed)
+	
+	## Animation
+	#instance.position.y = 1080
+	#var tween = create_tween()
+	#tween.tween_property(
+			#instance,
+			#"position",
+			#Vector2(0, 0),
+			#wipe_fade_in_duration
+		#).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
 	
 	add_child(instance)
 	move_child(instance, 1)
-	move_child(canvas_layer, 2)
+	#move_child(canvas_layer, 2)
 	
-	music_node._ready()
+	#music_node._ready()
 
 func _on_remove_overlay():
 	var overlay = get_children()[1]
-	# Animation
-	var tween = create_tween()
-	tween.tween_property(
-			overlay,
-			"position",
-			Vector2(0, 1080),
-			wipe_fade_in_duration
-		).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
-	await tween.finished
+	## Animation
+	#var tween = create_tween()
+	#tween.tween_property(
+			#overlay,
+			#"position",
+			#Vector2(0, 1080),
+			#wipe_fade_in_duration
+		#).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
+	#await tween.finished
 	remove_child(overlay)
