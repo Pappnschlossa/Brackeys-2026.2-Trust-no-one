@@ -2,8 +2,10 @@
 
 [ext_resource type="Script" uid="uid://chawitpunjksv" path="res://scripts/level_scene.gd" id="1_386oa"]
 [ext_resource type="Script" uid="uid://bis2ccijh3k6f" path="res://scripts/numbers_container.gd" id="2_bl4ss"]
+[ext_resource type="PackedScene" uid="uid://c7ylr0khyv7u4" path="res://scenes/left_ui.tscn" id="2_c8xsp"]
+[ext_resource type="PackedScene" uid="uid://dev0ijjb7kua6" path="res://scenes/levels_map.tscn" id="4_fkwfp"]
 
-[node name="Level" type="Control" unique_id=1635183676 node_paths=PackedStringArray("A", "B", "C", "D", "E", "F", "info", "numbers_container")]
+[node name="Level" type="Control" unique_id=1635183676 node_paths=PackedStringArray("A", "B", "C", "D", "E", "F", "question", "info", "door0", "door1", "numbers_container")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -17,7 +19,10 @@ C = NodePath("HBoxContainer/Middle/MarginContainer/NumbersContainer/C")
 D = NodePath("HBoxContainer/Middle/MarginContainer/NumbersContainer/D")
 E = NodePath("HBoxContainer/Middle/MarginContainer/NumbersContainer/E")
 F = NodePath("HBoxContainer/Middle/MarginContainer/NumbersContainer/F")
+question = NodePath("HBoxContainer/Middle/Question")
 info = NodePath("HBoxContainer/Middle/Info")
+door0 = NodePath("HBoxContainer/Middle/DoorsContainer/Door0")
+door1 = NodePath("HBoxContainer/Middle/DoorsContainer/Door1")
 numbers_container = NodePath("HBoxContainer/Middle/MarginContainer/NumbersContainer")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="." unique_id=922223910]
@@ -28,12 +33,24 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
+[node name="LeftUI" parent="HBoxContainer" unique_id=252584194 instance=ExtResource("2_c8xsp")]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 2.0
+
 [node name="Middle" type="VBoxContainer" parent="HBoxContainer" unique_id=695245961]
 layout_mode = 2
 size_flags_horizontal = 3
+size_flags_stretch_ratio = 10.0
 
-[node name="RichTextLabel" type="RichTextLabel" parent="HBoxContainer/Middle" unique_id=957077355]
+[node name="Question" type="Control" parent="HBoxContainer/Middle" unique_id=630265479]
 layout_mode = 2
+
+[node name="Text" type="RichTextLabel" parent="HBoxContainer/Middle/Question" unique_id=957077355]
+layout_mode = 0
+offset_top = 4.0
+offset_right = 1920.0
+offset_bottom = 270.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 text = "Question"
@@ -54,17 +71,49 @@ grow_vertical = 2
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="HBoxContainer" type="HBoxContainer" parent="HBoxContainer/Middle" unique_id=1128860549]
+[node name="DoorsContainer" type="HBoxContainer" parent="HBoxContainer/Middle" unique_id=1128860549]
 layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 6
+size_flags_vertical = 3
 
-[node name="Door1Button" type="Button" parent="HBoxContainer/Middle/HBoxContainer" unique_id=224626419]
+[node name="Door0" type="Control" parent="HBoxContainer/Middle/DoorsContainer" unique_id=315065427]
 layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Text" type="RichTextLabel" parent="HBoxContainer/Middle/DoorsContainer/Door0" unique_id=1318609088]
+layout_mode = 0
+offset_right = 958.0
+offset_bottom = 356.0
+grow_horizontal = 2
+grow_vertical = 0
+size_flags_vertical = 3
+text = "3"
+horizontal_alignment = 1
+
+[node name="Door0Button" type="Button" parent="HBoxContainer/Middle/DoorsContainer/Door0" unique_id=224626419]
+layout_mode = 0
+offset_right = 958.0
+offset_bottom = 176.0
+grow_horizontal = 2
+size_flags_vertical = 3
 text = "Door 1"
 
-[node name="Door2Button" type="Button" parent="HBoxContainer/Middle/HBoxContainer" unique_id=488018540]
+[node name="Door1" type="Control" parent="HBoxContainer/Middle/DoorsContainer" unique_id=1521495262]
 layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Text" type="RichTextLabel" parent="HBoxContainer/Middle/DoorsContainer/Door1" unique_id=1183813170]
+layout_mode = 0
+offset_right = 958.0
+offset_bottom = 356.0
+size_flags_vertical = 3
+text = "1"
+horizontal_alignment = 1
+
+[node name="Door1Button" type="Button" parent="HBoxContainer/Middle/DoorsContainer/Door1" unique_id=488018540]
+layout_mode = 0
+offset_right = 958.0
+offset_bottom = 176.0
+size_flags_vertical = 3
 text = "Door 2"
 
 [node name="MarginContainer" type="MarginContainer" parent="HBoxContainer/Middle" unique_id=2011649526]
@@ -301,8 +350,12 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[connection signal="pressed" from="HBoxContainer/Middle/HBoxContainer/Door1Button" to="." method="_on_door_1_button_pressed"]
-[connection signal="pressed" from="HBoxContainer/Middle/HBoxContainer/Door2Button" to="." method="_on_door_2_button_pressed"]
+[node name="Map" parent="HBoxContainer" unique_id=1980888744 instance=ExtResource("4_fkwfp")]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[connection signal="pressed" from="HBoxContainer/Middle/DoorsContainer/Door0/Door0Button" to="." method="_on_door_0_button_pressed"]
+[connection signal="pressed" from="HBoxContainer/Middle/DoorsContainer/Door1/Door1Button" to="." method="_on_door_1_button_pressed"]
 [connection signal="pressed" from="HBoxContainer/Middle/MarginContainer/NumbersContainer/A/Button" to="HBoxContainer/Middle/MarginContainer/NumbersContainer" method="_on_button_pressed" binds= [0]]
 [connection signal="pressed" from="HBoxContainer/Middle/MarginContainer/NumbersContainer/B/Button" to="HBoxContainer/Middle/MarginContainer/NumbersContainer" method="_on_button_pressed" binds= [1]]
 [connection signal="pressed" from="HBoxContainer/Middle/MarginContainer/NumbersContainer/C/Button" to="HBoxContainer/Middle/MarginContainer/NumbersContainer" method="_on_button_pressed" binds= [2]]

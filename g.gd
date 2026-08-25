@@ -22,7 +22,15 @@ var number_occurences : Dictionary[int, int] = {
 	9 : 0
 }
 
+func get_array_of_numbers_in_use_without_multiplicity() -> Array[int]:
+	var numbers_in_use : Array[int] = []
+	for n in number_occurences:
+		if number_occurences[n] >= 1:
+			numbers_in_use.append(n)
+	return numbers_in_use
+
+var lives : int = 3
+
 func reinitialize():
 	level = 1
-	for n in g.number_occurences:
-		g.number_occurences[n] = 0
+	lives = 3

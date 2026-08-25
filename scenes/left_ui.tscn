@@ -1,0 +1,129 @@
+[gd_scene format=3 uid="uid://c7ylr0khyv7u4"]
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_4xkny"]
+
+[node name="LeftUI" type="Control" unique_id=252584194]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -1698.0
+offset_bottom = 3.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=936246375]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HeartsContainer" type="HBoxContainer" parent="VBoxContainer" unique_id=1487203796]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="VBoxContainer/HeartsContainer" unique_id=457570613]
+custom_minimum_size = Vector2(70, 70)
+layout_mode = 2
+texture = SubResource("PlaceholderTexture2D_4xkny")
+
+[node name="TextureRect2" type="TextureRect" parent="VBoxContainer/HeartsContainer" unique_id=1864474393]
+custom_minimum_size = Vector2(70, 70)
+layout_mode = 2
+texture = SubResource("PlaceholderTexture2D_4xkny")
+
+[node name="TextureRect3" type="TextureRect" parent="VBoxContainer/HeartsContainer" unique_id=412574200]
+custom_minimum_size = Vector2(70, 70)
+layout_mode = 2
+texture = SubResource("PlaceholderTexture2D_4xkny")
+
+[node name="NumbersHidingText" type="RichTextLabel" parent="VBoxContainer" unique_id=736723458]
+layout_mode = 2
+theme_override_font_sizes/normal_font_size = 32
+text = "Numbers Hiding"
+fit_content = true
+
+[node name="NumbersHiding" type="GridContainer" parent="VBoxContainer" unique_id=840549527]
+layout_mode = 2
+columns = 2
+
+[node name="Number0" type="TextureRect" parent="VBoxContainer/NumbersHiding" unique_id=68924795]
+custom_minimum_size = Vector2(90, 90)
+layout_mode = 2
+texture = SubResource("PlaceholderTexture2D_4xkny")
+
+[node name="Number1" type="TextureRect" parent="VBoxContainer/NumbersHiding" unique_id=1701479998]
+custom_minimum_size = Vector2(90, 90)
+layout_mode = 2
+texture = SubResource("PlaceholderTexture2D_4xkny")
+
+[node name="Number2" type="TextureRect" parent="VBoxContainer/NumbersHiding" unique_id=1995720739]
+custom_minimum_size = Vector2(90, 90)
+layout_mode = 2
+texture = SubResource("PlaceholderTexture2D_4xkny")
+
+[node name="Number3" type="TextureRect" parent="VBoxContainer/NumbersHiding" unique_id=1470241623]
+custom_minimum_size = Vector2(90, 90)
+layout_mode = 2
+texture = SubResource("PlaceholderTexture2D_4xkny")
+
+[node name="Number4" type="TextureRect" parent="VBoxContainer/NumbersHiding" unique_id=1266571902]
+custom_minimum_size = Vector2(90, 90)
+layout_mode = 2
+texture = SubResource("PlaceholderTexture2D_4xkny")
+
+[node name="Number5" type="TextureRect" parent="VBoxContainer/NumbersHiding" unique_id=578260302]
+custom_minimum_size = Vector2(90, 90)
+layout_mode = 2
+texture = SubResource("PlaceholderTexture2D_4xkny")
+
+[node name="ItemsText" type="RichTextLabel" parent="VBoxContainer" unique_id=801772631]
+layout_mode = 2
+theme_override_font_sizes/normal_font_size = 32
+text = "Items"
+fit_content = true
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer" unique_id=613558426]
+layout_mode = 2
+
+[node name="Item0" type="TextureRect" parent="VBoxContainer/VBoxContainer" unique_id=573605344]
+custom_minimum_size = Vector2(70, 70)
+layout_mode = 2
+texture = SubResource("PlaceholderTexture2D_4xkny")
+
+[node name="Item1" type="TextureRect" parent="VBoxContainer/VBoxContainer" unique_id=454157888]
+custom_minimum_size = Vector2(70, 70)
+layout_mode = 2
+texture = SubResource("PlaceholderTexture2D_4xkny")
+
+[node name="Item2" type="TextureRect" parent="VBoxContainer/VBoxContainer" unique_id=1857105189]
+custom_minimum_size = Vector2(70, 70)
+layout_mode = 2
+texture = SubResource("PlaceholderTexture2D_4xkny")
+
+[node name="Item3" type="TextureRect" parent="VBoxContainer/VBoxContainer" unique_id=688280255]
+custom_minimum_size = Vector2(70, 70)
+layout_mode = 2
+texture = SubResource("PlaceholderTexture2D_4xkny")
+
+[node name="Item4" type="TextureRect" parent="VBoxContainer/VBoxContainer" unique_id=1891005024]
+custom_minimum_size = Vector2(70, 70)
+layout_mode = 2
+texture = SubResource("PlaceholderTexture2D_4xkny")
+
+[node name="Item5" type="TextureRect" parent="VBoxContainer/VBoxContainer" unique_id=487430613]
+custom_minimum_size = Vector2(70, 70)
+layout_mode = 2
+texture = SubResource("PlaceholderTexture2D_4xkny")
+
+[node name="Item6" type="TextureRect" parent="VBoxContainer/VBoxContainer" unique_id=1018726019]
+custom_minimum_size = Vector2(70, 70)
+layout_mode = 2
+texture = SubResource("PlaceholderTexture2D_4xkny")
+
+[node name="MoneyText" type="RichTextLabel" parent="VBoxContainer" unique_id=131792442]
+layout_mode = 2
+theme_override_font_sizes/normal_font_size = 32
+text = "Money: 6"
+fit_content = true

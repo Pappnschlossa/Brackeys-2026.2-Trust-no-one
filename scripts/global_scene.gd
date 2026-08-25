@@ -21,7 +21,7 @@ func _ready() -> void:
 	_on_change_scene("title_scene", null)
 	
 
-func _on_change_scene(scene_name, transition_type):
+func _on_change_scene(scene_name, transition_type = null):
 	var scene = load(SCENES[scene_name])
 	var instance = scene.instantiate()
 	

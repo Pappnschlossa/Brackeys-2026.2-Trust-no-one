@@ -10,7 +10,10 @@ signal add_scene_as_an_overlay
 @export var E : Control
 @export var F : Control
 @onready var number_nodes : Array[Control] = [A, B, C, D, E, F]
+@export var question : Control
 @export var info : Control
+@export var door0 : Control
+@export var door1 : Control
 @export var numbers_container : GridContainer
 
 const TRUE_NUMBERS = [0, 2, 3, 4, 5, 6, 7, 8, 9]
@@ -49,6 +52,9 @@ var FALSE_DOOR_ID : int
 var numbers : Array[Number]
 var AMOUNT : int # Amount of numbers
 var MAX_ID : int
+var QUESTION : int # ID of number
+var TRUE_ANSWER : int # Value of number
+var FALSE_ANSWER : int # False value of number
 
 var active_numpad : int = -1
 var number_guesses : Array[int]
@@ -86,6 +92,25 @@ func initialize_level_variables() -> void:
 	possible_ids.erase(id_of_minus_1)
 	for id in possible_ids:
 		numbers[id].val = TRUE_NUMBERS.pick_random()
+	for n in g.number_occurences:
+		g.number_occurences[n] = 0
+	for N in numbers:
+		g.number_occurences[N.val] += 1
+	# Choose question
+	var numbers_in_use : Array[int] = g.get_array_of_numbers_in_use_without_multiplicity()
+	TRUE_ANSWER = numbers_in_use.pick_random()
+	numbers_in_use.erase(TRUE_ANSWER)
+	FALSE_ANSWER = numbers_in_use.pick_random()
+	# Pick random number that is equal to this number:
+	var random_number_equal_to_answer : int = randi_range(0, g.number_occurences[TRUE_ANSWER]-1)
+	var n : int = 0
+	for N in numbers:
+		if N.val == TRUE_ANSWER:
+			if random_number_equal_to_answer >= 1:
+				random_number_equal_to_answer -= 1
+			else:
+				QUESTION = n
+		n += 1
 
 func generate_text() -> void:
 	var id = 0
@@ -137,6 +162,7 @@ func generate_text() -> void:
 						N.clue.equation_targets.reverse()
 		id += 1
 
+
 func update_nodes() -> void:
 	for i in range(len(number_nodes)):
 		if i <= MAX_ID:
@@ -147,10 +173,16 @@ func update_nodes() -> void:
 			else:
 				number_nodes[i].get_node("VBoxContainer/Text").text = "%s says %s %s %s = %s" % [ID_TO_LETTER[i], ID_TO_LETTER[N.clue.equation_targets[0]], OPERATOR_TO_SIGN[N.clue.operator], ID_TO_LETTER[N.clue.equation_targets[1]], ID_TO_LETTER[i]]
 			number_nodes[i].visible = true
-			g.number_occurences[numbers[i].val] += 1
 		else:
 			number_nodes[i].visible = false
 	info.get_node("Text").text = str(g.number_occurences)
+	question.get_node("Text").text = "What number is %s?" % ID_TO_LETTER[QUESTION]
+	if TRUE_DOOR_ID == 0:
+		door0.get_node("Text").text = str(TRUE_ANSWER)
+		door1.get_node("Text").text = str(FALSE_ANSWER)
+	else:
+		door0.get_node("Text").text = str(FALSE_ANSWER)
+		door1.get_node("Text").text = str(TRUE_ANSWER)
 
 func can_be_equation(id) -> bool:
 	for i in range(AMOUNT-1):
@@ -181,9 +213,17 @@ func find_equations(id) -> Array[Array]:
 				equations.append([i, j, "mult"])
 	return equations
 
+func _on_door_0_button_pressed() -> void:
+	if TRUE_DOOR_ID == 0:	transition_to_next_level()
+	else:	wrong_door(0)
+
 func _on_door_1_button_pressed() -> void:
-	pass # Replace with function body.
+	if TRUE_DOOR_ID == 1:	transition_to_next_level()
+	else:	wrong_door(1)
 
+func wrong_door(door_id : int) -> void:
+	g.lives -= 1
 
-func _on_door_2_button_pressed() -> void:
-	pass # Replace with function body.
+func transition_to_next_level() -> void:
+	g.level += 1
+	change_scene.emit("level_scene", )
