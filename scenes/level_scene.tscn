@@ -45,12 +45,15 @@ size_flags_stretch_ratio = 10.0
 
 [node name="Question" type="Control" parent="HBoxContainer/Middle" unique_id=630265479]
 layout_mode = 2
+size_flags_vertical = 3
 
 [node name="Text" type="RichTextLabel" parent="HBoxContainer/Middle/Question" unique_id=957077355]
-layout_mode = 0
-offset_top = 4.0
-offset_right = 1920.0
-offset_bottom = 270.0
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 text = "Question"
@@ -80,20 +83,23 @@ layout_mode = 2
 size_flags_horizontal = 3
 
 [node name="Text" type="RichTextLabel" parent="HBoxContainer/Middle/DoorsContainer/Door0" unique_id=1318609088]
-layout_mode = 0
-offset_right = 958.0
-offset_bottom = 356.0
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
 grow_horizontal = 2
-grow_vertical = 0
+grow_vertical = 2
 size_flags_vertical = 3
 text = "3"
 horizontal_alignment = 1
 
 [node name="Door0Button" type="Button" parent="HBoxContainer/Middle/DoorsContainer/Door0" unique_id=224626419]
-layout_mode = 0
-offset_right = 958.0
-offset_bottom = 176.0
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
 grow_horizontal = 2
+grow_vertical = 2
 size_flags_vertical = 3
 text = "Door 1"
 
@@ -102,17 +108,23 @@ layout_mode = 2
 size_flags_horizontal = 3
 
 [node name="Text" type="RichTextLabel" parent="HBoxContainer/Middle/DoorsContainer/Door1" unique_id=1183813170]
-layout_mode = 0
-offset_right = 958.0
-offset_bottom = 356.0
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 size_flags_vertical = 3
 text = "1"
 horizontal_alignment = 1
 
 [node name="Door1Button" type="Button" parent="HBoxContainer/Middle/DoorsContainer/Door1" unique_id=488018540]
-layout_mode = 0
-offset_right = 958.0
-offset_bottom = 176.0
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 size_flags_vertical = 3
 text = "Door 2"
 
