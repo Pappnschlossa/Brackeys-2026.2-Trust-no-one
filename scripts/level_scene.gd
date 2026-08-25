@@ -77,7 +77,7 @@ func _on_add_numpad(numpad_id: int) -> void:
 
 func _on_numpad_button_pressed(n: int) -> void:
 	# Update the visuals to see which is selected
-	number_guesses[active_numpad] = n # STOPPED HERE FOR TODAY
+	number_guesses[active_numpad] = n
 
 func generate_tutorial_text() -> void:
 	var numbers_in_use : Array[int] = g.get_array_of_numbers_in_use_without_multiplicity()

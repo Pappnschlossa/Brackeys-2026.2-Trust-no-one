@@ -3,7 +3,11 @@
 [ext_resource type="Script" uid="uid://chawitpunjksv" path="res://scripts/level_scene.gd" id="1_386oa"]
 [ext_resource type="Script" uid="uid://bis2ccijh3k6f" path="res://scripts/numbers_container.gd" id="2_bl4ss"]
 [ext_resource type="PackedScene" uid="uid://c7ylr0khyv7u4" path="res://scenes/left_ui.tscn" id="2_c8xsp"]
+[ext_resource type="Theme" uid="uid://bo40cw5tanri6" path="res://assets/themes/title_text.tres" id="3_2m3ut"]
+[ext_resource type="Material" uid="uid://df8s1mvjvgfm0" path="res://shaders/big_texture_wobble_material.tres" id="4_1lj4f"]
 [ext_resource type="PackedScene" uid="uid://dev0ijjb7kua6" path="res://scenes/levels_map.tscn" id="4_fkwfp"]
+[ext_resource type="Texture2D" uid="uid://dskpc6rj5lkeu" path="res://assets/door.png" id="4_ojpky"]
+[ext_resource type="Theme" uid="uid://fxj3p4ueiqg2" path="res://assets/themes/transparent_button.tres" id="5_1lj4f"]
 
 [node name="Level" type="Control" unique_id=1635183676 node_paths=PackedStringArray("A", "B", "C", "D", "E", "F", "left_ui", "question", "door0", "door1", "numbers_container")]
 layout_mode = 3
@@ -46,6 +50,7 @@ size_flags_stretch_ratio = 10.0
 [node name="Question" type="Control" parent="HBoxContainer/Middle" unique_id=630265479]
 layout_mode = 2
 size_flags_vertical = 3
+size_flags_stretch_ratio = 0.4
 
 [node name="Text" type="RichTextLabel" parent="HBoxContainer/Middle/Question" unique_id=957077355]
 layout_mode = 1
@@ -56,6 +61,7 @@ grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
+theme = ExtResource("3_2m3ut")
 text = "Question"
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -67,6 +73,19 @@ size_flags_vertical = 3
 [node name="Door0" type="Control" parent="HBoxContainer/Middle/DoorsContainer" unique_id=315065427]
 layout_mode = 2
 size_flags_horizontal = 3
+
+[node name="TextureRect" type="TextureRect" parent="HBoxContainer/Middle/DoorsContainer/Door0" unique_id=150784245]
+material = ExtResource("4_1lj4f")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -77.5
+offset_bottom = 77.5
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("4_ojpky")
+stretch_mode = 5
 
 [node name="Text" type="RichTextLabel" parent="HBoxContainer/Middle/DoorsContainer/Door0" unique_id=1318609088]
 layout_mode = 1
@@ -87,6 +106,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 size_flags_vertical = 3
+theme = ExtResource("5_1lj4f")
 text = "Door 1"
 
 [node name="Door1" type="Control" parent="HBoxContainer/Middle/DoorsContainer" unique_id=1521495262]
@@ -118,7 +138,9 @@ text = "Door 2"
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_constants/margin_left = 200
+theme_override_constants/margin_top = 50
 theme_override_constants/margin_right = 200
+theme_override_constants/margin_bottom = 50
 
 [node name="NumbersContainer" type="GridContainer" parent="HBoxContainer/Middle/MarginContainer" unique_id=2130528984]
 layout_mode = 2

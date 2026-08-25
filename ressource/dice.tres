@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="Item" format=3 uid="uid://sa3g6olvos3o"]
+
+[ext_resource type="Script" uid="uid://mwlqykq1cuuq" path="res://ressource/item.gd" id="1_7y2ty"]
+[ext_resource type="Texture2D" uid="uid://ymk3dx4kg8u3" path="res://assets/dice.png" id="2_0vyy7"]
+
+[resource]
+script = ExtResource("1_7y2ty")
+id = "DICE"
+texture = ExtResource("2_0vyy7")
+average_price = 5
+description = "Rerolls the level"
+metadata/_custom_type_script = "uid://mwlqykq1cuuq"

@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="Item" format=3 uid="uid://c6qipiqgoqe1w"]
+
+[ext_resource type="Script" uid="uid://mwlqykq1cuuq" path="res://ressource/item.gd" id="1_7wbtf"]
+[ext_resource type="Texture2D" uid="uid://sl7ofto2djrj" path="res://assets/key.png" id="2_diluc"]
+
+[resource]
+script = ExtResource("1_7wbtf")
+id = "KEY"
+texture = ExtResource("2_diluc")
+average_price = 30
+description = "Automatically enter the true door"
+metadata/_custom_type_script = "uid://mwlqykq1cuuq"

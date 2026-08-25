@@ -1,0 +1,11 @@
+[gd_resource type="ShaderMaterial" format=3 uid="uid://dudeq5u3eytxl"]
+
+[ext_resource type="Shader" uid="uid://c10ajmawbjloe" path="res://shaders/wobble_shader.gdshader" id="1_uxgyi"]
+[ext_resource type="Texture2D" uid="uid://ffmej460h0xo" path="res://shaders/flow_map_0.jpg" id="2_j4787"]
+
+[resource]
+shader = ExtResource("1_uxgyi")
+shader_parameter/flowMap = ExtResource("2_j4787")
+shader_parameter/strength = 0.005
+shader_parameter/speed = 5.0
+shader_parameter/frames = 3

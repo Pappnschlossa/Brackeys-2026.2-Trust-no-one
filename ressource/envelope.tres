@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="Item" format=3 uid="uid://cnf1jdtn3lq8s"]
+
+[ext_resource type="Script" uid="uid://mwlqykq1cuuq" path="res://ressource/item.gd" id="1_1vtrv"]
+[ext_resource type="Texture2D" uid="uid://chqwv7jfauqk4" path="res://assets/envelope.png" id="2_62o1v"]
+
+[resource]
+script = ExtResource("1_1vtrv")
+id = "ENVELOPE"
+texture = ExtResource("2_62o1v")
+average_price = 30
+description = "Reveals which is 1"
+metadata/_custom_type_script = "uid://mwlqykq1cuuq"

@@ -1,0 +1,7 @@
+[gd_resource type="Theme" format=3 uid="uid://de1j6ykjdiqd8"]
+
+[ext_resource type="FontFile" uid="uid://b75gmbl18kr1" path="res://assets/fonts/DarumadropOne-Regular.ttf" id="1_3it8c"]
+
+[resource]
+default_font = ExtResource("1_3it8c")
+RichTextLabel/font_sizes/normal_font_size = 32

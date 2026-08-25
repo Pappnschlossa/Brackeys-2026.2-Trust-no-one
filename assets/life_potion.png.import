@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bs8v0o32pkbo0"
-path="res://.godot/imported/heart_0.png-80918732698e17c3bbb399e04422fdf3.ctex"
+uid="uid://cdi2td1nhnx3c"
+path="res://.godot/imported/life_potion.png-7f463c4eceb0806466e2c888e4251498.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/heart_0.png"
-dest_files=["res://.godot/imported/heart_0.png-80918732698e17c3bbb399e04422fdf3.ctex"]
+source_file="res://assets/life_potion.png"
+dest_files=["res://.godot/imported/life_potion.png-7f463c4eceb0806466e2c888e4251498.ctex"]
 
 [params]
 

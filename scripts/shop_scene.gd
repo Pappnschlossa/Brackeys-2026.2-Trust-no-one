@@ -3,15 +3,16 @@ extends Control
 signal change_scene
 signal add_scene_as_an_overlay
 
-# Called when the node enters the scene tree for the first time.
-func _ready() -> void:
-	pass # Replace with function body.
+@export var door_node : Control
 
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	pass
-
-
-func _on_shop_exit_door_pressed() -> void:
+func _on_shop_exit_button_pressed() -> void:
 	change_scene.emit("level_scene")
+
+
+func _on_shop_exit_button_mouse_entered() -> void:
+	door_node.get_node("Texture").material.set_shader_parameter("width", 5.0)
+
+
+func _on_shop_exit_button_mouse_exited() -> void:
+	door_node.get_node("Texture").material.set_shader_parameter("width", 0.0)
