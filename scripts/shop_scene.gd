@@ -11,3 +11,7 @@ func _ready() -> void:
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	pass
+
+
+func _on_shop_exit_door_pressed() -> void:
+	change_scene.emit("level_scene")

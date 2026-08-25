@@ -1,6 +1,17 @@
 [gd_scene format=3 uid="uid://c7ylr0khyv7u4"]
 
 [ext_resource type="Script" uid="uid://dq5gotlbymoys" path="res://scripts/left_ui.gd" id="1_4wa6g"]
+[ext_resource type="Texture2D" uid="uid://bfj0g12lm6qkm" path="res://assets/heart_empty_0.png" id="3_lfvck"]
+[ext_resource type="Texture2D" uid="uid://b3hop8qqkgho4" path="res://assets/heart_0.png" id="6_2qjoj"]
+[ext_resource type="Shader" uid="uid://c10ajmawbjloe" path="res://shaders/wobble_shader.gdshader" id="9_bto12"]
+[ext_resource type="Texture2D" uid="uid://d1felggl4g2s3" path="res://shaders/flow_map_1.jpg" id="10_bto12"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_2qjoj"]
+shader = ExtResource("9_bto12")
+shader_parameter/flowMap = ExtResource("10_bto12")
+shader_parameter/strength = -0.02
+shader_parameter/speed = 5.0
+shader_parameter/frames = 3
 
 [sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_4xkny"]
 
@@ -28,20 +39,56 @@ grow_vertical = 2
 [node name="HeartsContainer" type="HBoxContainer" parent="VBoxContainer" unique_id=1487203796]
 layout_mode = 2
 
-[node name="TextureRect" type="TextureRect" parent="VBoxContainer/HeartsContainer" unique_id=457570613]
+[node name="EmptyHeart0" type="TextureRect" parent="VBoxContainer/HeartsContainer" unique_id=457570613]
+unique_name_in_owner = true
+visible = false
+material = SubResource("ShaderMaterial_2qjoj")
 custom_minimum_size = Vector2(70, 70)
 layout_mode = 2
-texture = SubResource("PlaceholderTexture2D_4xkny")
+texture = ExtResource("3_lfvck")
+expand_mode = 4
 
-[node name="TextureRect2" type="TextureRect" parent="VBoxContainer/HeartsContainer" unique_id=1864474393]
+[node name="FullHeart0" type="TextureRect" parent="VBoxContainer/HeartsContainer" unique_id=1881649689]
+unique_name_in_owner = true
+material = SubResource("ShaderMaterial_2qjoj")
 custom_minimum_size = Vector2(70, 70)
 layout_mode = 2
-texture = SubResource("PlaceholderTexture2D_4xkny")
+texture = ExtResource("6_2qjoj")
+expand_mode = 4
 
-[node name="TextureRect3" type="TextureRect" parent="VBoxContainer/HeartsContainer" unique_id=412574200]
+[node name="EmptyHeart1" type="TextureRect" parent="VBoxContainer/HeartsContainer" unique_id=1537971892]
+unique_name_in_owner = true
+visible = false
+material = SubResource("ShaderMaterial_2qjoj")
 custom_minimum_size = Vector2(70, 70)
 layout_mode = 2
-texture = SubResource("PlaceholderTexture2D_4xkny")
+texture = ExtResource("3_lfvck")
+expand_mode = 4
+
+[node name="FullHeart1" type="TextureRect" parent="VBoxContainer/HeartsContainer" unique_id=64041714]
+unique_name_in_owner = true
+material = SubResource("ShaderMaterial_2qjoj")
+custom_minimum_size = Vector2(70, 70)
+layout_mode = 2
+texture = ExtResource("6_2qjoj")
+expand_mode = 4
+
+[node name="EmptyHeart2" type="TextureRect" parent="VBoxContainer/HeartsContainer" unique_id=1824659502]
+unique_name_in_owner = true
+material = SubResource("ShaderMaterial_2qjoj")
+custom_minimum_size = Vector2(70, 70)
+layout_mode = 2
+texture = ExtResource("3_lfvck")
+expand_mode = 4
+
+[node name="FullHeart2" type="TextureRect" parent="VBoxContainer/HeartsContainer" unique_id=1776765500]
+unique_name_in_owner = true
+visible = false
+material = SubResource("ShaderMaterial_2qjoj")
+custom_minimum_size = Vector2(70, 70)
+layout_mode = 2
+texture = ExtResource("6_2qjoj")
+expand_mode = 4
 
 [node name="NumbersHidingText" type="RichTextLabel" parent="VBoxContainer" unique_id=736723458]
 layout_mode = 2

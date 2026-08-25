@@ -1,6 +1,8 @@
 [gd_scene format=3 uid="uid://bswonif37ehh8"]
 
 [ext_resource type="Script" uid="uid://cu6crg1ik4yh1" path="res://scripts/shop_scene.gd" id="1_r1uou"]
+[ext_resource type="PackedScene" uid="uid://c7ylr0khyv7u4" path="res://scenes/left_ui.tscn" id="2_hovpq"]
+[ext_resource type="PackedScene" uid="uid://dev0ijjb7kua6" path="res://scenes/levels_map.tscn" id="3_ykrk4"]
 
 [node name="Shop" type="Control" unique_id=647607696]
 layout_mode = 3
@@ -10,3 +12,84 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_r1uou")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="." unique_id=1200104342]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="LeftUI" parent="HBoxContainer" unique_id=252584194 instance=ExtResource("2_hovpq")]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 2.0
+
+[node name="Middle" type="VBoxContainer" parent="HBoxContainer" unique_id=1733368512]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 10.0
+
+[node name="Shop" type="Control" parent="HBoxContainer/Middle" unique_id=2138394997]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Text" type="RichTextLabel" parent="HBoxContainer/Middle/Shop" unique_id=1128779040]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+text = "Shop"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="DoorsContainer" type="HBoxContainer" parent="HBoxContainer/Middle" unique_id=1472001183]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Door0" type="Control" parent="HBoxContainer/Middle/DoorsContainer" unique_id=3386149]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Door0Button" type="Button" parent="HBoxContainer/Middle/DoorsContainer/Door0" unique_id=1708511114]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_vertical = 3
+text = "Door 1"
+
+[node name="Door1" type="Control" parent="HBoxContainer/Middle/DoorsContainer" unique_id=558102476]
+visible = false
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Door1Button" type="Button" parent="HBoxContainer/Middle/DoorsContainer/Door1" unique_id=1285730444]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_vertical = 3
+text = "Door 2"
+
+[node name="MarginContainer" type="MarginContainer" parent="HBoxContainer/Middle" unique_id=1880461678]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/margin_left = 200
+theme_override_constants/margin_right = 200
+
+[node name="Map" parent="HBoxContainer" unique_id=1980888744 instance=ExtResource("3_ykrk4")]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[connection signal="pressed" from="HBoxContainer/Middle/DoorsContainer/Door0/Door0Button" to="." method="_on_shop_exit_door_pressed"]

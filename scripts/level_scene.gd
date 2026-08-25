@@ -275,10 +275,14 @@ func _on_door_1_button_pressed() -> void:
 
 func wrong_door(door_id : int) -> void:
 	g.lives -= 1
+	left_ui.update_health()
 
 func transition_to_next_level() -> void:
 	g.level += 1
 	for id in range(len(number_guesses)):
 		if numbers[id].val == number_guesses[id]:
 			g.money += 1
-	change_scene.emit("level_scene")
+	if g.level%10 == 0:
+		change_scene.emit("shop_scene")
+	else:
+		change_scene.emit("level_scene")
