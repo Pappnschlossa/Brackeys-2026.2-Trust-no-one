@@ -5,7 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://c7ylr0khyv7u4" path="res://scenes/left_ui.tscn" id="2_c8xsp"]
 [ext_resource type="PackedScene" uid="uid://dev0ijjb7kua6" path="res://scenes/levels_map.tscn" id="4_fkwfp"]
 
-[node name="Level" type="Control" unique_id=1635183676 node_paths=PackedStringArray("A", "B", "C", "D", "E", "F", "question", "info", "door0", "door1", "numbers_container")]
+[node name="Level" type="Control" unique_id=1635183676 node_paths=PackedStringArray("A", "B", "C", "D", "E", "F", "left_ui", "question", "info", "door0", "door1", "numbers_container")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -19,6 +19,7 @@ C = NodePath("HBoxContainer/Middle/MarginContainer/NumbersContainer/C")
 D = NodePath("HBoxContainer/Middle/MarginContainer/NumbersContainer/D")
 E = NodePath("HBoxContainer/Middle/MarginContainer/NumbersContainer/E")
 F = NodePath("HBoxContainer/Middle/MarginContainer/NumbersContainer/F")
+left_ui = NodePath("HBoxContainer/LeftUI")
 question = NodePath("HBoxContainer/Middle/Question")
 info = NodePath("HBoxContainer/Middle/Info")
 door0 = NodePath("HBoxContainer/Middle/DoorsContainer/Door0")

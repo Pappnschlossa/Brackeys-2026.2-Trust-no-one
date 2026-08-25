@@ -10,6 +10,7 @@ signal add_scene_as_an_overlay
 @export var E : Control
 @export var F : Control
 @onready var number_nodes : Array[Control] = [A, B, C, D, E, F]
+@export var left_ui : Control
 @export var question : Control
 @export var info : Control
 @export var door0 : Control
@@ -228,6 +229,7 @@ func update_nodes() -> void:
 		else:
 			number_nodes[i].visible = false
 	info.get_node("Text").text = str(g.number_occurences)
+	left_ui.update_hidden_numbers()
 	question.get_node("Text").text = "What number is %s?" % ID_TO_LETTER[QUESTION]
 	if TRUE_DOOR_ID == 0:
 		door0.get_node("Text").text = str(TRUE_ANSWER)
