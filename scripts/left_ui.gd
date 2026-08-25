@@ -1,6 +1,10 @@
 extends Control
 
 @export var numbers_hiding_text : RichTextLabel # TEMP
+@export var money_text : RichTextLabel
+
+func _ready() -> void:
+	money_text.text = "Money: %s" % str(g.money)
 
 func update_hidden_numbers() -> void:
 	var strings_array : Array[String] = []

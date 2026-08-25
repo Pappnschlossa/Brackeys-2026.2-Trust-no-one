@@ -5,7 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://c7ylr0khyv7u4" path="res://scenes/left_ui.tscn" id="2_c8xsp"]
 [ext_resource type="PackedScene" uid="uid://dev0ijjb7kua6" path="res://scenes/levels_map.tscn" id="4_fkwfp"]
 
-[node name="Level" type="Control" unique_id=1635183676 node_paths=PackedStringArray("A", "B", "C", "D", "E", "F", "left_ui", "question", "info", "door0", "door1", "numbers_container")]
+[node name="Level" type="Control" unique_id=1635183676 node_paths=PackedStringArray("A", "B", "C", "D", "E", "F", "left_ui", "question", "door0", "door1", "numbers_container")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -21,7 +21,6 @@ E = NodePath("HBoxContainer/Middle/MarginContainer/NumbersContainer/E")
 F = NodePath("HBoxContainer/Middle/MarginContainer/NumbersContainer/F")
 left_ui = NodePath("HBoxContainer/LeftUI")
 question = NodePath("HBoxContainer/Middle/Question")
-info = NodePath("HBoxContainer/Middle/Info")
 door0 = NodePath("HBoxContainer/Middle/DoorsContainer/Door0")
 door1 = NodePath("HBoxContainer/Middle/DoorsContainer/Door1")
 numbers_container = NodePath("HBoxContainer/Middle/MarginContainer/NumbersContainer")
@@ -58,20 +57,6 @@ grow_vertical = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 text = "Question"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="Info" type="Control" parent="HBoxContainer/Middle" unique_id=1329900481]
-layout_mode = 2
-size_flags_vertical = 3
-
-[node name="Text" type="RichTextLabel" parent="HBoxContainer/Middle/Info" unique_id=1637825754]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
 horizontal_alignment = 1
 vertical_alignment = 1
 

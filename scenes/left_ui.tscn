@@ -4,7 +4,7 @@
 
 [sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_4xkny"]
 
-[node name="LeftUI" type="Control" unique_id=252584194 node_paths=PackedStringArray("numbers_hiding_text")]
+[node name="LeftUI" type="Control" unique_id=252584194 node_paths=PackedStringArray("numbers_hiding_text", "money_text")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -15,6 +15,7 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_4wa6g")
 numbers_hiding_text = NodePath("VBoxContainer/NumbersHidingText")
+money_text = NodePath("VBoxContainer/MoneyText")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=936246375]
 layout_mode = 1
@@ -53,31 +54,37 @@ layout_mode = 2
 columns = 2
 
 [node name="Number0" type="TextureRect" parent="VBoxContainer/NumbersHiding" unique_id=68924795]
+visible = false
 custom_minimum_size = Vector2(90, 90)
 layout_mode = 2
 texture = SubResource("PlaceholderTexture2D_4xkny")
 
 [node name="Number1" type="TextureRect" parent="VBoxContainer/NumbersHiding" unique_id=1701479998]
+visible = false
 custom_minimum_size = Vector2(90, 90)
 layout_mode = 2
 texture = SubResource("PlaceholderTexture2D_4xkny")
 
 [node name="Number2" type="TextureRect" parent="VBoxContainer/NumbersHiding" unique_id=1995720739]
+visible = false
 custom_minimum_size = Vector2(90, 90)
 layout_mode = 2
 texture = SubResource("PlaceholderTexture2D_4xkny")
 
 [node name="Number3" type="TextureRect" parent="VBoxContainer/NumbersHiding" unique_id=1470241623]
+visible = false
 custom_minimum_size = Vector2(90, 90)
 layout_mode = 2
 texture = SubResource("PlaceholderTexture2D_4xkny")
 
 [node name="Number4" type="TextureRect" parent="VBoxContainer/NumbersHiding" unique_id=1266571902]
+visible = false
 custom_minimum_size = Vector2(90, 90)
 layout_mode = 2
 texture = SubResource("PlaceholderTexture2D_4xkny")
 
 [node name="Number5" type="TextureRect" parent="VBoxContainer/NumbersHiding" unique_id=578260302]
+visible = false
 custom_minimum_size = Vector2(90, 90)
 layout_mode = 2
 texture = SubResource("PlaceholderTexture2D_4xkny")
@@ -129,5 +136,5 @@ texture = SubResource("PlaceholderTexture2D_4xkny")
 [node name="MoneyText" type="RichTextLabel" parent="VBoxContainer" unique_id=131792442]
 layout_mode = 2
 theme_override_font_sizes/normal_font_size = 32
-text = "Money: 6"
+text = "Money: 0"
 fit_content = true

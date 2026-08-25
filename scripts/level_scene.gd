@@ -12,7 +12,6 @@ signal add_scene_as_an_overlay
 @onready var number_nodes : Array[Control] = [A, B, C, D, E, F]
 @export var left_ui : Control
 @export var question : Control
-@export var info : Control
 @export var door0 : Control
 @export var door1 : Control
 @export var numbers_container : GridContainer
@@ -228,7 +227,6 @@ func update_nodes() -> void:
 			number_nodes[i].visible = true
 		else:
 			number_nodes[i].visible = false
-	info.get_node("Text").text = str(g.number_occurences)
 	left_ui.update_hidden_numbers()
 	question.get_node("Text").text = "What number is %s?" % ID_TO_LETTER[QUESTION]
 	if TRUE_DOOR_ID == 0:
@@ -280,4 +278,7 @@ func wrong_door(door_id : int) -> void:
 
 func transition_to_next_level() -> void:
 	g.level += 1
-	change_scene.emit("level_scene", )
+	for id in range(len(number_guesses)):
+		if numbers[id].val == number_guesses[id]:
+			g.money += 1
+	change_scene.emit("level_scene")

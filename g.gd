@@ -128,6 +128,9 @@ func direction_of_number(source_id : int, target_id : int) -> String:
 				4:	return DIRECTIONS[6]
 	return ""
 
+var money : int = 0
+
 func reinitialize():
 	level = 1
 	lives = 3
+	money = 0
