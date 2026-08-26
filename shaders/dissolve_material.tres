@@ -1,0 +1,13 @@
+[gd_resource type="ShaderMaterial" format=3 uid="uid://dq0inc3vsfdav"]
+
+[ext_resource type="Shader" uid="uid://dpmf02d82gc4o" path="res://shaders/dissolve.gdshader" id="1_kps1s"]
+[ext_resource type="Texture2D" uid="uid://d1felggl4g2s3" path="res://shaders/flow_map_1.jpg" id="2_0befv"]
+
+[resource]
+shader = ExtResource("1_kps1s")
+shader_parameter/position = Vector2(0, 0)
+shader_parameter/radius = 0.0
+shader_parameter/borderWidth = 0.1
+shader_parameter/burnMult = 0.135
+shader_parameter/noiseTexture = ExtResource("2_0befv")
+shader_parameter/burnColor = Color(1, 0, 0, 1)

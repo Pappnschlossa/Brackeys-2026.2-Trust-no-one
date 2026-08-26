@@ -54,7 +54,7 @@ func _on_item_bought(item_id : String) -> void:
 			var item = load("uid://ces2bhel05kdm")
 			var instance = item.instantiate()
 			instance.item_id = item_id
-			instance.item_id = item_id
+			instance.item_pos = i
 			item_slots[i].add_child(instance)
 			break
 	# Update Money

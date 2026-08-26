@@ -69,6 +69,11 @@ func _ready() -> void:
 		generate_text()
 	update_nodes()
 	numbers_container.add_numpad.connect(_on_add_numpad)
+	item_tutorial()
+
+func item_tutorial() -> void:
+	if g.level == 3:
+		left_ui._on_item_bought("MAGNIFYING_GLASS")
 
 func _on_add_numpad(numpad_id: int) -> void:
 	var pos = Vector2(numpad_id*400 + 300, 1080/2)

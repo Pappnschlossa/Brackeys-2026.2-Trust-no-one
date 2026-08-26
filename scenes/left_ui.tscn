@@ -5,6 +5,7 @@
 [ext_resource type="Texture2D" uid="uid://bfj0g12lm6qkm" path="res://assets/heart_empty_0.png" id="3_lfvck"]
 [ext_resource type="Texture2D" uid="uid://bs8v0o32pkbo0" path="res://assets/heart_0.png" id="6_2qjoj"]
 [ext_resource type="Theme" uid="uid://de1j6ykjdiqd8" path="res://assets/themes/basic_text.tres" id="6_j6n5i"]
+[ext_resource type="Texture2D" uid="uid://dh3nx4b050i1v" path="res://assets/item_slot.png" id="6_obksd"]
 
 [sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_4xkny"]
 
@@ -145,22 +146,26 @@ layout_mode = 2
 [node name="Item0" type="TextureRect" parent="VBoxContainer/Pockets" unique_id=573605344]
 custom_minimum_size = Vector2(128, 128)
 layout_mode = 2
-texture = SubResource("PlaceholderTexture2D_4xkny")
+texture = ExtResource("6_obksd")
+stretch_mode = 4
 
 [node name="Item1" type="TextureRect" parent="VBoxContainer/Pockets" unique_id=454157888]
 custom_minimum_size = Vector2(128, 128)
 layout_mode = 2
-texture = SubResource("PlaceholderTexture2D_4xkny")
+texture = ExtResource("6_obksd")
+stretch_mode = 4
 
 [node name="Item2" type="TextureRect" parent="VBoxContainer/Pockets" unique_id=1857105189]
 custom_minimum_size = Vector2(128, 128)
 layout_mode = 2
-texture = SubResource("PlaceholderTexture2D_4xkny")
+texture = ExtResource("6_obksd")
+stretch_mode = 4
 
 [node name="Item3" type="TextureRect" parent="VBoxContainer/Pockets" unique_id=688280255]
 custom_minimum_size = Vector2(128, 128)
 layout_mode = 2
-texture = SubResource("PlaceholderTexture2D_4xkny")
+texture = ExtResource("6_obksd")
+stretch_mode = 4
 
 [node name="MoneyText" type="RichTextLabel" parent="VBoxContainer" unique_id=131792442]
 layout_mode = 2

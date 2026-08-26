@@ -21,7 +21,7 @@ shader_parameter/speed = 5.0
 shader_parameter/frames = 3
 shader_parameter/text_color = Color(0.49411765, 0.5764706, 0.7176471, 1)
 
-[sub_resource type="Shader" id="Shader_mycgk"]
+[sub_resource type="Shader" id="Shader_feetc"]
 code = "shader_type canvas_item;
 
 uniform sampler2D flowMap; //Displacement map
@@ -122,7 +122,7 @@ void fragment(){
 "
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_4tk23"]
-shader = SubResource("Shader_mycgk")
+shader = SubResource("Shader_feetc")
 shader_parameter/flowMap = ExtResource("8_feetc")
 shader_parameter/strength = 0.005
 shader_parameter/speed = 5.0
