@@ -128,7 +128,7 @@ func direction_of_number(source_id : int, target_id : int) -> String:
 				4:	return DIRECTIONS[6]
 	return ""
 
-var money : int = 0
+var money : int = 60
 
 var ITEMS : Dictionary[String, Item] = {
 	"DICE" : preload("res://ressource/dice.tres"),
@@ -138,7 +138,22 @@ var ITEMS : Dictionary[String, Item] = {
 	"MAGNIFYING_GLASS" : preload("res://ressource/magnifying_glass.tres")
 }
 
-func reinitialize():
+var current_items : Array[String] = ["MAGNIFYING_GLASS", "EMPTY", "EMPTY", "EMPTY"]
+func get_nb_of_items() -> int:
+	var count : int = 0
+	for item in current_items:
+		if item != "EMPTY":
+			count += 1
+	return count
+const MAX_ITEM_AMOUNT = 4
+
+func can_buy_item(price : int) -> bool:
+	if money >= price and get_nb_of_items() < MAX_ITEM_AMOUNT:
+		return true
+	return false
+
+func reinitialize() -> void:
 	level = 1
 	lives = 3
 	money = 0
+	current_items = ["MAGNIFYING_GLASS", "EMPTY", "EMPTY", "EMPTY"]

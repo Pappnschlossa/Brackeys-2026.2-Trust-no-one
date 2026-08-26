@@ -8,7 +8,7 @@
 
 [sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_4xkny"]
 
-[node name="LeftUI" type="Control" unique_id=252584194 node_paths=PackedStringArray("numbers_hiding_text", "money_text")]
+[node name="LeftUI" type="Control" unique_id=252584194 node_paths=PackedStringArray("numbers_hiding_text", "money_text", "item_slot_0", "item_slot_1", "item_slot_2", "item_slot_3")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -20,6 +20,10 @@ grow_vertical = 2
 script = ExtResource("1_4wa6g")
 numbers_hiding_text = NodePath("VBoxContainer/NumbersHidingText")
 money_text = NodePath("VBoxContainer/MoneyText")
+item_slot_0 = NodePath("VBoxContainer/Pockets/Item0")
+item_slot_1 = NodePath("VBoxContainer/Pockets/Item1")
+item_slot_2 = NodePath("VBoxContainer/Pockets/Item2")
+item_slot_3 = NodePath("VBoxContainer/Pockets/Item3")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=936246375]
 layout_mode = 1
@@ -135,41 +139,26 @@ theme = ExtResource("6_j6n5i")
 text = "Items"
 fit_content = true
 
-[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer" unique_id=613558426]
+[node name="Pockets" type="VBoxContainer" parent="VBoxContainer" unique_id=613558426]
 layout_mode = 2
 
-[node name="Item0" type="TextureRect" parent="VBoxContainer/VBoxContainer" unique_id=573605344]
-custom_minimum_size = Vector2(70, 70)
-layout_mode = 2
-texture = SubResource("PlaceholderTexture2D_4xkny")
-
-[node name="Item1" type="TextureRect" parent="VBoxContainer/VBoxContainer" unique_id=454157888]
-custom_minimum_size = Vector2(70, 70)
+[node name="Item0" type="TextureRect" parent="VBoxContainer/Pockets" unique_id=573605344]
+custom_minimum_size = Vector2(128, 128)
 layout_mode = 2
 texture = SubResource("PlaceholderTexture2D_4xkny")
 
-[node name="Item2" type="TextureRect" parent="VBoxContainer/VBoxContainer" unique_id=1857105189]
-custom_minimum_size = Vector2(70, 70)
+[node name="Item1" type="TextureRect" parent="VBoxContainer/Pockets" unique_id=454157888]
+custom_minimum_size = Vector2(128, 128)
 layout_mode = 2
 texture = SubResource("PlaceholderTexture2D_4xkny")
 
-[node name="Item3" type="TextureRect" parent="VBoxContainer/VBoxContainer" unique_id=688280255]
-custom_minimum_size = Vector2(70, 70)
+[node name="Item2" type="TextureRect" parent="VBoxContainer/Pockets" unique_id=1857105189]
+custom_minimum_size = Vector2(128, 128)
 layout_mode = 2
 texture = SubResource("PlaceholderTexture2D_4xkny")
 
-[node name="Item4" type="TextureRect" parent="VBoxContainer/VBoxContainer" unique_id=1891005024]
-custom_minimum_size = Vector2(70, 70)
-layout_mode = 2
-texture = SubResource("PlaceholderTexture2D_4xkny")
-
-[node name="Item5" type="TextureRect" parent="VBoxContainer/VBoxContainer" unique_id=487430613]
-custom_minimum_size = Vector2(70, 70)
-layout_mode = 2
-texture = SubResource("PlaceholderTexture2D_4xkny")
-
-[node name="Item6" type="TextureRect" parent="VBoxContainer/VBoxContainer" unique_id=1018726019]
-custom_minimum_size = Vector2(70, 70)
+[node name="Item3" type="TextureRect" parent="VBoxContainer/Pockets" unique_id=688280255]
+custom_minimum_size = Vector2(128, 128)
 layout_mode = 2
 texture = SubResource("PlaceholderTexture2D_4xkny")
 

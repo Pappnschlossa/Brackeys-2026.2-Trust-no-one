@@ -3,6 +3,7 @@ extends Control
 signal change_scene
 signal add_scene_as_an_overlay
 
+@export var left_ui : Control
 @export var door_node : Control
 @export var shop_item_0 : Control
 @export var shop_item_1 : Control
@@ -12,6 +13,8 @@ signal add_scene_as_an_overlay
 
 func _ready() -> void:
 	randomize_items()
+	for item in shop_items:
+		item.item_bought.connect(left_ui._on_item_bought)
 
 func randomize_items() -> void:
 	var available_items = g.ITEMS.keys()

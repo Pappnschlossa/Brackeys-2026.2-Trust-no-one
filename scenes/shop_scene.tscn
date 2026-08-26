@@ -133,7 +133,7 @@ shader_parameter/pattern = 2
 shader_parameter/inside = false
 shader_parameter/add_margins = true
 
-[node name="Shop" type="Control" unique_id=647607696 node_paths=PackedStringArray("door_node", "shop_item_0", "shop_item_1", "shop_item_2", "shop_item_3")]
+[node name="Shop" type="Control" unique_id=647607696 node_paths=PackedStringArray("left_ui", "door_node", "shop_item_0", "shop_item_1", "shop_item_2", "shop_item_3")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -141,6 +141,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_r1uou")
+left_ui = NodePath("HBoxContainer/LeftUI")
 door_node = NodePath("HBoxContainer/Middle/DoorsContainer/ShopExitDoor")
 shop_item_0 = NodePath("HBoxContainer/Middle/ShopItems/ShopItem0")
 shop_item_1 = NodePath("HBoxContainer/Middle/ShopItems/ShopItem1")
