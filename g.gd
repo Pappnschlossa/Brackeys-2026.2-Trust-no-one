@@ -130,6 +130,14 @@ func direction_of_number(source_id : int, target_id : int) -> String:
 
 var money : int = 0
 
+var ITEMS : Dictionary[String, Item] = {
+	"DICE" : preload("res://ressource/dice.tres"),
+	"ENVELOPE" : preload("res://ressource/envelope.tres"),
+	"KEY" : preload("res://ressource/key.tres"),
+	"LIFE_POTION" : preload("res://ressource/life_potion.tres"),
+	"MAGNIFYING_GLASS" : preload("res://ressource/magnifying_glass.tres")
+}
+
 func reinitialize():
 	level = 1
 	lives = 3

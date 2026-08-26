@@ -4,7 +4,21 @@ signal change_scene
 signal add_scene_as_an_overlay
 
 @export var door_node : Control
+@export var shop_item_0 : Control
+@export var shop_item_1 : Control
+@export var shop_item_2 : Control
+@export var shop_item_3 : Control
+@onready var shop_items : Array[Control] = [shop_item_0, shop_item_1, shop_item_2, shop_item_3]
 
+func _ready() -> void:
+	randomize_items()
+
+func randomize_items() -> void:
+	var available_items = g.ITEMS.keys()
+	for item in shop_items:
+		var chosen_item_id: String = available_items.pick_random()
+		available_items.erase(chosen_item_id)
+		item.update_item(chosen_item_id)
 
 func _on_shop_exit_button_pressed() -> void:
 	change_scene.emit("level_scene")

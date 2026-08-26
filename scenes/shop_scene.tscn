@@ -133,7 +133,7 @@ shader_parameter/pattern = 2
 shader_parameter/inside = false
 shader_parameter/add_margins = true
 
-[node name="Shop" type="Control" unique_id=647607696 node_paths=PackedStringArray("door_node")]
+[node name="Shop" type="Control" unique_id=647607696 node_paths=PackedStringArray("door_node", "shop_item_0", "shop_item_1", "shop_item_2", "shop_item_3")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -142,6 +142,10 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_r1uou")
 door_node = NodePath("HBoxContainer/Middle/DoorsContainer/ShopExitDoor")
+shop_item_0 = NodePath("HBoxContainer/Middle/ShopItems/ShopItem0")
+shop_item_1 = NodePath("HBoxContainer/Middle/ShopItems/ShopItem1")
+shop_item_2 = NodePath("HBoxContainer/Middle/ShopItems/ShopItem2")
+shop_item_3 = NodePath("HBoxContainer/Middle/ShopItems/ShopItem3")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="." unique_id=1200104342]
 layout_mode = 1
@@ -265,10 +269,10 @@ grow_vertical = 2
 size_flags_vertical = 3
 text = "Door 2"
 
-[node name="Control" type="Control" parent="HBoxContainer/Middle" unique_id=1273151173]
+[node name="ShopItems" type="Control" parent="HBoxContainer/Middle" unique_id=1273151173]
 anchors_preset = 0
 
-[node name="ShopItem0" parent="HBoxContainer/Middle/Control" unique_id=1283795063 instance=ExtResource("9_cl78e")]
+[node name="ShopItem0" parent="HBoxContainer/Middle/ShopItems" unique_id=1283795063 instance=ExtResource("9_cl78e")]
 layout_mode = 0
 offset_left = 337.0
 offset_top = 634.0
@@ -276,7 +280,7 @@ offset_right = 465.0
 offset_bottom = 762.0
 size_flags_vertical = 2
 
-[node name="ShopItem1" parent="HBoxContainer/Middle/Control" unique_id=477205190 instance=ExtResource("9_cl78e")]
+[node name="ShopItem1" parent="HBoxContainer/Middle/ShopItems" unique_id=477205190 instance=ExtResource("9_cl78e")]
 layout_mode = 0
 offset_left = 529.0
 offset_top = 844.0
@@ -284,7 +288,7 @@ offset_right = 657.0
 offset_bottom = 972.0
 size_flags_vertical = 2
 
-[node name="ShopItem2" parent="HBoxContainer/Middle/Control" unique_id=1631164716 instance=ExtResource("9_cl78e")]
+[node name="ShopItem2" parent="HBoxContainer/Middle/ShopItems" unique_id=1631164716 instance=ExtResource("9_cl78e")]
 layout_mode = 0
 offset_left = 1019.0
 offset_top = 648.0
@@ -292,7 +296,7 @@ offset_right = 1147.0
 offset_bottom = 776.0
 size_flags_vertical = 2
 
-[node name="ShopItem3" parent="HBoxContainer/Middle/Control" unique_id=1321005392 instance=ExtResource("9_cl78e")]
+[node name="ShopItem3" parent="HBoxContainer/Middle/ShopItems" unique_id=1321005392 instance=ExtResource("9_cl78e")]
 layout_mode = 0
 offset_left = 853.0
 offset_top = 846.0
