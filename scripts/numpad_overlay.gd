@@ -5,17 +5,17 @@ signal add_scene_as_an_overlay
 signal numpad_button_pressed
 signal remove_overlay
 
-@export var button_0 : Button
-@export var button_1 : Button
-@export var button_2 : Button
-@export var button_3 : Button
-@export var button_4 : Button
-@export var button_5 : Button
-@export var button_6 : Button
-@export var button_7 : Button
-@export var button_8 : Button
-@export var button_9 : Button
-@onready var buttons : Array[Button] = [button_0, button_1, button_2, button_3, button_4, button_5, button_6, button_7, button_8, button_9]
+@export var button_0 : MarginContainer
+@export var button_1 : MarginContainer
+@export var button_2 : MarginContainer
+@export var button_3 : MarginContainer
+@export var button_4 : MarginContainer
+@export var button_5 : MarginContainer
+@export var button_6 : MarginContainer
+@export var button_7 : MarginContainer
+@export var button_8 : MarginContainer
+@export var button_9 : MarginContainer
+@onready var buttons : Array[MarginContainer] = [button_0, button_1, button_2, button_3, button_4, button_5, button_6, button_7, button_8, button_9]
 
 func _ready() -> void:
 	update_buttons_visibility()
