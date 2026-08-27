@@ -13,14 +13,18 @@
 [ext_resource type="Texture2D" uid="uid://dus2s06jr3xun" path="res://assets/door_eyes.png" id="9_y1xxd"]
 [ext_resource type="PackedScene" uid="uid://bh8a77f3toafp" path="res://scenes/number_cage.tscn" id="10_cu2va"]
 [ext_resource type="Texture2D" uid="uid://dpey7kehsyvwu" path="res://assets/door_eyes_1.png" id="10_wcwpw"]
+[ext_resource type="Material" uid="uid://bafyasjxgvhj5" path="res://shaders/colored_text_wobble_material.tres" id="11_lkilr"]
 [ext_resource type="Texture2D" uid="uid://dumo4s7r3u1p4" path="res://assets/door_eyes_2.png" id="11_ytrdw"]
 [ext_resource type="Texture2D" uid="uid://cl71esw7yroi2" path="res://assets/door_eyes_3.png" id="12_ir4rs"]
 [ext_resource type="Material" uid="uid://bmp2oqi20jmk5" path="res://shaders/bubble_transition_material.tres" id="12_lkilr"]
+[ext_resource type="Material" uid="uid://df8s1mvjvgfm0" path="res://shaders/big_texture_wobble_material.tres" id="12_vw353"]
 [ext_resource type="Script" uid="uid://bt2cqiwwo5dl5" path="res://scenes/fake_transition_rect.gd" id="13_cupps"]
 [ext_resource type="Script" uid="uid://hx7uf70m2ejt" path="res://scenes/door_eyes.gd" id="13_ytrdw"]
 [ext_resource type="Texture2D" uid="uid://yxjt7mh4vrfu" path="res://assets/scratch/scratch_0.png" id="14_g7d3g"]
+[ext_resource type="Texture2D" uid="uid://crprqyf7qji5r" path="res://assets/rock_sign.png" id="14_oht43"]
 [ext_resource type="Texture2D" uid="uid://ck4438a3b73r6" path="res://assets/scratch/scratch_1.png" id="15_y1xxd"]
 [ext_resource type="Texture2D" uid="uid://ghu2mmx4ejy1" path="res://assets/scratch/scratch_2.png" id="16_hialq"]
+[ext_resource type="Texture2D" uid="uid://bd47xla78q56o" path="res://assets/stick_sign.png" id="17_ehfgh"]
 [ext_resource type="Texture2D" uid="uid://dgkf8k47t8t5q" path="res://assets/scratch/scratch_3.png" id="17_pky24"]
 [ext_resource type="Texture2D" uid="uid://bfe5ngbstje8j" path="res://assets/scratch/scratch_4.png" id="18_wcwpw"]
 [ext_resource type="Texture2D" uid="uid://wfs7jt4qo5p6" path="res://assets/scratch/scratch_5.png" id="19_ytrdw"]
@@ -316,15 +320,6 @@ theme_override_constants/margin_top = 43
 theme_override_constants/margin_right = 56
 theme_override_constants/margin_bottom = 29
 
-[node name="Text" type="RichTextLabel" parent="HBoxContainer/Middle/DoorsContainer/Door0/Texture/MarginContainer" unique_id=1318609088]
-layout_mode = 2
-size_flags_vertical = 3
-mouse_filter = 2
-theme = ExtResource("7_78t5s")
-text = "3"
-horizontal_alignment = 1
-vertical_alignment = 1
-
 [node name="Door0Button" type="Button" parent="HBoxContainer/Middle/DoorsContainer/Door0/Texture/MarginContainer" unique_id=224626419]
 layout_mode = 2
 size_flags_vertical = 3
@@ -351,6 +346,35 @@ offset_bottom = -51.0
 grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("5_1lj4f")
+
+[node name="SignTexture" type="TextureRect" parent="HBoxContainer/Middle/DoorsContainer/Door0" unique_id=1497229926]
+material = ExtResource("12_vw353")
+layout_mode = 0
+offset_left = 206.0
+offset_top = 84.0
+offset_right = 421.0
+offset_bottom = 299.0
+texture = ExtResource("14_oht43")
+
+[node name="Text" type="RichTextLabel" parent="HBoxContainer/Middle/DoorsContainer/Door0/SignTexture" unique_id=1318609088]
+material = ExtResource("11_lkilr")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -19.0
+offset_top = -74.0
+offset_right = -19.0
+offset_bottom = -74.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(1.265, 1.265)
+size_flags_vertical = 3
+mouse_filter = 2
+theme = ExtResource("7_78t5s")
+text = "3"
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="Door1" type="Control" parent="HBoxContainer/Middle/DoorsContainer" unique_id=1521495262]
 layout_mode = 2
@@ -383,15 +407,6 @@ theme_override_constants/margin_top = 43
 theme_override_constants/margin_right = 56
 theme_override_constants/margin_bottom = 29
 
-[node name="Text" type="RichTextLabel" parent="HBoxContainer/Middle/DoorsContainer/Door1/Texture/MarginContainer" unique_id=1270177537]
-layout_mode = 2
-size_flags_vertical = 3
-mouse_filter = 2
-theme = ExtResource("7_78t5s")
-text = "1"
-horizontal_alignment = 1
-vertical_alignment = 1
-
 [node name="Door1Button" type="Button" parent="HBoxContainer/Middle/DoorsContainer/Door1/Texture/MarginContainer" unique_id=488018540]
 layout_mode = 2
 size_flags_vertical = 3
@@ -418,6 +433,35 @@ offset_bottom = -51.0
 grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("5_1lj4f")
+
+[node name="SignTexture" type="TextureRect" parent="HBoxContainer/Middle/DoorsContainer/Door1" unique_id=1122608212]
+material = ExtResource("12_vw353")
+layout_mode = 0
+offset_left = 291.0
+offset_top = 80.0
+offset_right = 507.0
+offset_bottom = 296.0
+texture = ExtResource("17_ehfgh")
+
+[node name="Text" type="RichTextLabel" parent="HBoxContainer/Middle/DoorsContainer/Door1/SignTexture" unique_id=1270177537]
+material = ExtResource("11_lkilr")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -37.0
+offset_top = -54.0
+offset_right = -37.0
+offset_bottom = -54.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(1.265, 1.265)
+size_flags_vertical = 3
+mouse_filter = 2
+theme = ExtResource("7_78t5s")
+text = "1"
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="MarginContainer" type="MarginContainer" parent="HBoxContainer/Middle" unique_id=2011649526]
 layout_mode = 2

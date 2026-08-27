@@ -304,6 +304,6 @@ func transition_to_next_level() -> void:
 		if numbers[id].val == number_guesses[id]:
 			g.money += 1
 	if g.level%10 == 0:
-		change_scene.emit("shop_scene")
+		change_scene.emit("shop_scene", "bubble_transition")
 	else:
 		change_scene.emit("level_scene", "bubble_transition")
