@@ -39,6 +39,7 @@ theme_override_constants/margin_top = -27
 theme_override_constants/margin_bottom = -57
 
 [node name="TextBackground" type="TextureRect" parent="VBoxContainer/MarginContainer" unique_id=772791817]
+material = ExtResource("6_4xrwj")
 layout_mode = 2
 texture = ExtResource("3_nycv4")
 expand_mode = 1

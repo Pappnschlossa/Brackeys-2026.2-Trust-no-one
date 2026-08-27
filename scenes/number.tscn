@@ -7,8 +7,8 @@
 
 [node name="Number" type="MarginContainer" unique_id=1952454688]
 anchors_preset = -1
-offset_right = 64.0
-offset_bottom = 64.0
+offset_right = 70.0
+offset_bottom = 70.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_k6nth")
