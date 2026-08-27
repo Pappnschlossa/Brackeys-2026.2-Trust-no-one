@@ -1,7 +1,8 @@
 [gd_scene format=3 uid="uid://bwx6t2ov5vy14"]
 
 [ext_resource type="Texture2D" uid="uid://d3dnqlpyqhkmh" path="res://assets/numbers/eight.png" id="1_1u5is"]
-[ext_resource type="Script" uid="uid://ckk7tp3mn6b5k" path="res://scenes/number.gd" id="1_k6nth"]
+[ext_resource type="Script" uid="uid://ckk7tp3mn6b5k" path="res://scripts/number_scene.gd" id="1_k6nth"]
+[ext_resource type="Material" uid="uid://bbv2kclp7udfd" path="res://shaders/wobble_material.tres" id="2_1283t"]
 [ext_resource type="Texture2D" uid="uid://b543ulmlfrewp" path="res://assets/eyes.png" id="2_ctckn"]
 
 [node name="Number" type="MarginContainer" unique_id=1952454688]
@@ -13,9 +14,11 @@ grow_vertical = 2
 script = ExtResource("1_k6nth")
 
 [node name="Texture" type="TextureRect" parent="." unique_id=2023088075]
+material = ExtResource("2_1283t")
 layout_mode = 2
 texture = ExtResource("1_1u5is")
 
 [node name="Eyes" type="TextureRect" parent="." unique_id=2143965328]
+material = ExtResource("2_1283t")
 layout_mode = 2
 texture = ExtResource("2_ctckn")

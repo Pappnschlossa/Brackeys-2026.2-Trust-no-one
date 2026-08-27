@@ -8,6 +8,5 @@ func _ready() -> void:
 	pass # Replace with function body.
 
 
-
 func _on_start_button_pressed() -> void:
 	change_scene.emit("level_scene", null)

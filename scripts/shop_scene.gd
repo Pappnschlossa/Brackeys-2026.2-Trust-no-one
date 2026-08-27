@@ -24,7 +24,7 @@ func randomize_items() -> void:
 		item.update_item(chosen_item_id)
 
 func _on_shop_exit_button_pressed() -> void:
-	change_scene.emit("level_scene")
+	change_scene.emit("level_scene", "bubble_transition")
 
 
 func _on_shop_exit_button_mouse_entered() -> void:

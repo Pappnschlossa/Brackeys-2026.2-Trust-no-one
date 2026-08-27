@@ -1,6 +1,17 @@
 [gd_scene format=3 uid="uid://bblehwgt70du3"]
 
 [ext_resource type="Script" uid="uid://itknkhfxjdni" path="res://scripts/global_scene.gd" id="1_4pk28"]
+[ext_resource type="Material" uid="uid://bmp2oqi20jmk5" path="res://shaders/bubble_transition_material.tres" id="2_nmxvb"]
 
-[node name="Global" type="Node" unique_id=2032605609]
+[node name="Global" type="Node" unique_id=2032605609 node_paths=PackedStringArray("transition_rect")]
 script = ExtResource("1_4pk28")
+transition_rect = NodePath("ColorRect")
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=2101861654]
+visible = false
+material = ExtResource("2_nmxvb")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2

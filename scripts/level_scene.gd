@@ -14,7 +14,9 @@ signal add_scene_as_an_overlay
 @export var question : Control
 @export var door0 : Control
 @export var door1 : Control
+@onready var doors : Array[Control] = [door0, door1]
 @export var numbers_container : GridContainer
+@export var fake_transition_rect : ColorRect
 
 const TRUE_NUMBERS : Array[int] = [0, 2, 3, 4, 5, 6, 7, 8, 9]
 const TRUE_ODD_NUMBERS : Array[int] = [3, 5, 7, 9]
@@ -94,7 +96,7 @@ func _on_numpad_button_pressed(n: int) -> void:
 	var number_guess : MarginContainer = number_nodes[active_numpad].get_node("%NumberGuess")
 	number_guess.number = n
 	number_guess.update_number()
-	number_guess.update_opacity(1)
+	number_guess.update_opacity(1) # USELESS FOR NOW (SHADER)
 
 func generate_tutorial_text() -> void:
 	var numbers_in_use : Array[int] = g.get_array_of_numbers_in_use_without_multiplicity()
@@ -291,8 +293,10 @@ func _on_door_1_button_pressed() -> void:
 	else:	wrong_door(1)
 
 func wrong_door(door_id : int) -> void:
-	g.lives -= 1
+	await fake_transition_rect.fake_transition()
 	left_ui.update_health()
+	doors[door_id].get_node("DoorEyes").visible = true
+	
 
 func transition_to_next_level() -> void:
 	g.level += 1
@@ -302,4 +306,4 @@ func transition_to_next_level() -> void:
 	if g.level%10 == 0:
 		change_scene.emit("shop_scene")
 	else:
-		change_scene.emit("level_scene")
+		change_scene.emit("level_scene", "bubble_transition")

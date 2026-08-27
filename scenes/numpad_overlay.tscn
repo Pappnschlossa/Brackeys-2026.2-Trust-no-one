@@ -1,269 +1,13 @@
 [gd_scene format=3 uid="uid://cdtr5twexbdo3"]
 
 [ext_resource type="Script" uid="uid://bc4ovrn2uoh1l" path="res://scripts/numpad_overlay.gd" id="1_i04uq"]
-[ext_resource type="Script" uid="uid://38i0j54yej6w" path="res://scripts/highlight.gd" id="2_86r56"]
-[ext_resource type="Texture2D" uid="uid://bbqnr5imwtssa" path="res://assets/numbers/zero.png" id="2_nhx03"]
-[ext_resource type="Texture2D" uid="uid://d1felggl4g2s3" path="res://shaders/flow_map_1.jpg" id="3_5e5l7"]
+[ext_resource type="Script" uid="uid://d1brvvw00t3ah" path="res://scripts/numpad_highlight.gd" id="2_p2itk"]
+[ext_resource type="PackedScene" uid="uid://bwx6t2ov5vy14" path="res://scenes/number.tscn" id="3_ayucx"]
 [ext_resource type="Theme" uid="uid://fxj3p4ueiqg2" path="res://assets/themes/transparent_button.tres" id="5_p2itk"]
-[ext_resource type="Texture2D" uid="uid://ck6rj4cx3lnum" path="res://assets/numbers/one.png" id="6_ayucx"]
-[ext_resource type="Texture2D" uid="uid://dl38a33retswa" path="res://assets/numbers/two.png" id="7_suh44"]
-[ext_resource type="Texture2D" uid="uid://scahwf1ngurj" path="res://assets/numbers/three.png" id="8_thce1"]
-[ext_resource type="Texture2D" uid="uid://cka50jebq5nc1" path="res://assets/numbers/four.png" id="9_8j21k"]
-[ext_resource type="Texture2D" uid="uid://iobuenb5vc7c" path="res://assets/numbers/five.png" id="10_6fo34"]
-[ext_resource type="Texture2D" uid="uid://bcm1q3gbu86bj" path="res://assets/numbers/six.png" id="11_f4v3k"]
-[ext_resource type="Texture2D" uid="uid://7po5suu46rs" path="res://assets/numbers/seven.png" id="12_te4mo"]
-[ext_resource type="Texture2D" uid="uid://d3dnqlpyqhkmh" path="res://assets/numbers/eight.png" id="13_mpcbr"]
-[ext_resource type="Texture2D" uid="uid://fmw3vnuognqa" path="res://assets/numbers/nine.png" id="14_e6ldb"]
-
-[sub_resource type="Shader" id="Shader_mycgk"]
-code = "shader_type canvas_item;
-
-uniform sampler2D flowMap; //Displacement map
-uniform float strength;    //Force of the effect
-uniform float speed;       //Speed of the effect
-uniform int frames : hint_range(1, 10); //Frames of the effect
-
-uniform vec4 color : source_color = vec4(1.0);
-uniform float width : hint_range(0, 10) = 0.0;
-uniform int pattern : hint_range(0, 2) = 0; // diamond, circle, square
-uniform bool inside = false;
-uniform bool add_margins = true; // only useful when inside is false
-
-void vertex() {
-	if (add_margins) {
-		VERTEX += (UV * 2.0 - 1.0) * width;
-	}
-}
-
-bool hasContraryNeighbour(vec2 uv, vec2 texture_pixel_size, sampler2D texture) {
-	for (float i = -ceil(width); i <= ceil(width); i++) {
-		float x = abs(i) > width ? width * sign(i) : i;
-		float offset;
-		
-		if (pattern == 0) {
-			offset = width - abs(x);
-		} else if (pattern == 1) {
-			offset = floor(sqrt(pow(width + 0.5, 2) - x * x));
-		} else if (pattern == 2) {
-			offset = width;
-		}
-		
-		for (float j = -ceil(offset); j <= ceil(offset); j++) {
-			float y = abs(j) > offset ? offset * sign(j) : j;
-			vec2 xy = uv + texture_pixel_size * vec2(x, y);
-			
-			if ((xy != clamp(xy, vec2(0.0), vec2(1.0)) || texture(texture, xy).a <= 0.0) == inside) {
-				return true;
-			}
-		}
-	}
-	
-	return false;
-}
-
-//Returns a value between 0 and 1 depending of the frames -> exemple: frames = 4, frame 1 = 0.25
-float clock(float time){
-	float fframes = float(frames);
-	return floor(mod(time * speed, fframes)) / fframes;
-}
-
-void fragment() {
-	// --- First shader: flow-map displacement ---
-	float c = clock(TIME);
-	vec4 offset = texture(flowMap, vec2(UV.x + c, UV.y + c)) * strength;
-
-	vec2 uv = UV + offset.xy - vec2(0.5, 0.5) * strength;
-
-
-	// --- Second shader: margins ---
-	if (add_margins) {
-		vec2 texture_pixel_size = vec2(1.0) /
-			(vec2(1.0) / TEXTURE_PIXEL_SIZE + vec2(width * 2.0));
-
-		uv = (uv - texture_pixel_size * width)
-			* TEXTURE_PIXEL_SIZE / texture_pixel_size;
-
-		if (uv != clamp(uv, vec2(0.0), vec2(1.0))) {
-			COLOR.a = 0.0;
-		} else {
-			COLOR = texture(TEXTURE, uv);
-		}
-	} else {
-		COLOR = texture(TEXTURE, uv);
-	}
-
-
-	// --- Second shader: contrary neighbour / outline ---
-	if ((COLOR.a > 0.0) == inside &&
-		hasContraryNeighbour(uv, TEXTURE_PIXEL_SIZE, TEXTURE)) {
-
-		COLOR.rgb = inside
-			? mix(COLOR.rgb, color.rgb, color.a)
-			: color.rgb;
-
-		COLOR.a += (1.0 - COLOR.a) * color.a;
-	}
-}
-
-
-// TEST CLOCK
-/*
-void fragment(){
-	float c = clock(TIME);
-	COLOR = vec4( c, c, c, 1);
-}
-*/
-"
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_0ukl6"]
-shader = SubResource("Shader_mycgk")
-shader_parameter/flowMap = ExtResource("3_5e5l7")
-shader_parameter/strength = 0.01
-shader_parameter/speed = 5.0
-shader_parameter/frames = 3
-shader_parameter/color = Color(1, 1, 1, 1)
-shader_parameter/width = 0.0
-shader_parameter/pattern = 0
-shader_parameter/inside = false
-shader_parameter/add_margins = true
-
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_kdtm4"]
-load_path = "res://.godot/imported/flow_map_1.jpg-7c8a6753d148c7751e068af2f1e274d0.ctex"
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_ae63x"]
-shader = SubResource("Shader_mycgk")
-shader_parameter/flowMap = SubResource("CompressedTexture2D_kdtm4")
-shader_parameter/strength = 0.01
-shader_parameter/speed = 5.0
-shader_parameter/frames = 3
-shader_parameter/color = Color(1, 1, 1, 1)
-shader_parameter/width = 0.0
-shader_parameter/pattern = 0
-shader_parameter/inside = false
-shader_parameter/add_margins = true
-
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_xjmpl"]
-load_path = "res://.godot/imported/flow_map_1.jpg-7c8a6753d148c7751e068af2f1e274d0.ctex"
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_bb0ti"]
-shader = SubResource("Shader_mycgk")
-shader_parameter/flowMap = SubResource("CompressedTexture2D_xjmpl")
-shader_parameter/strength = 0.01
-shader_parameter/speed = 5.0
-shader_parameter/frames = 3
-shader_parameter/color = Color(1, 1, 1, 1)
-shader_parameter/width = 0.0
-shader_parameter/pattern = 0
-shader_parameter/inside = false
-shader_parameter/add_margins = true
-
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_5ow0f"]
-load_path = "res://.godot/imported/flow_map_1.jpg-7c8a6753d148c7751e068af2f1e274d0.ctex"
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_8uqux"]
-shader = SubResource("Shader_mycgk")
-shader_parameter/flowMap = SubResource("CompressedTexture2D_5ow0f")
-shader_parameter/strength = 0.01
-shader_parameter/speed = 5.0
-shader_parameter/frames = 3
-shader_parameter/color = Color(1, 1, 1, 1)
-shader_parameter/width = 0.0
-shader_parameter/pattern = 0
-shader_parameter/inside = false
-shader_parameter/add_margins = true
-
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_n2xk2"]
-load_path = "res://.godot/imported/flow_map_1.jpg-7c8a6753d148c7751e068af2f1e274d0.ctex"
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_2kcxy"]
-shader = SubResource("Shader_mycgk")
-shader_parameter/flowMap = SubResource("CompressedTexture2D_n2xk2")
-shader_parameter/strength = 0.01
-shader_parameter/speed = 5.0
-shader_parameter/frames = 3
-shader_parameter/color = Color(1, 1, 1, 1)
-shader_parameter/width = 0.0
-shader_parameter/pattern = 0
-shader_parameter/inside = false
-shader_parameter/add_margins = true
-
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_1gpmy"]
-load_path = "res://.godot/imported/flow_map_1.jpg-7c8a6753d148c7751e068af2f1e274d0.ctex"
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_6mi4x"]
-shader = SubResource("Shader_mycgk")
-shader_parameter/flowMap = SubResource("CompressedTexture2D_1gpmy")
-shader_parameter/strength = 0.01
-shader_parameter/speed = 5.0
-shader_parameter/frames = 3
-shader_parameter/color = Color(1, 1, 1, 1)
-shader_parameter/width = 0.0
-shader_parameter/pattern = 0
-shader_parameter/inside = false
-shader_parameter/add_margins = true
-
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_qptei"]
-load_path = "res://.godot/imported/flow_map_1.jpg-7c8a6753d148c7751e068af2f1e274d0.ctex"
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_e1jxb"]
-shader = SubResource("Shader_mycgk")
-shader_parameter/flowMap = SubResource("CompressedTexture2D_qptei")
-shader_parameter/strength = 0.01
-shader_parameter/speed = 5.0
-shader_parameter/frames = 3
-shader_parameter/color = Color(1, 1, 1, 1)
-shader_parameter/width = 0.0
-shader_parameter/pattern = 0
-shader_parameter/inside = false
-shader_parameter/add_margins = true
-
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_b5sp3"]
-load_path = "res://.godot/imported/flow_map_1.jpg-7c8a6753d148c7751e068af2f1e274d0.ctex"
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_cf2y7"]
-shader = SubResource("Shader_mycgk")
-shader_parameter/flowMap = SubResource("CompressedTexture2D_b5sp3")
-shader_parameter/strength = 0.01
-shader_parameter/speed = 5.0
-shader_parameter/frames = 3
-shader_parameter/color = Color(1, 1, 1, 1)
-shader_parameter/width = 0.0
-shader_parameter/pattern = 0
-shader_parameter/inside = false
-shader_parameter/add_margins = true
-
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_ps2ee"]
-load_path = "res://.godot/imported/flow_map_1.jpg-7c8a6753d148c7751e068af2f1e274d0.ctex"
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_gpjwl"]
-shader = SubResource("Shader_mycgk")
-shader_parameter/flowMap = SubResource("CompressedTexture2D_ps2ee")
-shader_parameter/strength = 0.01
-shader_parameter/speed = 5.0
-shader_parameter/frames = 3
-shader_parameter/color = Color(1, 1, 1, 1)
-shader_parameter/width = 0.0
-shader_parameter/pattern = 0
-shader_parameter/inside = false
-shader_parameter/add_margins = true
-
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_saoe2"]
-load_path = "res://.godot/imported/flow_map_1.jpg-7c8a6753d148c7751e068af2f1e274d0.ctex"
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_a40ih"]
-shader = SubResource("Shader_mycgk")
-shader_parameter/flowMap = SubResource("CompressedTexture2D_saoe2")
-shader_parameter/strength = 0.01
-shader_parameter/speed = 5.0
-shader_parameter/frames = 3
-shader_parameter/color = Color(1, 1, 1, 1)
-shader_parameter/width = 0.0
-shader_parameter/pattern = 0
-shader_parameter/inside = false
-shader_parameter/add_margins = true
 
 [node name="Numpad" type="Control" unique_id=1768687218 node_paths=PackedStringArray("button_0", "button_1", "button_2", "button_3", "button_4", "button_5", "button_6", "button_7", "button_8", "button_9")]
 layout_mode = 3
+anchors_preset = 0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_i04uq")
@@ -305,12 +49,11 @@ size_flags_horizontal = 4
 
 [node name="0" type="MarginContainer" parent="MarginContainer/HBoxContainer" unique_id=1696903881]
 layout_mode = 2
-script = ExtResource("2_86r56")
+script = ExtResource("2_p2itk")
 
-[node name="Texture" type="TextureRect" parent="MarginContainer/HBoxContainer/0" unique_id=677409172]
-material = SubResource("ShaderMaterial_0ukl6")
+[node name="Number" parent="MarginContainer/HBoxContainer/0" unique_id=1952454688 instance=ExtResource("3_ayucx")]
 layout_mode = 2
-texture = ExtResource("2_nhx03")
+number = 0
 
 [node name="Button" type="Button" parent="MarginContainer/HBoxContainer/0" unique_id=51841438]
 layout_mode = 2
@@ -318,12 +61,11 @@ theme = ExtResource("5_p2itk")
 
 [node name="1" type="MarginContainer" parent="MarginContainer/HBoxContainer" unique_id=1539365735]
 layout_mode = 2
-script = ExtResource("2_86r56")
+script = ExtResource("2_p2itk")
 
-[node name="Texture" type="TextureRect" parent="MarginContainer/HBoxContainer/1" unique_id=1075387086]
-material = SubResource("ShaderMaterial_ae63x")
+[node name="Number" parent="MarginContainer/HBoxContainer/1" unique_id=108654192 instance=ExtResource("3_ayucx")]
 layout_mode = 2
-texture = ExtResource("6_ayucx")
+number = 1
 
 [node name="Button" type="Button" parent="MarginContainer/HBoxContainer/1" unique_id=1451136170]
 layout_mode = 2
@@ -332,12 +74,11 @@ theme = ExtResource("5_p2itk")
 [node name="2" type="MarginContainer" parent="MarginContainer/HBoxContainer" unique_id=1484497407]
 visible = false
 layout_mode = 2
-script = ExtResource("2_86r56")
+script = ExtResource("2_p2itk")
 
-[node name="Texture" type="TextureRect" parent="MarginContainer/HBoxContainer/2" unique_id=1907441483]
-material = SubResource("ShaderMaterial_bb0ti")
+[node name="Number" parent="MarginContainer/HBoxContainer/2" unique_id=917664211 instance=ExtResource("3_ayucx")]
 layout_mode = 2
-texture = ExtResource("7_suh44")
+number = 2
 
 [node name="Button" type="Button" parent="MarginContainer/HBoxContainer/2" unique_id=1400925153]
 layout_mode = 2
@@ -346,12 +87,11 @@ theme = ExtResource("5_p2itk")
 [node name="3" type="MarginContainer" parent="MarginContainer/HBoxContainer" unique_id=1105178033]
 visible = false
 layout_mode = 2
-script = ExtResource("2_86r56")
+script = ExtResource("2_p2itk")
 
-[node name="Texture" type="TextureRect" parent="MarginContainer/HBoxContainer/3" unique_id=752729897]
-material = SubResource("ShaderMaterial_8uqux")
+[node name="Number" parent="MarginContainer/HBoxContainer/3" unique_id=134256593 instance=ExtResource("3_ayucx")]
 layout_mode = 2
-texture = ExtResource("8_thce1")
+number = 3
 
 [node name="Button" type="Button" parent="MarginContainer/HBoxContainer/3" unique_id=284406433]
 layout_mode = 2
@@ -359,12 +99,11 @@ theme = ExtResource("5_p2itk")
 
 [node name="4" type="MarginContainer" parent="MarginContainer/HBoxContainer" unique_id=1567389270]
 layout_mode = 2
-script = ExtResource("2_86r56")
+script = ExtResource("2_p2itk")
 
-[node name="Texture" type="TextureRect" parent="MarginContainer/HBoxContainer/4" unique_id=841984560]
-material = SubResource("ShaderMaterial_2kcxy")
+[node name="Number" parent="MarginContainer/HBoxContainer/4" unique_id=1633577404 instance=ExtResource("3_ayucx")]
 layout_mode = 2
-texture = ExtResource("9_8j21k")
+number = 4
 
 [node name="Button" type="Button" parent="MarginContainer/HBoxContainer/4" unique_id=1262743728]
 layout_mode = 2
@@ -373,12 +112,11 @@ theme = ExtResource("5_p2itk")
 [node name="5" type="MarginContainer" parent="MarginContainer/HBoxContainer" unique_id=719477369]
 visible = false
 layout_mode = 2
-script = ExtResource("2_86r56")
+script = ExtResource("2_p2itk")
 
-[node name="Texture" type="TextureRect" parent="MarginContainer/HBoxContainer/5" unique_id=1740689236]
-material = SubResource("ShaderMaterial_6mi4x")
+[node name="Number" parent="MarginContainer/HBoxContainer/5" unique_id=1197521610 instance=ExtResource("3_ayucx")]
 layout_mode = 2
-texture = ExtResource("10_6fo34")
+number = 5
 
 [node name="Button" type="Button" parent="MarginContainer/HBoxContainer/5" unique_id=665987668]
 layout_mode = 2
@@ -386,12 +124,11 @@ theme = ExtResource("5_p2itk")
 
 [node name="6" type="MarginContainer" parent="MarginContainer/HBoxContainer" unique_id=1447867924]
 layout_mode = 2
-script = ExtResource("2_86r56")
+script = ExtResource("2_p2itk")
 
-[node name="Texture" type="TextureRect" parent="MarginContainer/HBoxContainer/6" unique_id=603361244]
-material = SubResource("ShaderMaterial_e1jxb")
+[node name="Number" parent="MarginContainer/HBoxContainer/6" unique_id=1858022545 instance=ExtResource("3_ayucx")]
 layout_mode = 2
-texture = ExtResource("11_f4v3k")
+number = 6
 
 [node name="Button" type="Button" parent="MarginContainer/HBoxContainer/6" unique_id=1221250302]
 layout_mode = 2
@@ -400,12 +137,11 @@ theme = ExtResource("5_p2itk")
 [node name="7" type="MarginContainer" parent="MarginContainer/HBoxContainer" unique_id=1989765046]
 visible = false
 layout_mode = 2
-script = ExtResource("2_86r56")
+script = ExtResource("2_p2itk")
 
-[node name="Texture" type="TextureRect" parent="MarginContainer/HBoxContainer/7" unique_id=285438476]
-material = SubResource("ShaderMaterial_cf2y7")
+[node name="Number" parent="MarginContainer/HBoxContainer/7" unique_id=97500302 instance=ExtResource("3_ayucx")]
 layout_mode = 2
-texture = ExtResource("12_te4mo")
+number = 7
 
 [node name="Button" type="Button" parent="MarginContainer/HBoxContainer/7" unique_id=1665447591]
 layout_mode = 2
@@ -413,12 +149,10 @@ theme = ExtResource("5_p2itk")
 
 [node name="8" type="MarginContainer" parent="MarginContainer/HBoxContainer" unique_id=1828002908]
 layout_mode = 2
-script = ExtResource("2_86r56")
+script = ExtResource("2_p2itk")
 
-[node name="Texture" type="TextureRect" parent="MarginContainer/HBoxContainer/8" unique_id=1404681315]
-material = SubResource("ShaderMaterial_gpjwl")
+[node name="Number" parent="MarginContainer/HBoxContainer/8" unique_id=1453626307 instance=ExtResource("3_ayucx")]
 layout_mode = 2
-texture = ExtResource("13_mpcbr")
 
 [node name="Button" type="Button" parent="MarginContainer/HBoxContainer/8" unique_id=1423843105]
 layout_mode = 2
@@ -426,12 +160,11 @@ theme = ExtResource("5_p2itk")
 
 [node name="9" type="MarginContainer" parent="MarginContainer/HBoxContainer" unique_id=1358532624]
 layout_mode = 2
-script = ExtResource("2_86r56")
+script = ExtResource("2_p2itk")
 
-[node name="Texture" type="TextureRect" parent="MarginContainer/HBoxContainer/9" unique_id=1122587731]
-material = SubResource("ShaderMaterial_a40ih")
+[node name="Number" parent="MarginContainer/HBoxContainer/9" unique_id=1340182333 instance=ExtResource("3_ayucx")]
 layout_mode = 2
-texture = ExtResource("14_e6ldb")
+number = 9
 
 [node name="Button" type="Button" parent="MarginContainer/HBoxContainer/9" unique_id=1901919217]
 layout_mode = 2

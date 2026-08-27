@@ -35,7 +35,7 @@ func _process(delta: float) -> void:
 	if time_since_last_change > 0.1:
 		time_since_last_change = 0
 		$Eyes.position = average_eyes_position + Vector2(randf_range(-1.5, 1), randf_range(-1.5, 1))
-	if opacity_change:
+	if opacity_change: # USELESS FOR NOW (SHADER)
 		var a : float = TAU*opacity_time/period
 		if a > TAU:
 			a -= TAU
@@ -44,7 +44,7 @@ func _process(delta: float) -> void:
 func update_number() -> void:
 	$Texture.texture = load(NUMBER_TO_TEXTURE[number])
 
-func update_opacity(amount : float) -> void:
+func update_opacity(amount : float) -> void: # USELESS FOR NOW (SHADER)
 	max_opacity = amount
 	min_opacity = max_opacity*3/5
 	opacity_change = true

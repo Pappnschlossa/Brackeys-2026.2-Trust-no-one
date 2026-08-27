@@ -10,7 +10,23 @@
 [ext_resource type="Texture2D" uid="uid://dskpc6rj5lkeu" path="res://assets/door.png" id="4_ojpky"]
 [ext_resource type="Theme" uid="uid://fxj3p4ueiqg2" path="res://assets/themes/transparent_button.tres" id="5_1lj4f"]
 [ext_resource type="Theme" uid="uid://de1j6ykjdiqd8" path="res://assets/themes/basic_text.tres" id="7_78t5s"]
+[ext_resource type="Texture2D" uid="uid://dus2s06jr3xun" path="res://assets/door_eyes.png" id="9_y1xxd"]
 [ext_resource type="PackedScene" uid="uid://bh8a77f3toafp" path="res://scenes/number_cage.tscn" id="10_cu2va"]
+[ext_resource type="Texture2D" uid="uid://dpey7kehsyvwu" path="res://assets/door_eyes_1.png" id="10_wcwpw"]
+[ext_resource type="Texture2D" uid="uid://dumo4s7r3u1p4" path="res://assets/door_eyes_2.png" id="11_ytrdw"]
+[ext_resource type="Texture2D" uid="uid://cl71esw7yroi2" path="res://assets/door_eyes_3.png" id="12_ir4rs"]
+[ext_resource type="Material" uid="uid://bmp2oqi20jmk5" path="res://shaders/bubble_transition_material.tres" id="12_lkilr"]
+[ext_resource type="Script" uid="uid://bt2cqiwwo5dl5" path="res://scenes/fake_transition_rect.gd" id="13_cupps"]
+[ext_resource type="Script" uid="uid://hx7uf70m2ejt" path="res://scenes/door_eyes.gd" id="13_ytrdw"]
+[ext_resource type="Texture2D" uid="uid://yxjt7mh4vrfu" path="res://assets/scratch/scratch_0.png" id="14_g7d3g"]
+[ext_resource type="Texture2D" uid="uid://ck4438a3b73r6" path="res://assets/scratch/scratch_1.png" id="15_y1xxd"]
+[ext_resource type="Texture2D" uid="uid://ghu2mmx4ejy1" path="res://assets/scratch/scratch_2.png" id="16_hialq"]
+[ext_resource type="Texture2D" uid="uid://dgkf8k47t8t5q" path="res://assets/scratch/scratch_3.png" id="17_pky24"]
+[ext_resource type="Texture2D" uid="uid://bfe5ngbstje8j" path="res://assets/scratch/scratch_4.png" id="18_wcwpw"]
+[ext_resource type="Texture2D" uid="uid://wfs7jt4qo5p6" path="res://assets/scratch/scratch_5.png" id="19_ytrdw"]
+[ext_resource type="Texture2D" uid="uid://ukxib1xdsivs" path="res://assets/scratch/scratch_6.png" id="20_ir4rs"]
+[ext_resource type="Texture2D" uid="uid://dnfks3ad4jbvk" path="res://assets/scratch/scratch_7.png" id="21_4vkst"]
+[ext_resource type="Texture2D" uid="uid://bkj0m1ub7nt87" path="res://assets/scratch/scratch_8.png" id="22_3k6xw"]
 
 [sub_resource type="Shader" id="Shader_mycgk"]
 code = "shader_type canvas_item;
@@ -124,6 +140,35 @@ shader_parameter/pattern = 2
 shader_parameter/inside = false
 shader_parameter/add_margins = true
 
+[sub_resource type="SpriteFrames" id="SpriteFrames_fgfcc"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("9_y1xxd")
+}, {
+"duration": 1.0,
+"texture": ExtResource("10_wcwpw")
+}, {
+"duration": 1.0,
+"texture": ExtResource("11_ytrdw")
+}, {
+"duration": 1.0,
+"texture": ExtResource("12_ir4rs")
+}, {
+"duration": 1.0,
+"texture": ExtResource("11_ytrdw")
+}, {
+"duration": 1.0,
+"texture": ExtResource("10_wcwpw")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_y1xxd")
+}],
+"loop": 0,
+"name": &"wink",
+"speed": 5.0
+}]
+
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_1lj4f"]
 shader = SubResource("Shader_mycgk")
 shader_parameter/flowMap = ExtResource("4_0jxn2")
@@ -136,7 +181,45 @@ shader_parameter/pattern = 2
 shader_parameter/inside = false
 shader_parameter/add_margins = true
 
-[node name="Level" type="Control" unique_id=1635183676 node_paths=PackedStringArray("A", "B", "C", "D", "E", "F", "left_ui", "question", "door0", "door1", "numbers_container")]
+[sub_resource type="SpriteFrames" id="SpriteFrames_4xkny"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("14_g7d3g")
+}, {
+"duration": 1.0,
+"texture": ExtResource("15_y1xxd")
+}, {
+"duration": 1.0,
+"texture": ExtResource("16_hialq")
+}, {
+"duration": 1.0,
+"texture": ExtResource("17_pky24")
+}, {
+"duration": 1.0,
+"texture": ExtResource("18_wcwpw")
+}, {
+"duration": 1.0,
+"texture": ExtResource("19_ytrdw")
+}, {
+"duration": 1.0,
+"texture": ExtResource("20_ir4rs")
+}, {
+"duration": 1.0,
+"texture": ExtResource("21_4vkst")
+}, {
+"duration": 1.0,
+"texture": ExtResource("22_3k6xw")
+}, {
+"duration": 1.0,
+"texture": ExtResource("14_g7d3g")
+}],
+"loop": 0,
+"name": &"scratch",
+"speed": 5.0
+}]
+
+[node name="Level" type="Control" unique_id=1635183676 node_paths=PackedStringArray("A", "B", "C", "D", "E", "F", "left_ui", "question", "door0", "door1", "numbers_container", "fake_transition_rect")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -155,6 +238,7 @@ question = NodePath("HBoxContainer/Middle/Question")
 door0 = NodePath("HBoxContainer/Middle/DoorsContainer/Door0")
 door1 = NodePath("HBoxContainer/Middle/DoorsContainer/Door1")
 numbers_container = NodePath("HBoxContainer/Middle/MarginContainer/NumbersContainer")
+fake_transition_rect = NodePath("FakeTransitionRect")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="." unique_id=922223910]
 layout_mode = 1
@@ -227,10 +311,10 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_constants/margin_left = 27
-theme_override_constants/margin_top = 57
-theme_override_constants/margin_right = 21
-theme_override_constants/margin_bottom = 34
+theme_override_constants/margin_left = 62
+theme_override_constants/margin_top = 43
+theme_override_constants/margin_right = 56
+theme_override_constants/margin_bottom = 29
 
 [node name="Text" type="RichTextLabel" parent="HBoxContainer/Middle/DoorsContainer/Door0/Texture/MarginContainer" unique_id=1318609088]
 layout_mode = 2
@@ -244,6 +328,28 @@ vertical_alignment = 1
 [node name="Door0Button" type="Button" parent="HBoxContainer/Middle/DoorsContainer/Door0/Texture/MarginContainer" unique_id=224626419]
 layout_mode = 2
 size_flags_vertical = 3
+theme = ExtResource("5_1lj4f")
+
+[node name="DoorEyes" type="AnimatedSprite2D" parent="HBoxContainer/Middle/DoorsContainer/Door0" unique_id=19157212]
+visible = false
+position = Vector2(541, 49)
+sprite_frames = SubResource("SpriteFrames_fgfcc")
+animation = &"wink"
+frame = 6
+frame_progress = 1.0
+speed_scale = 4.0
+script = ExtResource("13_ytrdw")
+
+[node name="EyesButton" type="Button" parent="HBoxContainer/Middle/DoorsContainer/Door0/DoorEyes" unique_id=2097397619]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -32.0
+offset_top = -10.0
+offset_right = -32.0
+offset_bottom = -51.0
+grow_horizontal = 2
+grow_vertical = 2
 theme = ExtResource("5_1lj4f")
 
 [node name="Door1" type="Control" parent="HBoxContainer/Middle/DoorsContainer" unique_id=1521495262]
@@ -272,10 +378,10 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_constants/margin_left = 27
-theme_override_constants/margin_top = 57
-theme_override_constants/margin_right = 21
-theme_override_constants/margin_bottom = 34
+theme_override_constants/margin_left = 62
+theme_override_constants/margin_top = 43
+theme_override_constants/margin_right = 56
+theme_override_constants/margin_bottom = 29
 
 [node name="Text" type="RichTextLabel" parent="HBoxContainer/Middle/DoorsContainer/Door1/Texture/MarginContainer" unique_id=1270177537]
 layout_mode = 2
@@ -289,6 +395,28 @@ vertical_alignment = 1
 [node name="Door1Button" type="Button" parent="HBoxContainer/Middle/DoorsContainer/Door1/Texture/MarginContainer" unique_id=488018540]
 layout_mode = 2
 size_flags_vertical = 3
+theme = ExtResource("5_1lj4f")
+
+[node name="DoorEyes" type="AnimatedSprite2D" parent="HBoxContainer/Middle/DoorsContainer/Door1" unique_id=683026857]
+visible = false
+position = Vector2(194, 147)
+sprite_frames = SubResource("SpriteFrames_fgfcc")
+animation = &"wink"
+frame = 6
+frame_progress = 1.0
+speed_scale = 4.0
+script = ExtResource("13_ytrdw")
+
+[node name="EyesButton" type="Button" parent="HBoxContainer/Middle/DoorsContainer/Door1/DoorEyes" unique_id=205883964]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -32.0
+offset_top = -10.0
+offset_right = -32.0
+offset_bottom = -51.0
+grow_horizontal = 2
+grow_vertical = 2
 theme = ExtResource("5_1lj4f")
 
 [node name="MarginContainer" type="MarginContainer" parent="HBoxContainer/Middle" unique_id=2011649526]
@@ -334,9 +462,44 @@ layout_mode = 2
 layout_mode = 2
 size_flags_horizontal = 3
 
+[node name="FakeTransitionRect" type="ColorRect" parent="." unique_id=1711135324]
+visible = false
+material = ExtResource("12_lkilr")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("13_cupps")
+
+[node name="ColorRect" type="ColorRect" parent="FakeTransitionRect" unique_id=1795422795]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="FakeTransitionRect" unique_id=863644241]
+visible = false
+position = Vector2(112.99999, 75.99999)
+scale = Vector2(3.265625, 3.265625)
+sprite_frames = SubResource("SpriteFrames_4xkny")
+animation = &"scratch"
+frame = 9
+frame_progress = 1.0
+speed_scale = 3.0
+
 [connection signal="mouse_entered" from="HBoxContainer/Middle/DoorsContainer/Door0/Texture/MarginContainer/Door0Button" to="HBoxContainer/Middle/DoorsContainer/Door0" method="_on_button_mouse_entered"]
 [connection signal="mouse_exited" from="HBoxContainer/Middle/DoorsContainer/Door0/Texture/MarginContainer/Door0Button" to="HBoxContainer/Middle/DoorsContainer/Door0" method="_on_button_mouse_exited"]
 [connection signal="pressed" from="HBoxContainer/Middle/DoorsContainer/Door0/Texture/MarginContainer/Door0Button" to="." method="_on_door_0_button_pressed"]
+[connection signal="mouse_entered" from="HBoxContainer/Middle/DoorsContainer/Door0/DoorEyes/EyesButton" to="HBoxContainer/Middle/DoorsContainer/Door0/DoorEyes" method="_on_eyes_button_mouse_entered"]
+[connection signal="pressed" from="HBoxContainer/Middle/DoorsContainer/Door0/DoorEyes/EyesButton" to="HBoxContainer/Middle/DoorsContainer/Door0/DoorEyes" method="_on_eyes_button_pressed"]
 [connection signal="mouse_entered" from="HBoxContainer/Middle/DoorsContainer/Door1/Texture/MarginContainer/Door1Button" to="HBoxContainer/Middle/DoorsContainer/Door1" method="_on_button_mouse_entered"]
 [connection signal="mouse_exited" from="HBoxContainer/Middle/DoorsContainer/Door1/Texture/MarginContainer/Door1Button" to="HBoxContainer/Middle/DoorsContainer/Door1" method="_on_button_mouse_exited"]
 [connection signal="pressed" from="HBoxContainer/Middle/DoorsContainer/Door1/Texture/MarginContainer/Door1Button" to="." method="_on_door_1_button_pressed"]
+[connection signal="mouse_entered" from="HBoxContainer/Middle/DoorsContainer/Door1/DoorEyes/EyesButton" to="HBoxContainer/Middle/DoorsContainer/Door1/DoorEyes" method="_on_eyes_button_mouse_entered"]
+[connection signal="pressed" from="HBoxContainer/Middle/DoorsContainer/Door1/DoorEyes/EyesButton" to="HBoxContainer/Middle/DoorsContainer/Door1/DoorEyes" method="_on_eyes_button_pressed"]

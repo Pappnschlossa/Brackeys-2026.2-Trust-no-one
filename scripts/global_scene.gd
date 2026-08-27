@@ -25,7 +25,7 @@ func _on_change_scene(scene_name, transition_type = null):
 	var scene = load(SCENES[scene_name])
 	var instance = scene.instantiate()
 	
-	#await transition_in(transition_type)
+	await transition_in(transition_type)
 
 	for child in get_children():
 		if child != transition_rect and child != canvas_layer:
@@ -37,8 +37,7 @@ func _on_change_scene(scene_name, transition_type = null):
 	
 	#move_child(canvas_layer, 2)
 
-	#transition_out(transition_type)
-	
+	transition_out(transition_type)
 	#music_node._ready()
 	
 
@@ -81,3 +80,60 @@ func _on_remove_overlay():
 		#).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
 	#await tween.finished
 	remove_child(overlay)
+
+
+func transition_in(transition_type):
+	if transition_type == null:
+		return
+	transition_rect.show()
+	var tween = create_tween()
+	if transition_type == "bubble_transition":
+		transition_rect.material = load("uid://bmp2oqi20jmk5").duplicate()
+		var gradient_texture : GradientTexture2D = transition_rect.material.get_shader_parameter("gradient_texture")
+		gradient_texture.fill_to = Vector2(-0.5, -1.0)
+		tween.tween_property(
+			gradient_texture,
+			"fill_to",
+			Vector2(0.505, 0.5),
+			1.5
+		).set_ease(Tween.EASE_OUT)
+	elif transition_type == "wipe_transition":
+		transition_rect.material = load("uid://bnbnui1wilmj3").duplicate()
+		var mat = transition_rect.material
+		mat.set_shader_parameter("progress", 120)
+		tween.tween_property(
+			mat,
+			"shader_parameter/progress",
+			0.0,
+			wipe_fade_in_duration
+		).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
+	transition_rect.mouse_filter = Control.MOUSE_FILTER_STOP
+	await tween.finished
+
+func transition_out(transition_type):
+	if transition_type == null:
+		return
+	var tween = create_tween()
+	if transition_type == "bubble_transition":
+		transition_rect.material = load("uid://bmp2oqi20jmk5").duplicate()
+		var gradient_texture : GradientTexture2D = transition_rect.material.get_shader_parameter("gradient_texture")
+		gradient_texture.fill_to = Vector2(0.505, 0.5)
+		tween.tween_property(
+			gradient_texture,
+			"fill_to",
+			Vector2(-0.5, -1.0),
+			2.0
+		).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
+	elif transition_type == "wipe_transition":
+		transition_rect.material = load("uid://bnbnui1wilmj3").duplicate()
+		var mat = transition_rect.material
+		mat.set_shader_parameter("progress", 0)
+		tween.tween_property(
+			mat,
+			"shader_parameter/progress",
+			120.0,
+			wipe_fade_out_duration
+		).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
+	#transition_rect.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	await tween.finished
+	transition_rect.hide()
