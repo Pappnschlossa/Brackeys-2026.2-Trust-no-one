@@ -9,10 +9,15 @@
 [ext_resource type="Texture2D" uid="uid://c51b1cgdr8rlk" path="res://assets/cage.png" id="7_xndy5"]
 [ext_resource type="Theme" uid="uid://fxj3p4ueiqg2" path="res://assets/themes/transparent_button.tres" id="8_6yf2o"]
 [ext_resource type="Texture2D" uid="uid://dmkaut56mi1t3" path="res://assets/lock.png" id="9_75svu"]
+[ext_resource type="PackedScene" uid="uid://bwx6t2ov5vy14" path="res://scenes/number.tscn" id="10_ej4a6"]
 
 [node name="NumberCage" type="Control" unique_id=1779500707]
 layout_mode = 3
-anchors_preset = 0
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 script = ExtResource("1_fs6og")
@@ -117,6 +122,22 @@ theme = ExtResource("5_s3wqa")
 text = "A"
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="NumberGuess" parent="VBoxContainer/Texture" unique_id=1520978409 instance=ExtResource("10_ej4a6")]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -65.5
+offset_top = -39.0
+offset_right = 62.5
+offset_bottom = 89.0
+mouse_filter = 2
+mouse_behavior_recursive = 1
+is_in_cage = true
 
 [connection signal="mouse_entered" from="VBoxContainer/Texture/Button" to="VBoxContainer" method="_on_button_mouse_entered"]
 [connection signal="mouse_exited" from="VBoxContainer/Texture/Button" to="VBoxContainer" method="_on_button_mouse_exited"]

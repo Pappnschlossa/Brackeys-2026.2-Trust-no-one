@@ -91,6 +91,10 @@ func _on_add_numpad(numpad_id: int) -> void:
 func _on_numpad_button_pressed(n: int) -> void:
 	# Update the visuals to see which is selected
 	number_guesses[active_numpad] = n
+	var number_guess : MarginContainer = number_nodes[active_numpad].get_node("%NumberGuess")
+	number_guess.number = n
+	number_guess.update_number()
+	number_guess.update_opacity(1)
 
 func generate_tutorial_text() -> void:
 	var numbers_in_use : Array[int] = g.get_array_of_numbers_in_use_without_multiplicity()

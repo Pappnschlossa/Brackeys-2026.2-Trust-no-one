@@ -14,7 +14,6 @@ var money_text_previous_value : int
 var money_to_display
 var angle : float = 0.0
 var radius : int = 75
-var offset : Vector2 = Vector2(32, 32)
 @export var speed : float = 1.0
 var numbers_in_use : Array[int] = g.get_array_of_numbers_in_use_without_multiplicity()
 var in_level : bool = false
@@ -25,15 +24,15 @@ func _ready() -> void:
 	update_health()
 	
 func _process(delta: float) -> void:
-	if !in_level:
+	if !in_level or false:
 		return
 	angle += speed*delta
 	var i : int = 0
 	for number in numbers_in_use:
+		var number_node = numbers_container.get_child(2 + i)
 		if number != 1:
-			var number_node = numbers_container.get_child(2 + i)
 			var a : float = angle + i*TAU/(len(numbers_in_use)-1)
-			number_node.position = center.position + offset + radius*Vector2(cos(a), sin(a))
+			number_node.position = center.position + radius*Vector2(cos(a), sin(a))
 			i += 1
 
 func entered_level() -> void:
@@ -52,7 +51,7 @@ func update_hidden_numbers() -> void:
 		strings_array.append(str(g.number_occurences[n]))
 		var instance = load("uid://bwx6t2ov5vy14").instantiate()
 		instance.number = n
-		instance.position = center.position + offset
+		instance.position = center.position
 		if n != 1:
 			instance.position += radius*Vector2(cos(radian_step*i), sin(radian_step*i))
 			i += 1
