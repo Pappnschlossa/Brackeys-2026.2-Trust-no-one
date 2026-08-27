@@ -155,6 +155,15 @@ func can_buy_item(price : int) -> bool:
 func can_use_item(item_id : String) -> bool:
 	return true
 
+const ID_TO_LETTER : Dictionary[int, String] = {
+	0 : "A",
+	1 : "B",
+	2 : "C",
+	3 : "D",
+	4 : "E",
+	5 : "F"
+}
+
 func reinitialize() -> void:
 	level = 1
 	lives = 3

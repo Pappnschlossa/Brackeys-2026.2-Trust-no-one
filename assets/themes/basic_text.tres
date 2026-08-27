@@ -4,4 +4,5 @@
 
 [resource]
 default_font = ExtResource("1_3it8c")
-RichTextLabel/font_sizes/normal_font_size = 32
+RichTextLabel/constants/line_separation = -22
+RichTextLabel/font_sizes/normal_font_size = 30

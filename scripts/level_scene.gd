@@ -18,23 +18,30 @@ signal add_scene_as_an_overlay
 
 const TRUE_NUMBERS : Array[int] = [0, 2, 3, 4, 5, 6, 7, 8, 9]
 const TRUE_ODD_NUMBERS : Array[int] = [3, 5, 7, 9]
-const ID_TO_LETTER : Dictionary[int, String] = {
-	0 : "A",
-	1 : "B",
-	2 : "C",
-	3 : "D",
-	4 : "E",
-	5 : "F"
-}
 
 const OPERATOR_TO_SIGN : Dictionary[String, String] = {
 	"plus" : "+",
 	"minus" : "-",
-	"mult" : "*"
+	"mult" : "x"
 }
 
 const FORMAT_PARITY : Dictionary[int, String] = {
-	-2 : "an even number",
+	-2 : "even",
+	-1 : "odd",
+	0 : "0",
+	1 : "1",
+	2 : "2",
+	3 : "3",
+	4 : "4",
+	5 : "5",
+	6 : "6",
+	7 : "7",
+	8 : "8",
+	9 : "9"
+}
+
+const FORMAT_PARITY_SELF : Dictionary[int, String] = {
+	-2 : "even number",
 	-1 : "an odd number",
 	0 : "the number 0",
 	1 : "the number 1",
@@ -76,7 +83,7 @@ func item_tutorial() -> void:
 		left_ui._on_item_bought("MAGNIFYING_GLASS")
 
 func _on_add_numpad(numpad_id: int) -> void:
-	var pos = Vector2(numpad_id*400 + 300, 1080/2)
+	var pos = number_nodes[numpad_id].global_position + number_nodes[numpad_id].size/2
 	add_scene_as_an_overlay.emit("numpad_overlay", pos)
 	active_numpad = numpad_id
 
@@ -223,23 +230,23 @@ func update_nodes() -> void:
 			var text_line : String
 			if !N.clue.is_equation:
 				if N.clue.target == i: # Target is self
-					text_line = "I am %s." % FORMAT_PARITY[N.clue.value]
+					text_line = "I am\n%s" % FORMAT_PARITY_SELF[N.clue.value]
 				else:
-					text_line = "The number %s is %s." % [g.direction_of_number(i, N.clue.target), FORMAT_PARITY[N.clue.value]]
+					text_line = "The number %s is %s" % [g.direction_of_number(i, N.clue.target), FORMAT_PARITY[N.clue.value]]
 			else:
-				text_line = "I'm equal to %s %s %s." % [ID_TO_LETTER[N.clue.equation_targets[0]], OPERATOR_TO_SIGN[N.clue.operator], ID_TO_LETTER[N.clue.equation_targets[1]]]
-			number_nodes[i].get_node("VBoxContainer/Text").text = text_line
+				text_line = "I'm equal to\n%s %s %s" % [g.ID_TO_LETTER[N.clue.equation_targets[0]], OPERATOR_TO_SIGN[N.clue.operator], g.ID_TO_LETTER[N.clue.equation_targets[1]]]
+			number_nodes[i].get_node("%Text").text = text_line
 			number_nodes[i].visible = true
 		else:
 			number_nodes[i].visible = false
 	left_ui.update_hidden_numbers()
-	question.get_node("Text").text = "What number is %s?" % ID_TO_LETTER[QUESTION]
+	question.get_node("Text").text = "What number is %s?" % g.ID_TO_LETTER[QUESTION]
 	if TRUE_DOOR_ID == 0:
-		door0.get_node("Text").text = str(TRUE_ANSWER)
-		door1.get_node("Text").text = str(FALSE_ANSWER)
+		door0.get_node("Texture/MarginContainer/Text").text = str(TRUE_ANSWER)
+		door1.get_node("Texture/MarginContainer/Text").text = str(FALSE_ANSWER)
 	else:
-		door0.get_node("Text").text = str(FALSE_ANSWER)
-		door1.get_node("Text").text = str(TRUE_ANSWER)
+		door0.get_node("Texture/MarginContainer/Text").text = str(FALSE_ANSWER)
+		door1.get_node("Texture/MarginContainer/Text").text = str(TRUE_ANSWER)
 
 func can_be_equation(id) -> bool:
 	for i in range(AMOUNT-1):

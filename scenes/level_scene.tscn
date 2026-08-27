@@ -5,10 +5,12 @@
 [ext_resource type="PackedScene" uid="uid://c7ylr0khyv7u4" path="res://scenes/left_ui.tscn" id="2_c8xsp"]
 [ext_resource type="Theme" uid="uid://bo40cw5tanri6" path="res://assets/themes/title_text.tres" id="3_2m3ut"]
 [ext_resource type="Texture2D" uid="uid://d1felggl4g2s3" path="res://shaders/flow_map_1.jpg" id="4_0jxn2"]
-[ext_resource type="Script" uid="uid://38i0j54yej6w" path="res://scenes/door.gd" id="4_cu2va"]
+[ext_resource type="Script" uid="uid://38i0j54yej6w" path="res://scenes/highlight.gd" id="4_cu2va"]
 [ext_resource type="PackedScene" uid="uid://dev0ijjb7kua6" path="res://scenes/levels_map.tscn" id="4_fkwfp"]
 [ext_resource type="Texture2D" uid="uid://dskpc6rj5lkeu" path="res://assets/door.png" id="4_ojpky"]
 [ext_resource type="Theme" uid="uid://fxj3p4ueiqg2" path="res://assets/themes/transparent_button.tres" id="5_1lj4f"]
+[ext_resource type="Theme" uid="uid://de1j6ykjdiqd8" path="res://assets/themes/basic_text.tres" id="7_78t5s"]
+[ext_resource type="PackedScene" uid="uid://bh8a77f3toafp" path="res://scenes/number_cage.tscn" id="10_cu2va"]
 
 [sub_resource type="Shader" id="Shader_mycgk"]
 code = "shader_type canvas_item;
@@ -194,6 +196,7 @@ vertical_alignment = 1
 [node name="DoorsContainer" type="HBoxContainer" parent="HBoxContainer/Middle" unique_id=1128860549]
 layout_mode = 2
 size_flags_vertical = 3
+size_flags_stretch_ratio = 0.6
 
 [node name="Door0" type="Control" parent="HBoxContainer/Middle/DoorsContainer" unique_id=315065427]
 layout_mode = 2
@@ -203,16 +206,15 @@ script = ExtResource("4_cu2va")
 [node name="Texture" type="TextureRect" parent="HBoxContainer/Middle/DoorsContainer/Door0" unique_id=182549993]
 material = SubResource("ShaderMaterial_cu2va")
 layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
+anchors_preset = 6
+anchor_left = 1.0
 anchor_top = 0.5
-anchor_right = 0.5
+anchor_right = 1.0
 anchor_bottom = 0.5
-offset_left = -192.0
+offset_left = -384.0
 offset_top = -256.0
-offset_right = 192.0
-offset_bottom = 256.0
-grow_horizontal = 2
+offset_bottom = 144.0
+grow_horizontal = 0
 grow_vertical = 2
 texture = ExtResource("4_ojpky")
 expand_mode = 4
@@ -230,22 +232,19 @@ theme_override_constants/margin_top = 57
 theme_override_constants/margin_right = 21
 theme_override_constants/margin_bottom = 34
 
+[node name="Text" type="RichTextLabel" parent="HBoxContainer/Middle/DoorsContainer/Door0/Texture/MarginContainer" unique_id=1318609088]
+layout_mode = 2
+size_flags_vertical = 3
+mouse_filter = 2
+theme = ExtResource("7_78t5s")
+text = "3"
+horizontal_alignment = 1
+vertical_alignment = 1
+
 [node name="Door0Button" type="Button" parent="HBoxContainer/Middle/DoorsContainer/Door0/Texture/MarginContainer" unique_id=224626419]
 layout_mode = 2
 size_flags_vertical = 3
 theme = ExtResource("5_1lj4f")
-
-[node name="Text" type="RichTextLabel" parent="HBoxContainer/Middle/DoorsContainer/Door0" unique_id=1318609088]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-size_flags_vertical = 3
-mouse_filter = 2
-text = "3"
-horizontal_alignment = 1
 
 [node name="Door1" type="Control" parent="HBoxContainer/Middle/DoorsContainer" unique_id=1521495262]
 layout_mode = 2
@@ -255,16 +254,12 @@ script = ExtResource("4_cu2va")
 [node name="Texture" type="TextureRect" parent="HBoxContainer/Middle/DoorsContainer/Door1" unique_id=1570602394]
 material = SubResource("ShaderMaterial_1lj4f")
 layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
+anchors_preset = 4
 anchor_top = 0.5
-anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -192.0
 offset_top = -256.0
-offset_right = 192.0
-offset_bottom = 256.0
-grow_horizontal = 2
+offset_right = 384.0
+offset_bottom = 144.0
 grow_vertical = 2
 texture = ExtResource("4_ojpky")
 expand_mode = 4
@@ -282,272 +277,66 @@ theme_override_constants/margin_top = 57
 theme_override_constants/margin_right = 21
 theme_override_constants/margin_bottom = 34
 
+[node name="Text" type="RichTextLabel" parent="HBoxContainer/Middle/DoorsContainer/Door1/Texture/MarginContainer" unique_id=1270177537]
+layout_mode = 2
+size_flags_vertical = 3
+mouse_filter = 2
+theme = ExtResource("7_78t5s")
+text = "1"
+horizontal_alignment = 1
+vertical_alignment = 1
+
 [node name="Door1Button" type="Button" parent="HBoxContainer/Middle/DoorsContainer/Door1/Texture/MarginContainer" unique_id=488018540]
 layout_mode = 2
 size_flags_vertical = 3
 theme = ExtResource("5_1lj4f")
 
-[node name="Text" type="RichTextLabel" parent="HBoxContainer/Middle/DoorsContainer/Door1" unique_id=1183813170]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-size_flags_vertical = 3
-mouse_filter = 2
-text = "1"
-horizontal_alignment = 1
-
 [node name="MarginContainer" type="MarginContainer" parent="HBoxContainer/Middle" unique_id=2011649526]
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_constants/margin_left = 200
-theme_override_constants/margin_top = 50
+theme_override_constants/margin_top = -13
 theme_override_constants/margin_right = 200
-theme_override_constants/margin_bottom = 50
+theme_override_constants/margin_bottom = 18
 
-[node name="NumbersContainer" type="GridContainer" parent="HBoxContainer/Middle/MarginContainer" unique_id=2130528984]
+[node name="NumbersContainer" type="GridContainer" parent="HBoxContainer/Middle/MarginContainer" unique_id=2130528984 node_paths=PackedStringArray("A", "B", "C", "D", "E", "F")]
 layout_mode = 2
 size_flags_vertical = 3
+theme_override_constants/v_separation = 20
 columns = 3
 script = ExtResource("2_bl4ss")
+A = NodePath("A")
+B = NodePath("B")
+C = NodePath("C")
+D = NodePath("D")
+E = NodePath("E")
+F = NodePath("F")
 
-[node name="A" type="Control" parent="HBoxContainer/Middle/MarginContainer/NumbersContainer" unique_id=2002476856]
+[node name="A" parent="HBoxContainer/Middle/MarginContainer/NumbersContainer" unique_id=1779500707 instance=ExtResource("10_cu2va")]
 layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
 
-[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/Middle/MarginContainer/NumbersContainer/A" unique_id=778241446]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="Text" type="RichTextLabel" parent="HBoxContainer/Middle/MarginContainer/NumbersContainer/A/VBoxContainer" unique_id=634285301]
+[node name="B" parent="HBoxContainer/Middle/MarginContainer/NumbersContainer" unique_id=39310134 instance=ExtResource("10_cu2va")]
 layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-text = "A"
-horizontal_alignment = 1
-vertical_alignment = 1
 
-[node name="ID" type="RichTextLabel" parent="HBoxContainer/Middle/MarginContainer/NumbersContainer/A/VBoxContainer" unique_id=1608787681]
+[node name="C" parent="HBoxContainer/Middle/MarginContainer/NumbersContainer" unique_id=1488249367 instance=ExtResource("10_cu2va")]
 layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-text = "A"
-horizontal_alignment = 1
-vertical_alignment = 1
 
-[node name="Button" type="Button" parent="HBoxContainer/Middle/MarginContainer/NumbersContainer/A" unique_id=2116290500]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="B" type="Control" parent="HBoxContainer/Middle/MarginContainer/NumbersContainer" unique_id=1745464541]
+[node name="D" parent="HBoxContainer/Middle/MarginContainer/NumbersContainer" unique_id=1220182764 instance=ExtResource("10_cu2va")]
 layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
 
-[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/Middle/MarginContainer/NumbersContainer/B" unique_id=1007001787]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="Text" type="RichTextLabel" parent="HBoxContainer/Middle/MarginContainer/NumbersContainer/B/VBoxContainer" unique_id=1818965700]
+[node name="E" parent="HBoxContainer/Middle/MarginContainer/NumbersContainer" unique_id=1882326225 instance=ExtResource("10_cu2va")]
 layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-text = "B"
-horizontal_alignment = 1
-vertical_alignment = 1
 
-[node name="ID" type="RichTextLabel" parent="HBoxContainer/Middle/MarginContainer/NumbersContainer/B/VBoxContainer" unique_id=1968951337]
+[node name="F" parent="HBoxContainer/Middle/MarginContainer/NumbersContainer" unique_id=375839320 instance=ExtResource("10_cu2va")]
 layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-text = "B"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="Button" type="Button" parent="HBoxContainer/Middle/MarginContainer/NumbersContainer/B" unique_id=1547765504]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="C" type="Control" parent="HBoxContainer/Middle/MarginContainer/NumbersContainer" unique_id=630184891]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-
-[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/Middle/MarginContainer/NumbersContainer/C" unique_id=418457172]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="Text" type="RichTextLabel" parent="HBoxContainer/Middle/MarginContainer/NumbersContainer/C/VBoxContainer" unique_id=1004249225]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-text = "C"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="ID" type="RichTextLabel" parent="HBoxContainer/Middle/MarginContainer/NumbersContainer/C/VBoxContainer" unique_id=646534774]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-text = "C"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="Button" type="Button" parent="HBoxContainer/Middle/MarginContainer/NumbersContainer/C" unique_id=348038977]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="D" type="Control" parent="HBoxContainer/Middle/MarginContainer/NumbersContainer" unique_id=412518679]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-
-[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/Middle/MarginContainer/NumbersContainer/D" unique_id=1204707655]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="Text" type="RichTextLabel" parent="HBoxContainer/Middle/MarginContainer/NumbersContainer/D/VBoxContainer" unique_id=1419599876]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-text = "D"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="ID" type="RichTextLabel" parent="HBoxContainer/Middle/MarginContainer/NumbersContainer/D/VBoxContainer" unique_id=164577322]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-text = "D"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="Button" type="Button" parent="HBoxContainer/Middle/MarginContainer/NumbersContainer/D" unique_id=1968329571]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="E" type="Control" parent="HBoxContainer/Middle/MarginContainer/NumbersContainer" unique_id=1961559971]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-
-[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/Middle/MarginContainer/NumbersContainer/E" unique_id=1821166460]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="Text" type="RichTextLabel" parent="HBoxContainer/Middle/MarginContainer/NumbersContainer/E/VBoxContainer" unique_id=757960990]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-text = "E"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="ID" type="RichTextLabel" parent="HBoxContainer/Middle/MarginContainer/NumbersContainer/E/VBoxContainer" unique_id=1244291881]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-text = "E"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="Button" type="Button" parent="HBoxContainer/Middle/MarginContainer/NumbersContainer/E" unique_id=2007468818]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="F" type="Control" parent="HBoxContainer/Middle/MarginContainer/NumbersContainer" unique_id=2137788967]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-
-[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/Middle/MarginContainer/NumbersContainer/F" unique_id=811869710]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="Text" type="RichTextLabel" parent="HBoxContainer/Middle/MarginContainer/NumbersContainer/F/VBoxContainer" unique_id=1594807316]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-text = "F"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="ID" type="RichTextLabel" parent="HBoxContainer/Middle/MarginContainer/NumbersContainer/F/VBoxContainer" unique_id=936003344]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-text = "F"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="Button" type="Button" parent="HBoxContainer/Middle/MarginContainer/NumbersContainer/F" unique_id=166327743]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
 
 [node name="Map" parent="HBoxContainer" unique_id=1980888744 instance=ExtResource("4_fkwfp")]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[connection signal="mouse_entered" from="HBoxContainer/Middle/DoorsContainer/Door0/Texture/MarginContainer/Door0Button" to="HBoxContainer/Middle/DoorsContainer/Door0" method="_on_door_button_mouse_entered"]
-[connection signal="mouse_exited" from="HBoxContainer/Middle/DoorsContainer/Door0/Texture/MarginContainer/Door0Button" to="HBoxContainer/Middle/DoorsContainer/Door0" method="_on_door_button_mouse_exited"]
+[connection signal="mouse_entered" from="HBoxContainer/Middle/DoorsContainer/Door0/Texture/MarginContainer/Door0Button" to="HBoxContainer/Middle/DoorsContainer/Door0" method="_on_button_mouse_entered"]
+[connection signal="mouse_exited" from="HBoxContainer/Middle/DoorsContainer/Door0/Texture/MarginContainer/Door0Button" to="HBoxContainer/Middle/DoorsContainer/Door0" method="_on_button_mouse_exited"]
 [connection signal="pressed" from="HBoxContainer/Middle/DoorsContainer/Door0/Texture/MarginContainer/Door0Button" to="." method="_on_door_0_button_pressed"]
-[connection signal="mouse_entered" from="HBoxContainer/Middle/DoorsContainer/Door1/Texture/MarginContainer/Door1Button" to="HBoxContainer/Middle/DoorsContainer/Door1" method="_on_door_button_mouse_entered"]
-[connection signal="mouse_exited" from="HBoxContainer/Middle/DoorsContainer/Door1/Texture/MarginContainer/Door1Button" to="HBoxContainer/Middle/DoorsContainer/Door1" method="_on_door_button_mouse_exited"]
+[connection signal="mouse_entered" from="HBoxContainer/Middle/DoorsContainer/Door1/Texture/MarginContainer/Door1Button" to="HBoxContainer/Middle/DoorsContainer/Door1" method="_on_button_mouse_entered"]
+[connection signal="mouse_exited" from="HBoxContainer/Middle/DoorsContainer/Door1/Texture/MarginContainer/Door1Button" to="HBoxContainer/Middle/DoorsContainer/Door1" method="_on_button_mouse_exited"]
 [connection signal="pressed" from="HBoxContainer/Middle/DoorsContainer/Door1/Texture/MarginContainer/Door1Button" to="." method="_on_door_1_button_pressed"]
-[connection signal="pressed" from="HBoxContainer/Middle/MarginContainer/NumbersContainer/A/Button" to="HBoxContainer/Middle/MarginContainer/NumbersContainer" method="_on_button_pressed" binds= [0]]
-[connection signal="pressed" from="HBoxContainer/Middle/MarginContainer/NumbersContainer/B/Button" to="HBoxContainer/Middle/MarginContainer/NumbersContainer" method="_on_button_pressed" binds= [1]]
-[connection signal="pressed" from="HBoxContainer/Middle/MarginContainer/NumbersContainer/C/Button" to="HBoxContainer/Middle/MarginContainer/NumbersContainer" method="_on_button_pressed" binds= [2]]
-[connection signal="pressed" from="HBoxContainer/Middle/MarginContainer/NumbersContainer/D/Button" to="HBoxContainer/Middle/MarginContainer/NumbersContainer" method="_on_button_pressed" binds= [3]]
-[connection signal="pressed" from="HBoxContainer/Middle/MarginContainer/NumbersContainer/E/Button" to="HBoxContainer/Middle/MarginContainer/NumbersContainer" method="_on_button_pressed" binds= [4]]
-[connection signal="pressed" from="HBoxContainer/Middle/MarginContainer/NumbersContainer/F/Button" to="HBoxContainer/Middle/MarginContainer/NumbersContainer" method="_on_button_pressed" binds= [5]]

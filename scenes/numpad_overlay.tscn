@@ -4,8 +4,6 @@
 
 [node name="Numpad" type="Control" unique_id=1768687218 node_paths=PackedStringArray("button_0", "button_1", "button_2", "button_3", "button_4", "button_5", "button_6", "button_7", "button_8", "button_9")]
 layout_mode = 3
-anchor_right = 0.080729164
-anchor_bottom = 0.027777778
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_i04uq")
@@ -19,17 +17,16 @@ button_6 = NodePath("MarginContainer/HBoxContainer/Button6")
 button_7 = NodePath("MarginContainer/HBoxContainer/Button7")
 button_8 = NodePath("MarginContainer/HBoxContainer/Button8")
 button_9 = NodePath("MarginContainer/HBoxContainer/Button9")
-metadata/_edit_use_anchors_ = true
 
 [node name="ColorRect" type="ColorRect" parent="." unique_id=791390162]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -1920.0
-offset_top = -1080.0
-offset_right = 1765.0
-offset_bottom = 1050.0
+offset_left = -1947.0
+offset_top = -1088.0
+offset_right = 1738.0
+offset_bottom = 1042.0
 grow_horizontal = 2
 grow_vertical = 2
 color = Color(0, 0, 0, 0.7607843)

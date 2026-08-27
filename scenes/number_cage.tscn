@@ -1,0 +1,123 @@
+[gd_scene format=3 uid="uid://bh8a77f3toafp"]
+
+[ext_resource type="Script" uid="uid://be43fb1piabah" path="res://scenes/number_cage.gd" id="1_fs6og"]
+[ext_resource type="Script" uid="uid://38i0j54yej6w" path="res://scenes/highlight.gd" id="2_ej4a6"]
+[ext_resource type="Texture2D" uid="uid://bei6gjl8b6odr" path="res://assets/speech_bubble.png" id="3_nycv4"]
+[ext_resource type="Material" uid="uid://bafyasjxgvhj5" path="res://shaders/colored_text_wobble_material.tres" id="4_iwyrd"]
+[ext_resource type="Theme" uid="uid://de1j6ykjdiqd8" path="res://assets/themes/basic_text.tres" id="5_s3wqa"]
+[ext_resource type="Material" uid="uid://df8s1mvjvgfm0" path="res://shaders/big_texture_wobble_material.tres" id="6_4xrwj"]
+[ext_resource type="Texture2D" uid="uid://c51b1cgdr8rlk" path="res://assets/cage.png" id="7_xndy5"]
+[ext_resource type="Theme" uid="uid://fxj3p4ueiqg2" path="res://assets/themes/transparent_button.tres" id="8_6yf2o"]
+[ext_resource type="Texture2D" uid="uid://dmkaut56mi1t3" path="res://assets/lock.png" id="9_75svu"]
+
+[node name="NumberCage" type="Control" unique_id=1779500707]
+layout_mode = 3
+anchors_preset = 0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+script = ExtResource("1_fs6og")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=1840845478]
+custom_maximum_size = Vector2(355, 245)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("2_ej4a6")
+
+[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer" unique_id=1316230054]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/margin_top = -27
+theme_override_constants/margin_bottom = -57
+
+[node name="TextBackground" type="TextureRect" parent="VBoxContainer/MarginContainer" unique_id=772791817]
+layout_mode = 2
+texture = ExtResource("3_nycv4")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/MarginContainer" unique_id=1715727517]
+layout_mode = 2
+theme_override_constants/margin_left = 54
+theme_override_constants/margin_top = 18
+theme_override_constants/margin_right = 51
+theme_override_constants/margin_bottom = 53
+
+[node name="Text" type="RichTextLabel" parent="VBoxContainer/MarginContainer/MarginContainer" unique_id=1280792549]
+unique_name_in_owner = true
+material = ExtResource("4_iwyrd")
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme = ExtResource("5_s3wqa")
+text = "The number to my lower right is even"
+scroll_active = false
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Texture" type="TextureRect" parent="VBoxContainer" unique_id=2125871395]
+unique_name_in_owner = true
+material = ExtResource("6_4xrwj")
+custom_minimum_size = Vector2(180, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 3
+size_flags_stretch_ratio = 2.5
+texture = ExtResource("7_xndy5")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Button" type="Button" parent="VBoxContainer/Texture" unique_id=2132834528]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("8_6yf2o")
+
+[node name="TextureRect" type="TextureRect" parent="VBoxContainer/Texture" unique_id=161503731]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -30.0
+offset_top = 39.0
+offset_right = 34.0
+offset_bottom = 103.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("9_75svu")
+
+[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/Texture/TextureRect" unique_id=1436212147]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_constants/margin_left = 3
+theme_override_constants/margin_top = 11
+
+[node name="TextID" type="RichTextLabel" parent="VBoxContainer/Texture/TextureRect/MarginContainer" unique_id=684650426]
+unique_name_in_owner = true
+material = ExtResource("4_iwyrd")
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+mouse_filter = 2
+theme = ExtResource("5_s3wqa")
+text = "A"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[connection signal="mouse_entered" from="VBoxContainer/Texture/Button" to="VBoxContainer" method="_on_button_mouse_entered"]
+[connection signal="mouse_exited" from="VBoxContainer/Texture/Button" to="VBoxContainer" method="_on_button_mouse_exited"]
+[connection signal="pressed" from="VBoxContainer/Texture/Button" to="." method="_on_button_pressed"]
