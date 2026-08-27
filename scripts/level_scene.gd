@@ -77,6 +77,7 @@ func _ready() -> void:
 	update_nodes()
 	numbers_container.add_numpad.connect(_on_add_numpad)
 	item_tutorial()
+	left_ui.entered_level()
 
 func item_tutorial() -> void:
 	if g.level == 3:

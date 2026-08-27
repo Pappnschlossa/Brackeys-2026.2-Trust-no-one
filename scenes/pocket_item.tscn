@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://ces2bhel05kdm"]
 
-[ext_resource type="Script" uid="uid://cdhnbmfkqwuhi" path="res://scenes/pocket_item.gd" id="1_5vj0f"]
+[ext_resource type="Script" uid="uid://cdhnbmfkqwuhi" path="res://scripts/pocket_item.gd" id="1_5vj0f"]
 [ext_resource type="Texture2D" uid="uid://cdi2td1nhnx3c" path="res://assets/life_potion.png" id="1_5688f"]
 [ext_resource type="Theme" uid="uid://fxj3p4ueiqg2" path="res://assets/themes/transparent_button.tres" id="2_5vj0f"]
 
