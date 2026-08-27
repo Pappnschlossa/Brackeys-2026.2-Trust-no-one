@@ -249,11 +249,11 @@ func update_nodes() -> void:
 	left_ui.update_hidden_numbers()
 	question.get_node("Text").text = "What number is %s?" % g.ID_TO_LETTER[QUESTION]
 	if TRUE_DOOR_ID == 0:
-		door0.get_node("Texture/MarginContainer/Text").text = str(TRUE_ANSWER)
-		door1.get_node("Texture/MarginContainer/Text").text = str(FALSE_ANSWER)
+		door0.get_node("SignTexture/Text").text = str(TRUE_ANSWER)
+		door1.get_node("SignTexture/Text").text = str(FALSE_ANSWER)
 	else:
-		door0.get_node("Texture/MarginContainer/Text").text = str(FALSE_ANSWER)
-		door1.get_node("Texture/MarginContainer/Text").text = str(TRUE_ANSWER)
+		door0.get_node("SignTexture/Text").text = str(FALSE_ANSWER)
+		door1.get_node("SignTexture/Text").text = str(TRUE_ANSWER)
 
 func can_be_equation(id) -> bool:
 	for i in range(AMOUNT-1):
