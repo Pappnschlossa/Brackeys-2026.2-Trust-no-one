@@ -5,6 +5,8 @@
 [ext_resource type="Texture2D" uid="uid://d1felggl4g2s3" path="res://shaders/flow_map_1.jpg" id="2_torse"]
 [ext_resource type="Texture2D" uid="uid://cv3gksfa5bvcj" path="res://assets/map_arrow.png" id="3_torse"]
 [ext_resource type="Texture2D" uid="uid://d3o8fblgql3nq" path="res://assets/map_overlay.png" id="4_wv288"]
+[ext_resource type="Material" uid="uid://bafyasjxgvhj5" path="res://shaders/colored_text_wobble_material.tres" id="6_0i5vq"]
+[ext_resource type="Theme" uid="uid://de1j6ykjdiqd8" path="res://assets/themes/basic_text.tres" id="7_3qyuh"]
 
 [sub_resource type="Shader" id="Shader_mycgk"]
 code = "shader_type canvas_item;
@@ -128,19 +130,6 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_vrh62")
 
-[node name="VBox" type="VBoxContainer" parent="." unique_id=652960508]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="Text" type="RichTextLabel" parent="VBox" unique_id=1247472892]
-layout_mode = 2
-text = "Level 1"
-fit_content = true
-
 [node name="MapPath" type="TextureRect" parent="." unique_id=102895233]
 material = SubResource("ShaderMaterial_wv288")
 layout_mode = 1
@@ -162,6 +151,22 @@ offset_bottom = 952.0
 grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("3_torse")
+
+[node name="VBox" type="VBoxContainer" parent="." unique_id=652960508]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Text" type="RichTextLabel" parent="VBox" unique_id=1247472892]
+material = ExtResource("6_0i5vq")
+layout_mode = 2
+theme = ExtResource("7_3qyuh")
+text = "Level 1"
+fit_content = true
+horizontal_alignment = 1
 
 [node name="MapOverlay" type="TextureRect" parent="." unique_id=954556747]
 material = SubResource("ShaderMaterial_wv288")
