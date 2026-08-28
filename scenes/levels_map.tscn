@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://cmkvg8wj5fga5" path="res://scripts/levels_map.gd" id="1_vrh62"]
 [ext_resource type="Texture2D" uid="uid://54a5mc5h1gtd" path="res://assets/map_path.png" id="2_evu6l"]
 [ext_resource type="Texture2D" uid="uid://d1felggl4g2s3" path="res://shaders/flow_map_1.jpg" id="2_torse"]
+[ext_resource type="Texture2D" uid="uid://dsjkjo41fr3qw" path="res://assets/map_first_path.png" id="3_3qyuh"]
 [ext_resource type="Texture2D" uid="uid://cv3gksfa5bvcj" path="res://assets/map_arrow.png" id="3_torse"]
 [ext_resource type="Texture2D" uid="uid://d3o8fblgql3nq" path="res://assets/map_overlay.png" id="4_wv288"]
 [ext_resource type="Material" uid="uid://bafyasjxgvhj5" path="res://shaders/colored_text_wobble_material.tres" id="6_0i5vq"]
@@ -129,6 +130,17 @@ offset_right = -1772.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_vrh62")
+
+[node name="MapFirstPath" type="TextureRect" parent="." unique_id=645061273]
+visible = false
+material = SubResource("ShaderMaterial_wv288")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("3_3qyuh")
 
 [node name="MapPath" type="TextureRect" parent="." unique_id=102895233]
 material = SubResource("ShaderMaterial_wv288")

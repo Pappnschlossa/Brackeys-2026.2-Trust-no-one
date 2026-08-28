@@ -261,7 +261,7 @@ func update_nodes(envelope_id = null) -> void:
 	if envelope_id != null:
 		return
 	left_ui.update_hidden_numbers()
-	question.get_node("Text").text = "What number is %s?" % g.ID_TO_LETTER[QUESTION]
+	question.get_node("Text").text = "Which number is in cage %s?" % g.ID_TO_LETTER[QUESTION]
 	if TRUE_DOOR_ID == 0:
 		door0.get_node("SignTexture/Text").text = str(TRUE_ANSWER)
 		door1.get_node("SignTexture/Text").text = str(FALSE_ANSWER)
@@ -313,9 +313,14 @@ func wrong_door(door_id : int) -> void:
 
 func transition_to_next_level() -> void:
 	g.level += 1
+	var has_correct_guesses : bool = false
 	for id in range(len(number_guesses)):
 		if numbers[id].val == number_guesses[id]:
-			g.money += 1
+			number_nodes[id].collect_coin(Vector2(146.0, 1040.0))
+			await get_tree().create_timer(0.7).timeout
+			has_correct_guesses = true
+	if has_correct_guesses:
+		await get_tree().create_timer(1.5).timeout
 	if g.level%10 == 0:
 		change_scene.emit("shop_scene", "bubble_transition")
 	else:

@@ -2,6 +2,9 @@ extends Control
 
 signal cage_button_pressed
 
+@export var coin : AnimatedSprite2D
+@export var left_ui : Control
+
 func _ready() -> void:
 	get_node("%Texture").material = get_node("%Texture").material.duplicate()
 	get_node("%TextID").text = g.ID_TO_LETTER[get_index()]
@@ -33,3 +36,20 @@ func reveal_one_with_magnifying_glass() -> void:
 func is_question() -> void:
 	get_node("%Texture").texture = load("uid://500jfuen1gng")
 	get_node("%Lock").texture = load("uid://buhqjk78imbmr")
+
+func collect_coin(to : Vector2) -> void:
+	coin.global_position = global_position + size/2 + Vector2(0, 30)
+	coin.play("coin_spin")
+	coin.show()
+	await get_tree().create_timer(0.5)
+	var tween = create_tween()
+	tween.tween_property(
+		coin,
+		"global_position",
+		to,
+		1.0
+	).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
+	await tween.finished
+	g.money += 1
+	left_ui.update_money()
+	coin.hide()

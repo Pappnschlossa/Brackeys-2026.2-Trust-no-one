@@ -247,6 +247,9 @@ numbers_container = NodePath("HBoxContainer/Middle/MarginContainer/NumbersContai
 fake_transition_rect = NodePath("FakeTransitionRect")
 envelope_overlay = NodePath("EnvelopeOverlay")
 
+[node name="Marker2D" type="Marker2D" parent="." unique_id=229607956]
+position = Vector2(146, 1040)
+
 [node name="LevelBackground" type="TextureRect" parent="." unique_id=1720293293]
 layout_mode = 0
 offset_right = 1920.0
@@ -495,23 +498,29 @@ E = NodePath("E")
 F = NodePath("F")
 level = NodePath("../../../..")
 
-[node name="A" parent="HBoxContainer/Middle/MarginContainer/NumbersContainer" unique_id=1779500707 instance=ExtResource("10_cu2va")]
+[node name="A" parent="HBoxContainer/Middle/MarginContainer/NumbersContainer" unique_id=1779500707 node_paths=PackedStringArray("left_ui") instance=ExtResource("10_cu2va")]
 layout_mode = 2
+left_ui = NodePath("../../../../LeftUI")
 
-[node name="B" parent="HBoxContainer/Middle/MarginContainer/NumbersContainer" unique_id=39310134 instance=ExtResource("10_cu2va")]
+[node name="B" parent="HBoxContainer/Middle/MarginContainer/NumbersContainer" unique_id=39310134 node_paths=PackedStringArray("left_ui") instance=ExtResource("10_cu2va")]
 layout_mode = 2
+left_ui = NodePath("../../../../LeftUI")
 
-[node name="C" parent="HBoxContainer/Middle/MarginContainer/NumbersContainer" unique_id=1488249367 instance=ExtResource("10_cu2va")]
+[node name="C" parent="HBoxContainer/Middle/MarginContainer/NumbersContainer" unique_id=1488249367 node_paths=PackedStringArray("left_ui") instance=ExtResource("10_cu2va")]
 layout_mode = 2
+left_ui = NodePath("../../../../LeftUI")
 
-[node name="D" parent="HBoxContainer/Middle/MarginContainer/NumbersContainer" unique_id=1220182764 instance=ExtResource("10_cu2va")]
+[node name="D" parent="HBoxContainer/Middle/MarginContainer/NumbersContainer" unique_id=1220182764 node_paths=PackedStringArray("left_ui") instance=ExtResource("10_cu2va")]
 layout_mode = 2
+left_ui = NodePath("../../../../LeftUI")
 
-[node name="E" parent="HBoxContainer/Middle/MarginContainer/NumbersContainer" unique_id=1882326225 instance=ExtResource("10_cu2va")]
+[node name="E" parent="HBoxContainer/Middle/MarginContainer/NumbersContainer" unique_id=1882326225 node_paths=PackedStringArray("left_ui") instance=ExtResource("10_cu2va")]
 layout_mode = 2
+left_ui = NodePath("../../../../LeftUI")
 
-[node name="F" parent="HBoxContainer/Middle/MarginContainer/NumbersContainer" unique_id=375839320 instance=ExtResource("10_cu2va")]
+[node name="F" parent="HBoxContainer/Middle/MarginContainer/NumbersContainer" unique_id=375839320 node_paths=PackedStringArray("left_ui") instance=ExtResource("10_cu2va")]
 layout_mode = 2
+left_ui = NodePath("../../../../LeftUI")
 
 [node name="Map" parent="HBoxContainer" unique_id=1980888744 instance=ExtResource("4_fkwfp")]
 layout_mode = 2

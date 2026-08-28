@@ -20,9 +20,12 @@ var numbers_in_use : Array[int] = g.get_array_of_numbers_in_use_without_multipli
 var in_level : bool = false
 
 func _ready() -> void:
-	money_text.text = "Money: %s" % str(g.money)
+	money_text.text = "%s" % str(g.money)
 	money_text_previous_value = g.money
 	update_health()
+
+func update_money() -> void:
+	money_text.text = "%s" % str(g.money)
 	
 func _process(delta: float) -> void:
 	if !in_level or false:
@@ -102,7 +105,7 @@ func _on_item_bought(item_id : String) -> void:
 	tween.tween_method(
 		func(value):
 			money_to_display = value
-			money_text.text = "Money: %s" % str(value),
+			money_text.text = "%s" % str(value),
 		money_to_display,
 		g.money,
 		sqrt(money_text_previous_value-g.money)/4
