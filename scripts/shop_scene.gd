@@ -31,6 +31,7 @@ func randomize_items() -> void:
 		item.update_item(chosen_item_id)
 
 func _on_shop_exit_button_pressed() -> void:
+	g.level += 1
 	change_scene.emit("level_scene", "bubble_transition")
 
 
@@ -69,6 +70,7 @@ func use_item(item_id : String) -> void:
 			using_envelope = true
 		"KEY":
 			await get_tree().create_timer(0.6).timeout
+			g.level += 1
 			change_scene.emit("level_scene", "bubble_transition")
 		"LIFE_POTION":
 			pass

@@ -8,9 +8,137 @@
 [ext_resource type="Texture2D" uid="uid://dmvgy5pwylkjp" path="res://assets/crystal_ball_back.png" id="6_kwl3u"]
 [ext_resource type="Material" uid="uid://df8s1mvjvgfm0" path="res://shaders/big_texture_wobble_material.tres" id="7_1w74l"]
 [ext_resource type="Texture2D" uid="uid://cp5uvg8hubvfi" path="res://assets/crystal_ball_front.png" id="7_f2cx8"]
+[ext_resource type="Texture2D" uid="uid://d1felggl4g2s3" path="res://shaders/flow_map_1.jpg" id="9_idkyr"]
 [ext_resource type="Texture2D" uid="uid://d18bhha50hlhe" path="res://assets/chain.png" id="10_bto12"]
 [ext_resource type="Texture2D" uid="uid://px45iopibqgg" path="res://assets/cauldron.png" id="10_h1dx4"]
 [ext_resource type="Texture2D" uid="uid://dh3nx4b050i1v" path="res://assets/item_slot.png" id="10_idkyr"]
+
+[sub_resource type="Shader" id="Shader_mycgk"]
+code = "shader_type canvas_item;
+
+uniform sampler2D flowMap; //Displacement map
+uniform float strength;    //Force of the effect
+uniform float speed;       //Speed of the effect
+uniform int frames : hint_range(1, 10); //Frames of the effect
+
+uniform vec4 color : source_color = vec4(1.0);
+uniform float width : hint_range(0, 10) = 0.0;
+uniform int pattern : hint_range(0, 2) = 0; // diamond, circle, square
+uniform bool inside = false;
+uniform bool add_margins = true; // only useful when inside is false
+
+void vertex() {
+	if (add_margins) {
+		VERTEX += (UV * 2.0 - 1.0) * width;
+	}
+}
+
+bool hasContraryNeighbour(vec2 uv, vec2 texture_pixel_size, sampler2D texture) {
+	for (float i = -ceil(width); i <= ceil(width); i++) {
+		float x = abs(i) > width ? width * sign(i) : i;
+		float offset;
+		
+		if (pattern == 0) {
+			offset = width - abs(x);
+		} else if (pattern == 1) {
+			offset = floor(sqrt(pow(width + 0.5, 2) - x * x));
+		} else if (pattern == 2) {
+			offset = width;
+		}
+		
+		for (float j = -ceil(offset); j <= ceil(offset); j++) {
+			float y = abs(j) > offset ? offset * sign(j) : j;
+			vec2 xy = uv + texture_pixel_size * vec2(x, y);
+			
+			if ((xy != clamp(xy, vec2(0.0), vec2(1.0)) || texture(texture, xy).a <= 0.0) == inside) {
+				return true;
+			}
+		}
+	}
+	
+	return false;
+}
+
+//Returns a value between 0 and 1 depending of the frames -> exemple: frames = 4, frame 1 = 0.25
+float clock(float time){
+	float fframes = float(frames);
+	return floor(mod(time * speed, fframes)) / fframes;
+}
+
+void fragment() {
+	// --- First shader: flow-map displacement ---
+	float c = clock(TIME);
+	vec4 offset = texture(flowMap, vec2(UV.x + c, UV.y + c)) * strength;
+
+	vec2 uv = UV + offset.xy - vec2(0.5, 0.5) * strength;
+
+
+	// --- Second shader: margins ---
+	if (add_margins) {
+		vec2 texture_pixel_size = vec2(1.0) /
+			(vec2(1.0) / TEXTURE_PIXEL_SIZE + vec2(width * 2.0));
+
+		uv = (uv - texture_pixel_size * width)
+			* TEXTURE_PIXEL_SIZE / texture_pixel_size;
+
+		if (uv != clamp(uv, vec2(0.0), vec2(1.0))) {
+			COLOR.a = 0.0;
+		} else {
+			COLOR = texture(TEXTURE, uv);
+		}
+	} else {
+		COLOR = texture(TEXTURE, uv);
+	}
+
+
+	// --- Second shader: contrary neighbour / outline ---
+	if ((COLOR.a > 0.0) == inside &&
+		hasContraryNeighbour(uv, TEXTURE_PIXEL_SIZE, TEXTURE)) {
+
+		COLOR.rgb = inside
+			? mix(COLOR.rgb, color.rgb, color.a)
+			: color.rgb;
+
+		COLOR.a += (1.0 - COLOR.a) * color.a;
+	}
+}
+
+
+// TEST CLOCK
+/*
+void fragment(){
+	float c = clock(TIME);
+	COLOR = vec4( c, c, c, 1);
+}
+*/
+"
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_yfgw7"]
+load_path = "res://.godot/imported/flow_map_1.jpg-7c8a6753d148c7751e068af2f1e274d0.ctex"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_72o07"]
+shader = SubResource("Shader_mycgk")
+shader_parameter/flowMap = SubResource("CompressedTexture2D_yfgw7")
+shader_parameter/strength = 0.003
+shader_parameter/speed = 5.0
+shader_parameter/frames = 3
+shader_parameter/color = Color(1, 1, 1, 1)
+shader_parameter/width = 0.0
+shader_parameter/pattern = 0
+shader_parameter/inside = false
+shader_parameter/add_margins = true
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_wj6jc"]
+shader = SubResource("Shader_mycgk")
+shader_parameter/flowMap = ExtResource("9_idkyr")
+shader_parameter/strength = 0.003
+shader_parameter/speed = 5.0
+shader_parameter/frames = 3
+shader_parameter/color = Color(1, 1, 1, 1)
+shader_parameter/width = 0.0
+shader_parameter/pattern = 0
+shader_parameter/inside = false
+shader_parameter/add_margins = true
 
 [node name="LeftUI" type="Control" unique_id=252584194 node_paths=PackedStringArray("numbers_hiding_text", "money_text", "item_slot_0", "item_slot_1", "item_slot_2", "item_slot_3", "numbers_container", "center")]
 layout_mode = 3
@@ -145,6 +273,7 @@ theme_override_constants/margin_right = -80
 theme_override_constants/margin_bottom = -32
 
 [node name="Chain" type="TextureRect" parent="VBoxContainer/Pockets/ChainsAndItems/Item0/MarginContainer" unique_id=1971394667]
+material = SubResource("ShaderMaterial_72o07")
 layout_mode = 2
 mouse_filter = 2
 texture = ExtResource("10_bto12")
@@ -166,6 +295,7 @@ theme_override_constants/margin_right = -80
 theme_override_constants/margin_bottom = -32
 
 [node name="Chain" type="TextureRect" parent="VBoxContainer/Pockets/ChainsAndItems/Item1/MarginContainer" unique_id=1161134215]
+material = SubResource("ShaderMaterial_72o07")
 layout_mode = 2
 mouse_filter = 2
 texture = ExtResource("10_bto12")
@@ -187,6 +317,7 @@ theme_override_constants/margin_right = -80
 theme_override_constants/margin_bottom = -32
 
 [node name="Chain" type="TextureRect" parent="VBoxContainer/Pockets/ChainsAndItems/Item2/MarginContainer" unique_id=1270004421]
+material = SubResource("ShaderMaterial_72o07")
 layout_mode = 2
 mouse_filter = 2
 texture = ExtResource("10_bto12")
@@ -208,6 +339,7 @@ theme_override_constants/margin_right = -80
 theme_override_constants/margin_bottom = -32
 
 [node name="Chain" type="TextureRect" parent="VBoxContainer/Pockets/ChainsAndItems/Item3/MarginContainer" unique_id=1551395401]
+material = SubResource("ShaderMaterial_72o07")
 layout_mode = 2
 mouse_filter = 2
 texture = ExtResource("10_bto12")
@@ -239,6 +371,7 @@ theme_override_constants/margin_right = -80
 theme_override_constants/margin_bottom = -32
 
 [node name="Cauldron" type="TextureRect" parent="VBoxContainer/Pockets/Cauldrons/Item0/MarginContainer2" unique_id=2076897510]
+material = SubResource("ShaderMaterial_wj6jc")
 layout_mode = 2
 mouse_filter = 2
 texture = ExtResource("10_h1dx4")
@@ -262,6 +395,7 @@ theme_override_constants/margin_right = -80
 theme_override_constants/margin_bottom = -32
 
 [node name="Cauldron" type="TextureRect" parent="VBoxContainer/Pockets/Cauldrons/Item1/MarginContainer2" unique_id=617779028]
+material = SubResource("ShaderMaterial_wj6jc")
 layout_mode = 2
 mouse_filter = 2
 texture = ExtResource("10_h1dx4")
@@ -285,6 +419,7 @@ theme_override_constants/margin_right = -80
 theme_override_constants/margin_bottom = -32
 
 [node name="Cauldron" type="TextureRect" parent="VBoxContainer/Pockets/Cauldrons/Item2/MarginContainer2" unique_id=1547683393]
+material = SubResource("ShaderMaterial_wj6jc")
 layout_mode = 2
 mouse_filter = 2
 texture = ExtResource("10_h1dx4")
@@ -308,6 +443,7 @@ theme_override_constants/margin_right = -80
 theme_override_constants/margin_bottom = -32
 
 [node name="Cauldron" type="TextureRect" parent="VBoxContainer/Pockets/Cauldrons/Item3/MarginContainer2" unique_id=498856894]
+material = SubResource("ShaderMaterial_wj6jc")
 layout_mode = 2
 mouse_filter = 2
 texture = ExtResource("10_h1dx4")

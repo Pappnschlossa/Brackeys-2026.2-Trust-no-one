@@ -1,14 +1,129 @@
 [gd_scene format=3 uid="uid://dev0ijjb7kua6"]
 
 [ext_resource type="Script" uid="uid://cmkvg8wj5fga5" path="res://scripts/levels_map.gd" id="1_vrh62"]
+[ext_resource type="Texture2D" uid="uid://54a5mc5h1gtd" path="res://assets/map_path.png" id="2_evu6l"]
+[ext_resource type="Texture2D" uid="uid://d1felggl4g2s3" path="res://shaders/flow_map_1.jpg" id="2_torse"]
+[ext_resource type="Texture2D" uid="uid://cv3gksfa5bvcj" path="res://assets/map_arrow.png" id="3_torse"]
+[ext_resource type="Texture2D" uid="uid://d3o8fblgql3nq" path="res://assets/map_overlay.png" id="4_wv288"]
 
-[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_4xkny"]
+[sub_resource type="Shader" id="Shader_mycgk"]
+code = "shader_type canvas_item;
+
+uniform sampler2D flowMap; //Displacement map
+uniform float strength;    //Force of the effect
+uniform float speed;       //Speed of the effect
+uniform int frames : hint_range(1, 10); //Frames of the effect
+
+uniform vec4 color : source_color = vec4(1.0);
+uniform float width : hint_range(0, 10) = 0.0;
+uniform int pattern : hint_range(0, 2) = 0; // diamond, circle, square
+uniform bool inside = false;
+uniform bool add_margins = true; // only useful when inside is false
+
+void vertex() {
+	if (add_margins) {
+		VERTEX += (UV * 2.0 - 1.0) * width;
+	}
+}
+
+bool hasContraryNeighbour(vec2 uv, vec2 texture_pixel_size, sampler2D texture) {
+	for (float i = -ceil(width); i <= ceil(width); i++) {
+		float x = abs(i) > width ? width * sign(i) : i;
+		float offset;
+		
+		if (pattern == 0) {
+			offset = width - abs(x);
+		} else if (pattern == 1) {
+			offset = floor(sqrt(pow(width + 0.5, 2) - x * x));
+		} else if (pattern == 2) {
+			offset = width;
+		}
+		
+		for (float j = -ceil(offset); j <= ceil(offset); j++) {
+			float y = abs(j) > offset ? offset * sign(j) : j;
+			vec2 xy = uv + texture_pixel_size * vec2(x, y);
+			
+			if ((xy != clamp(xy, vec2(0.0), vec2(1.0)) || texture(texture, xy).a <= 0.0) == inside) {
+				return true;
+			}
+		}
+	}
+	
+	return false;
+}
+
+//Returns a value between 0 and 1 depending of the frames -> exemple: frames = 4, frame 1 = 0.25
+float clock(float time){
+	float fframes = float(frames);
+	return floor(mod(time * speed, fframes)) / fframes;
+}
+
+void fragment() {
+	// --- First shader: flow-map displacement ---
+	float c = clock(TIME);
+	vec4 offset = texture(flowMap, vec2(UV.x + c, UV.y + c)) * strength;
+
+	vec2 uv = UV + offset.xy - vec2(0.5, 0.5) * strength;
+
+
+	// --- Second shader: margins ---
+	if (add_margins) {
+		vec2 texture_pixel_size = vec2(1.0) /
+			(vec2(1.0) / TEXTURE_PIXEL_SIZE + vec2(width * 2.0));
+
+		uv = (uv - texture_pixel_size * width)
+			* TEXTURE_PIXEL_SIZE / texture_pixel_size;
+
+		if (uv != clamp(uv, vec2(0.0), vec2(1.0))) {
+			COLOR.a = 0.0;
+		} else {
+			COLOR = texture(TEXTURE, uv);
+		}
+	} else {
+		COLOR = texture(TEXTURE, uv);
+	}
+
+
+	// --- Second shader: contrary neighbour / outline ---
+	if ((COLOR.a > 0.0) == inside &&
+		hasContraryNeighbour(uv, TEXTURE_PIXEL_SIZE, TEXTURE)) {
+
+		COLOR.rgb = inside
+			? mix(COLOR.rgb, color.rgb, color.a)
+			: color.rgb;
+
+		COLOR.a += (1.0 - COLOR.a) * color.a;
+	}
+}
+
+
+// TEST CLOCK
+/*
+void fragment(){
+	float c = clock(TIME);
+	COLOR = vec4( c, c, c, 1);
+}
+*/
+"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_wv288"]
+shader = SubResource("Shader_mycgk")
+shader_parameter/flowMap = ExtResource("2_torse")
+shader_parameter/strength = 0.001
+shader_parameter/speed = 5.0
+shader_parameter/frames = 3
+shader_parameter/color = Color(1, 1, 1, 1)
+shader_parameter/width = 0.0
+shader_parameter/pattern = 0
+shader_parameter/inside = false
+shader_parameter/add_margins = true
 
 [node name="Map" type="Control" unique_id=1980888744]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_right = -1772.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_vrh62")
@@ -26,7 +141,34 @@ layout_mode = 2
 text = "Level 1"
 fit_content = true
 
-[node name="TextureRect" type="TextureRect" parent="VBox" unique_id=244630886]
-layout_mode = 2
-size_flags_vertical = 3
-texture = SubResource("PlaceholderTexture2D_4xkny")
+[node name="MapPath" type="TextureRect" parent="." unique_id=102895233]
+material = SubResource("ShaderMaterial_wv288")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_evu6l")
+
+[node name="MapCursor" type="TextureRect" parent="." unique_id=2087732178]
+material = SubResource("ShaderMaterial_wv288")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 952.0
+offset_bottom = 952.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("3_torse")
+
+[node name="MapOverlay" type="TextureRect" parent="." unique_id=954556747]
+material = SubResource("ShaderMaterial_wv288")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("4_wv288")
