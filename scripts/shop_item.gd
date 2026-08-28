@@ -53,6 +53,7 @@ func _on_button_pressed() -> void:
 	elif g.can_buy_item(price):
 		g.money -= price
 		g.nb_of_items_being_bought += 1
+		price = -1
 		$PriceTag/Text.text = "Sold"
 		# We animate it
 		var tween = create_tween()

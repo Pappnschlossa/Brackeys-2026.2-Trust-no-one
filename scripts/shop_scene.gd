@@ -3,6 +3,7 @@ extends Control
 signal change_scene
 signal add_scene_as_an_overlay
 signal shake_screen
+signal magnifying_glass_used
 
 @export var left_ui : Control
 @export var door_node : Control
@@ -19,6 +20,7 @@ func _ready() -> void:
 	randomize_items()
 	for item in shop_items:
 		item.item_bought.connect(left_ui._on_item_bought)
+	magnifying_glass_used.connect(left_ui._on_item_bought)
 	left_ui._on_inventory_reload()
 
 func randomize_items() -> void:
@@ -47,6 +49,12 @@ func use_item(item_id : String) -> void:
 			await get_tree().create_timer(0.1).timeout
 			change_scene.emit("shop_scene")
 		"ENVELOPE":
+			var item_to_be_found : bool = false
+			for item in shop_items:
+				if item.price != -1:
+					item_to_be_found = true
+			if !item_to_be_found: # Avoid using envelope if there is no object to buy
+				return
 			var target_modulate = envelope_overlay.modulate
 			target_modulate.a = 1.0
 			envelope_overlay.modulate.a = 0.0
@@ -65,4 +73,6 @@ func use_item(item_id : String) -> void:
 		"LIFE_POTION":
 			pass
 		"MAGNIFYING_GLASS":
-			pass
+			var available_items = g.ITEMS.keys()
+			available_items.erase("MAGNIFYING_GLASS")
+			magnifying_glass_used.emit(available_items.pick_random())
