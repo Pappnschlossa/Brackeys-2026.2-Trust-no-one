@@ -2,6 +2,7 @@ extends Control
 
 signal change_scene
 signal add_scene_as_an_overlay
+signal shake_screen
 
 @export var A : Control
 @export var B : Control
@@ -82,6 +83,9 @@ func _ready() -> void:
 	left_ui.entered_level()
 
 func item_tutorial() -> void:
+	#TEMP
+	if g.level == 1:
+		left_ui._on_item_bought("MAGNIFYING_GLASS")
 	if g.level == 3:
 		left_ui._on_item_bought("MAGNIFYING_GLASS")
 
@@ -296,7 +300,6 @@ func wrong_door(door_id : int) -> void:
 	await fake_transition_rect.fake_transition()
 	left_ui.update_health()
 	doors[door_id].get_node("DoorEyes").visible = true
-	
 
 func transition_to_next_level() -> void:
 	g.level += 1
@@ -307,3 +310,24 @@ func transition_to_next_level() -> void:
 		change_scene.emit("shop_scene", "bubble_transition")
 	else:
 		change_scene.emit("level_scene", "bubble_transition")
+
+func use_item(item_id : String) -> void:
+	match item_id:
+		"DICE":
+			await get_tree().create_timer(0.6).timeout
+			shake_screen.emit()
+			await get_tree().create_timer(0.1).timeout
+			change_scene.emit("level_scene")
+		"ENVELOPE":
+			pass
+		"KEY":
+			await get_tree().create_timer(0.6).timeout
+			transition_to_next_level()
+		"LIFE_POTION":
+			pass
+		"MAGNIFYING_GLASS":
+			for id in range(len(numbers)):
+				if numbers[id].val == 1:
+					number_nodes[id].reveal_one_with_magnifying_glass()
+					number_guesses[id] = 1
+					break

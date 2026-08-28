@@ -2,10 +2,12 @@
 
 [ext_resource type="Script" uid="uid://itknkhfxjdni" path="res://scripts/global_scene.gd" id="1_4pk28"]
 [ext_resource type="Material" uid="uid://bmp2oqi20jmk5" path="res://shaders/bubble_transition_material.tres" id="2_nmxvb"]
+[ext_resource type="Script" uid="uid://cut8cbwb6oi32" path="res://scenes/camera_2d.gd" id="3_opebo"]
 
-[node name="Global" type="Node" unique_id=2032605609 node_paths=PackedStringArray("transition_rect")]
+[node name="Global" type="Node" unique_id=2032605609 node_paths=PackedStringArray("transition_rect", "camera_node")]
 script = ExtResource("1_4pk28")
 transition_rect = NodePath("ColorRect")
+camera_node = NodePath("Camera2D")
 
 [node name="ColorRect" type="ColorRect" parent="." unique_id=2101861654]
 visible = false
@@ -15,3 +17,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=1852322681]
+position = Vector2(960, 540)
+script = ExtResource("3_opebo")

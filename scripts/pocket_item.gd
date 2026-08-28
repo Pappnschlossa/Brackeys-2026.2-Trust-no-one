@@ -1,5 +1,7 @@
 extends Control
 
+signal item_effect
+
 var item_id : String = "DICE"
 var old_y : int
 var item_pos : int
@@ -37,17 +39,7 @@ func _on_button_pressed() -> void:
 			var uv = get_uv_from_click(local_pos)
 			burnCard(uv)
 			g.current_items[item_pos] = "EMPTY"
-			match item_id:
-				"DICE" :
-					pass
-				"ENVELOPE" :
-					pass
-				"KEY" :
-					pass
-				"LIFE_POTION" :
-					pass
-				"MAGNIFYING_GLASS" :
-					pass
+			item_effect.emit(item_id)
 
 func get_uv_from_click(local_click_pos: Vector2) -> Vector2:
 	var top_left_pos = local_click_pos

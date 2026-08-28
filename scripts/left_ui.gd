@@ -9,6 +9,7 @@ extends Control
 @onready var item_slots : Array[TextureRect] = [item_slot_0, item_slot_1, item_slot_2, item_slot_3]
 @export var numbers_container : Control
 @export var center : Marker2D
+@export var level : Control
 
 var money_text_previous_value : int
 var money_to_display
@@ -90,6 +91,8 @@ func _on_item_bought(item_id : String) -> void:
 			var instance = item.instantiate()
 			instance.item_id = item_id
 			instance.item_pos = i
+			instance.item_effect.connect(level.use_item)
+			instance.item_effect.connect(use_item)
 			item_slots[i].add_child(instance)
 			break
 	# Update Money
@@ -104,3 +107,18 @@ func _on_item_bought(item_id : String) -> void:
 		sqrt(money_text_previous_value-g.money)/4
 	).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
 	money_text_previous_value = g.money
+
+func use_item(item_id : String) -> void:
+	match item_id:
+		"DICE":
+			pass
+		"ENVELOPE":
+			pass
+		"KEY":
+			pass
+		"LIFE_POTION":
+			g.lives = min(g.lives + 1, 3)
+			update_health()
+		"MAGNIFYING_GLASS":
+			pass
+		

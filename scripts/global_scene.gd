@@ -7,6 +7,7 @@ extends Node
 @export var gear_fade_out_duration = 3.0
 @export var wipe_fade_in_duration = 0.3
 @export var wipe_fade_out_duration = 0.3
+@export var camera_node : Camera2D
 
 const SCENES = {
 	"title_scene" : "uid://bv0o1kuyl8te6",
@@ -28,10 +29,12 @@ func _on_change_scene(scene_name, transition_type = null):
 	await transition_in(transition_type)
 
 	for child in get_children():
-		if child != transition_rect and child != canvas_layer:
+		if child != transition_rect and child != canvas_layer and child != camera_node:
 			remove_child(child)
 	instance.change_scene.connect(_on_change_scene)
 	instance.add_scene_as_an_overlay.connect(_on_add_scene_as_an_overlay)
+	if scene_name == "level_scene":
+		instance.shake_screen.connect(camera_node.apply_shake)
 	add_child(instance)
 	move_child(instance, 0)
 	
