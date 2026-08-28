@@ -146,9 +146,10 @@ func get_nb_of_items() -> int:
 			count += 1
 	return count
 const MAX_ITEM_AMOUNT = 4
+var nb_of_items_being_bought : int = 0
 
 func can_buy_item(price : int) -> bool:
-	if money >= price and get_nb_of_items() < MAX_ITEM_AMOUNT:
+	if money >= price and get_nb_of_items() < (MAX_ITEM_AMOUNT - nb_of_items_being_bought):
 		return true
 	return false
 
@@ -167,5 +168,5 @@ const ID_TO_LETTER : Dictionary[int, String] = {
 func reinitialize() -> void:
 	level = 1
 	lives = 3
-	money = 2000
+	money = 0
 	current_items = ["EMPTY", "EMPTY", "EMPTY", "EMPTY"]

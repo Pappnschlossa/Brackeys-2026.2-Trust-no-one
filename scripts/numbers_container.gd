@@ -9,6 +9,7 @@ signal add_numpad
 @export var E : Control
 @export var F : Control
 @onready var number_cages : Array[Control] = [A, B, C, D, E, F]
+@export var level : Control
 
 
 func _ready() -> void:
@@ -21,4 +22,26 @@ func _ready() -> void:
 		number_cages[i].cage_button_pressed.connect(_on_cage_button_pressed.bind(i))
 
 func _on_cage_button_pressed(numpad_id : int) -> void:
-	add_numpad.emit(numpad_id)
+	if level.using_envelope:
+		var old_text : String = level.number_nodes[numpad_id].get_node("%Text").text
+		var new_text : String = old_text
+		while old_text == new_text:
+			level.generate_text(numpad_id)
+			level.update_nodes(numpad_id)
+			new_text = level.number_nodes[numpad_id].get_node("%Text").text
+		level.using_envelope = false
+		var target_modulate = level.envelope_overlay.modulate
+		target_modulate.a = 0.0
+		level.envelope_overlay.modulate.a = 1.0
+		level.envelope_overlay.show()
+		var tween = create_tween()
+		tween.tween_property(
+			level.envelope_overlay,
+			"modulate",
+			target_modulate,
+			0.3
+		)
+		await tween.finished
+		level.envelope_overlay.visible = false
+	else:
+		add_numpad.emit(numpad_id)

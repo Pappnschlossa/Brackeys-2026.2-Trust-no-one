@@ -223,7 +223,7 @@ animations = [{
 "speed": 5.0
 }]
 
-[node name="Level" type="Control" unique_id=1635183676 node_paths=PackedStringArray("A", "B", "C", "D", "E", "F", "left_ui", "question", "door0", "door1", "numbers_container", "fake_transition_rect")]
+[node name="Level" type="Control" unique_id=1635183676 node_paths=PackedStringArray("A", "B", "C", "D", "E", "F", "left_ui", "question", "door0", "door1", "numbers_container", "fake_transition_rect", "envelope_overlay")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -243,6 +243,7 @@ door0 = NodePath("HBoxContainer/Middle/DoorsContainer/Door0")
 door1 = NodePath("HBoxContainer/Middle/DoorsContainer/Door1")
 numbers_container = NodePath("HBoxContainer/Middle/MarginContainer/NumbersContainer")
 fake_transition_rect = NodePath("FakeTransitionRect")
+envelope_overlay = NodePath("EnvelopeOverlay")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="." unique_id=922223910]
 layout_mode = 1
@@ -472,7 +473,7 @@ theme_override_constants/margin_top = -13
 theme_override_constants/margin_right = 200
 theme_override_constants/margin_bottom = 18
 
-[node name="NumbersContainer" type="GridContainer" parent="HBoxContainer/Middle/MarginContainer" unique_id=2130528984 node_paths=PackedStringArray("A", "B", "C", "D", "E", "F")]
+[node name="NumbersContainer" type="GridContainer" parent="HBoxContainer/Middle/MarginContainer" unique_id=2130528984 node_paths=PackedStringArray("A", "B", "C", "D", "E", "F", "level")]
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_constants/v_separation = 20
@@ -484,6 +485,7 @@ C = NodePath("C")
 D = NodePath("D")
 E = NodePath("E")
 F = NodePath("F")
+level = NodePath("../../../..")
 
 [node name="A" parent="HBoxContainer/Middle/MarginContainer/NumbersContainer" unique_id=1779500707 instance=ExtResource("10_cu2va")]
 layout_mode = 2
@@ -506,6 +508,36 @@ layout_mode = 2
 [node name="Map" parent="HBoxContainer" unique_id=1980888744 instance=ExtResource("4_fkwfp")]
 layout_mode = 2
 size_flags_horizontal = 3
+
+[node name="EnvelopeOverlay" type="Control" parent="." unique_id=2100560820]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="ColorRect" type="ColorRect" parent="EnvelopeOverlay" unique_id=1005878634]
+layout_mode = 0
+offset_right = 514.0
+offset_bottom = 1080.0
+color = Color(0, 0, 0, 0.34117648)
+
+[node name="ColorRect2" type="ColorRect" parent="EnvelopeOverlay" unique_id=1767390377]
+layout_mode = 0
+offset_left = 1554.0
+offset_right = 2068.0
+offset_bottom = 1080.0
+color = Color(0, 0, 0, 0.34117648)
+
+[node name="ColorRect3" type="ColorRect" parent="EnvelopeOverlay" unique_id=288187460]
+layout_mode = 0
+offset_left = 514.0
+offset_right = 1554.0
+offset_bottom = 515.0
+color = Color(0, 0, 0, 0.34117648)
 
 [node name="FakeTransitionRect" type="ColorRect" parent="." unique_id=1711135324]
 visible = false

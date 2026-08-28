@@ -93,6 +93,7 @@ func _on_item_bought(item_id : String) -> void:
 			instance.item_pos = i
 			instance.item_effect.connect(level.use_item)
 			instance.item_effect.connect(use_item)
+			instance.just_bought = true
 			item_slots[i].add_child(instance)
 			break
 	# Update Money

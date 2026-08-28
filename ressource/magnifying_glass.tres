@@ -7,6 +7,6 @@
 script = ExtResource("1_esiej")
 id = "MAGNIFYING_GLASS"
 texture = ExtResource("2_5tju8")
-average_price = 10
-description = "Reveals one number"
+average_price = 30
+description = "Reveals the 1"
 metadata/_custom_type_script = "uid://mwlqykq1cuuq"

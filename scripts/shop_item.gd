@@ -4,6 +4,7 @@ signal item_bought
 
 var item_id : String = "DICE"
 var price : int = 99
+var tween_processing : bool = false
 
 func _ready() -> void:
 	var mat = $Texture.material
@@ -22,8 +23,11 @@ func _on_button_mouse_exited() -> void:
 	$Texture.material.set_shader_parameter("width", 0.0)
 
 func _on_button_pressed() -> void:
+	if tween_processing:
+		return
 	if g.can_buy_item(price):
 		g.money -= price
+		g.nb_of_items_being_bought += 1
 		$PriceTag/Text.text = "Sold"
 		# We animate it
 		var tween = create_tween()
@@ -31,7 +35,10 @@ func _on_button_pressed() -> void:
 			$Texture,
 			"position",
 			Vector2($Texture.position.x, -1080),
-			1.0
+			0.6
 		).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
+		tween_processing = true
 		await tween.finished
+		tween_processing = false
 		item_bought.emit(item_id)
+		g.nb_of_items_being_bought -= 1

@@ -18,6 +18,7 @@ signal shake_screen
 @onready var doors : Array[Control] = [door0, door1]
 @export var numbers_container : GridContainer
 @export var fake_transition_rect : ColorRect
+@export var envelope_overlay : Control
 
 const TRUE_NUMBERS : Array[int] = [0, 2, 3, 4, 5, 6, 7, 8, 9]
 const TRUE_ODD_NUMBERS : Array[int] = [3, 5, 7, 9]
@@ -69,6 +70,7 @@ var FALSE_ANSWER : int # False value of number
 
 var active_numpad : int = -1
 var number_guesses : Array[int]
+var using_envelope : bool = false
 
 func _ready() -> void:
 	if g.level < g.tutorial_level_threshold:
@@ -84,9 +86,6 @@ func _ready() -> void:
 	left_ui.entered_level()
 
 func item_tutorial() -> void:
-	#TEMP
-	if g.level == 1:
-		left_ui._on_item_bought("MAGNIFYING_GLASS")
 	if g.level == 3:
 		left_ui._on_item_bought("MAGNIFYING_GLASS")
 
@@ -179,9 +178,14 @@ func initialize_level_variables(odd : bool = false) -> void:
 				number_nodes[n].is_question()
 		n += 1
 	
-func generate_text() -> void:
+func generate_text(envelope_id = null) -> void:
 	var id = 0
+	
 	for N in numbers:
+		if envelope_id != null and id != envelope_id:
+			id += 1
+			continue
+
 		var possible_types : Array[bool] = [true, false]
 		if can_be_equation(id) or (N.val == 1 and AMOUNT >= 3):
 			N.clue.is_equation = possible_types.pick_random()
@@ -235,9 +239,11 @@ func generate_text() -> void:
 		id += 1
 
 
-func update_nodes() -> void:
+func update_nodes(envelope_id = null) -> void:
 	for i in range(len(number_nodes)):
 		if i <= MAX_ID:
+			if envelope_id != null and envelope_id != i:
+				continue
 			#number_nodes[i].get_node("VBoxContainer/Text").text = str(numbers[i].val)
 			var N = numbers[i]
 			var text_line : String
@@ -252,6 +258,8 @@ func update_nodes() -> void:
 			number_nodes[i].visible = true
 		else:
 			number_nodes[i].visible = false
+	if envelope_id != null:
+		return
 	left_ui.update_hidden_numbers()
 	question.get_node("Text").text = "What number is %s?" % g.ID_TO_LETTER[QUESTION]
 	if TRUE_DOOR_ID == 0:
@@ -308,7 +316,7 @@ func transition_to_next_level() -> void:
 	for id in range(len(number_guesses)):
 		if numbers[id].val == number_guesses[id]:
 			g.money += 1
-	if g.level%2 == 0:
+	if g.level%10 == 0:
 		change_scene.emit("shop_scene", "bubble_transition")
 	else:
 		change_scene.emit("level_scene", "bubble_transition")
@@ -321,7 +329,18 @@ func use_item(item_id : String) -> void:
 			await get_tree().create_timer(0.1).timeout
 			change_scene.emit("level_scene")
 		"ENVELOPE":
-			pass
+			var target_modulate = envelope_overlay.modulate
+			target_modulate.a = 1.0
+			envelope_overlay.modulate.a = 0.0
+			envelope_overlay.show()
+			var tween = create_tween()
+			tween.tween_property(
+				envelope_overlay,
+				"modulate",
+				target_modulate,
+				0.3
+			)
+			using_envelope = true
 		"KEY":
 			await get_tree().create_timer(0.6).timeout
 			transition_to_next_level()
