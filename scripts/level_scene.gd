@@ -19,6 +19,7 @@ signal shake_screen
 @export var numbers_container : GridContainer
 @export var fake_transition_rect : ColorRect
 @export var envelope_overlay : Control
+@export var warning : Control
 
 const TRUE_NUMBERS : Array[int] = [0, 2, 3, 4, 5, 6, 7, 8, 9]
 const TRUE_ODD_NUMBERS : Array[int] = [3, 5, 7, 9]
@@ -86,7 +87,7 @@ func _ready() -> void:
 	left_ui.entered_level()
 
 func item_tutorial() -> void:
-	if g.level == 3:
+	if g.level == 3 or g.level == 6:
 		left_ui._on_item_bought("MAGNIFYING_GLASS")
 
 func _on_add_numpad(numpad_id: int) -> void:
@@ -228,6 +229,7 @@ func generate_text(envelope_id = null) -> void:
 				possible_targets.erase(first_member)
 				var second_member : int = possible_targets.pick_random()
 				N.clue.equation_targets = [first_member, second_member]
+				N.clue.equation_targets.sort()
 				N.clue.operator = ["plus", "minus", "mult"].pick_random()
 				if N.clue.operator == "minus":
 					if randf() < 0.5: # if substraction then 1/2 chances to swap
@@ -299,10 +301,16 @@ func find_equations(id) -> Array[Array]:
 	return equations
 
 func _on_door_0_button_pressed() -> void:
+	if number_guesses[QUESTION] == -1:
+		guess_needed_warning()
+		return
 	if TRUE_DOOR_ID == 0:	transition_to_next_level()
 	else:	wrong_door(0)
 
 func _on_door_1_button_pressed() -> void:
+	if number_guesses[QUESTION] == -1:
+		guess_needed_warning()
+		return
 	if TRUE_DOOR_ID == 1:	transition_to_next_level()
 	else:	wrong_door(1)
 
@@ -310,6 +318,9 @@ func wrong_door(door_id : int) -> void:
 	await fake_transition_rect.fake_transition()
 	left_ui.update_health()
 	doors[door_id].get_node("DoorEyes").visible = true
+
+func guess_needed_warning() -> void:
+	warning.show()
 
 func transition_to_next_level() -> void:
 	g.level += 1
@@ -357,3 +368,6 @@ func use_item(item_id : String) -> void:
 					number_nodes[id].reveal_one_with_magnifying_glass()
 					number_guesses[id] = 1
 					break
+
+func _on_warning_button_pressed() -> void:
+	warning.hide()

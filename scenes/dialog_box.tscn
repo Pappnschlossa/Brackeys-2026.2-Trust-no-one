@@ -1,0 +1,14 @@
+[gd_scene format=3 uid="uid://dmvvj7vsox4av"]
+
+[ext_resource type="Theme" uid="uid://bksdfylev8f" path="res://assets/themes/dialog_box.tres" id="1_xvd2c"]
+
+[node name="DialogBox" type="PanelContainer" unique_id=1303972556]
+offset_right = 530.0
+offset_bottom = 232.0
+theme = ExtResource("1_xvd2c")
+
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=1624003871]
+layout_mode = 2
+theme_override_constants/margin_left = -9
+theme_override_constants/margin_top = -6
+theme_override_constants/margin_right = -12

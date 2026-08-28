@@ -18,8 +18,12 @@ func fake_transition() -> void:
 	await get_tree().create_timer(1.0).timeout
 	$AnimatedSprite2D.show()
 	$AnimatedSprite2D.play("scratch")
+	$HeartBreak.show()
+	$HeartBreak.play("heartbreak")
 	g.lives -= 1
-	await $AnimatedSprite2D.animation_finished
+	await $HeartBreak.animation_finished
+	$HeartBreak.hide()
+	await get_tree().create_timer(0.2).timeout
 	$AnimatedSprite2D.hide()
 	fake_transition_out()
 

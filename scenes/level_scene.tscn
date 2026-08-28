@@ -33,6 +33,14 @@
 [ext_resource type="Texture2D" uid="uid://dnfks3ad4jbvk" path="res://assets/scratch/scratch_7.png" id="21_4vkst"]
 [ext_resource type="Texture2D" uid="uid://bkj0m1ub7nt87" path="res://assets/scratch/scratch_8.png" id="22_3k6xw"]
 [ext_resource type="Texture2D" uid="uid://b4744yp21pkfe" path="res://assets/level_foreground.png" id="22_b0ykq"]
+[ext_resource type="Texture2D" uid="uid://g4g3edhxdkpu" path="res://assets/heart_break/heartbreak_0.png" id="25_80qai"]
+[ext_resource type="Texture2D" uid="uid://e8ufar40878m" path="res://assets/heart_break/heartbreak_1.png" id="26_wmw8n"]
+[ext_resource type="Texture2D" uid="uid://dh2p7x2bmu156" path="res://assets/heart_break/heartbreak_2.png" id="27_vcw7i"]
+[ext_resource type="Texture2D" uid="uid://cc36g8diyv47u" path="res://assets/heart_break/heartbreak_3.png" id="28_wdw0c"]
+[ext_resource type="Texture2D" uid="uid://bn7bost7cgyk2" path="res://assets/heart_break/heartbreak_4.png" id="29_luuy5"]
+[ext_resource type="Texture2D" uid="uid://p5eyv1rv7x8p" path="res://assets/heart_break/heartbreak_5.png" id="30_f3ugr"]
+[ext_resource type="PackedScene" uid="uid://dmvvj7vsox4av" path="res://scenes/dialog_box.tscn" id="40_wmw8n"]
+[ext_resource type="FontFile" uid="uid://b75gmbl18kr1" path="res://assets/fonts/DarumadropOne-Regular.ttf" id="41_vcw7i"]
 
 [sub_resource type="Shader" id="Shader_mycgk"]
 code = "shader_type canvas_item;
@@ -187,6 +195,32 @@ shader_parameter/pattern = 2
 shader_parameter/inside = false
 shader_parameter/add_margins = true
 
+[sub_resource type="SpriteFrames" id="SpriteFrames_agchy"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("25_80qai")
+}, {
+"duration": 1.0,
+"texture": ExtResource("26_wmw8n")
+}, {
+"duration": 1.0,
+"texture": ExtResource("27_vcw7i")
+}, {
+"duration": 1.0,
+"texture": ExtResource("28_wdw0c")
+}, {
+"duration": 1.0,
+"texture": ExtResource("29_luuy5")
+}, {
+"duration": 1.0,
+"texture": ExtResource("30_f3ugr")
+}],
+"loop": 0,
+"name": &"heartbreak",
+"speed": 5.0
+}]
+
 [sub_resource type="SpriteFrames" id="SpriteFrames_4xkny"]
 animations = [{
 "frames": [{
@@ -225,7 +259,28 @@ animations = [{
 "speed": 5.0
 }]
 
-[node name="Level" type="Control" unique_id=1635183676 node_paths=PackedStringArray("A", "B", "C", "D", "E", "F", "left_ui", "question", "door0", "door1", "numbers_container", "fake_transition_rect", "envelope_overlay")]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4xkny"]
+bg_color = Color(1, 0.6784314, 0.5254902, 1)
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wdw0c"]
+bg_color = Color(0.99999696, 0.5178328, 0.26352367, 1)
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_luuy5"]
+bg_color = Color(1, 0.7855734, 0.68584216, 1)
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+
+[node name="Level" type="Control" unique_id=1635183676 node_paths=PackedStringArray("A", "B", "C", "D", "E", "F", "left_ui", "question", "door0", "door1", "numbers_container", "fake_transition_rect", "envelope_overlay", "warning")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -246,6 +301,7 @@ door1 = NodePath("HBoxContainer/Middle/DoorsContainer/Door1")
 numbers_container = NodePath("HBoxContainer/Middle/MarginContainer/NumbersContainer")
 fake_transition_rect = NodePath("FakeTransitionRect")
 envelope_overlay = NodePath("EnvelopeOverlay")
+warning = NodePath("Warning")
 
 [node name="Marker2D" type="Marker2D" parent="." unique_id=229607956]
 position = Vector2(146, 1040)
@@ -584,15 +640,85 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0, 0, 0, 1)
 
+[node name="HeartBreak" type="AnimatedSprite2D" parent="FakeTransitionRect" unique_id=417493352]
+visible = false
+position = Vector2(949.0001, 626.00006)
+scale = Vector2(7.0742188, 7.0742188)
+sprite_frames = SubResource("SpriteFrames_agchy")
+animation = &"heartbreak"
+speed_scale = 3.0
+
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="FakeTransitionRect" unique_id=863644241]
 visible = false
-position = Vector2(112.99999, 75.99999)
-scale = Vector2(3.265625, 3.265625)
+position = Vector2(976, 516.00006)
+scale = Vector2(8.054687, 8.054687)
 sprite_frames = SubResource("SpriteFrames_4xkny")
 animation = &"scratch"
-frame = 9
-frame_progress = 1.0
 speed_scale = 3.0
+
+[node name="Warning" type="Control" parent="." unique_id=457052574]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="DialogBox" parent="Warning" unique_id=1303972556 instance=ExtResource("40_wmw8n")]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -394.0
+offset_top = -262.75
+offset_right = 394.0
+offset_bottom = 352.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Wait" type="RichTextLabel" parent="Warning/DialogBox" unique_id=49732399]
+material = ExtResource("11_lkilr")
+layout_mode = 2
+theme = ExtResource("3_2m3ut")
+theme_override_font_sizes/normal_font_size = 60
+text = "Wait!"
+horizontal_alignment = 1
+
+[node name="Text" type="RichTextLabel" parent="Warning/DialogBox" unique_id=86186181]
+material = ExtResource("11_lkilr")
+layout_mode = 2
+theme = ExtResource("7_78t5s")
+theme_override_font_sizes/normal_font_size = 35
+text = "
+
+
+To enter the door of your choice, you must first select the number you think is in the bronze cage.
+
+Just click on that cage to assign a number.
+
+You should also consider trying to guess the numbers in the other cages (by clicking on those cages).
+
+Each correct guess will grant you one gold coin upon entering the correct door."
+horizontal_alignment = 1
+
+[node name="Button" type="Button" parent="Warning/DialogBox" unique_id=910476819]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 8
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
+theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_pressed_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("41_vcw7i")
+theme_override_font_sizes/font_size = 42
+theme_override_styles/normal = SubResource("StyleBoxFlat_4xkny")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_wdw0c")
+theme_override_styles/hover = SubResource("StyleBoxFlat_luuy5")
+text = " Click here to continue "
 
 [connection signal="mouse_entered" from="HBoxContainer/Middle/DoorsContainer/Door0/Texture/MarginContainer/Door0Button" to="HBoxContainer/Middle/DoorsContainer/Door0" method="_on_button_mouse_entered"]
 [connection signal="mouse_exited" from="HBoxContainer/Middle/DoorsContainer/Door0/Texture/MarginContainer/Door0Button" to="HBoxContainer/Middle/DoorsContainer/Door0" method="_on_button_mouse_exited"]
@@ -604,3 +730,4 @@ speed_scale = 3.0
 [connection signal="pressed" from="HBoxContainer/Middle/DoorsContainer/Door1/Texture/MarginContainer/Door1Button" to="." method="_on_door_1_button_pressed"]
 [connection signal="mouse_entered" from="HBoxContainer/Middle/DoorsContainer/Door1/DoorEyes/EyesButton" to="HBoxContainer/Middle/DoorsContainer/Door1/DoorEyes" method="_on_eyes_button_mouse_entered"]
 [connection signal="pressed" from="HBoxContainer/Middle/DoorsContainer/Door1/DoorEyes/EyesButton" to="HBoxContainer/Middle/DoorsContainer/Door1/DoorEyes" method="_on_eyes_button_pressed"]
+[connection signal="pressed" from="Warning/DialogBox/Button" to="." method="_on_warning_button_pressed"]

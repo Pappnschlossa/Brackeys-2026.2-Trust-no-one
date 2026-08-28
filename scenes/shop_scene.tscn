@@ -13,6 +13,9 @@
 [ext_resource type="Theme" uid="uid://fxj3p4ueiqg2" path="res://assets/themes/transparent_button.tres" id="8_cl78e"]
 [ext_resource type="Texture2D" uid="uid://d1felggl4g2s3" path="res://shaders/flow_map_1.jpg" id="8_feetc"]
 [ext_resource type="PackedScene" uid="uid://bihxbucp68nhn" path="res://scenes/shop_item.tscn" id="9_cl78e"]
+[ext_resource type="Texture2D" uid="uid://5jh68phn0wb3" path="res://assets/numbers/pi.png" id="9_l6kjb"]
+[ext_resource type="Texture2D" uid="uid://b543ulmlfrewp" path="res://assets/eyes.png" id="11_jq18f"]
+[ext_resource type="Texture2D" uid="uid://ctvl3fem82ld6" path="res://assets/mustache.png" id="12_jq18f"]
 [ext_resource type="Texture2D" uid="uid://b4744yp21pkfe" path="res://assets/level_foreground.png" id="14_fuohu"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_feetc"]
@@ -22,6 +25,118 @@ shader_parameter/strength = 0.008
 shader_parameter/speed = 5.0
 shader_parameter/frames = 3
 shader_parameter/text_color = Color(0.49411765, 0.5764706, 0.7176471, 1)
+
+[sub_resource type="Shader" id="Shader_mycgk"]
+code = "shader_type canvas_item;
+
+uniform sampler2D flowMap; //Displacement map
+uniform float strength;    //Force of the effect
+uniform float speed;       //Speed of the effect
+uniform int frames : hint_range(1, 10); //Frames of the effect
+
+uniform vec4 color : source_color = vec4(1.0);
+uniform float width : hint_range(0, 10) = 0.0;
+uniform int pattern : hint_range(0, 2) = 0; // diamond, circle, square
+uniform bool inside = false;
+uniform bool add_margins = true; // only useful when inside is false
+
+void vertex() {
+	if (add_margins) {
+		VERTEX += (UV * 2.0 - 1.0) * width;
+	}
+}
+
+bool hasContraryNeighbour(vec2 uv, vec2 texture_pixel_size, sampler2D texture) {
+	for (float i = -ceil(width); i <= ceil(width); i++) {
+		float x = abs(i) > width ? width * sign(i) : i;
+		float offset;
+		
+		if (pattern == 0) {
+			offset = width - abs(x);
+		} else if (pattern == 1) {
+			offset = floor(sqrt(pow(width + 0.5, 2) - x * x));
+		} else if (pattern == 2) {
+			offset = width;
+		}
+		
+		for (float j = -ceil(offset); j <= ceil(offset); j++) {
+			float y = abs(j) > offset ? offset * sign(j) : j;
+			vec2 xy = uv + texture_pixel_size * vec2(x, y);
+			
+			if ((xy != clamp(xy, vec2(0.0), vec2(1.0)) || texture(texture, xy).a <= 0.0) == inside) {
+				return true;
+			}
+		}
+	}
+	
+	return false;
+}
+
+//Returns a value between 0 and 1 depending of the frames -> exemple: frames = 4, frame 1 = 0.25
+float clock(float time){
+	float fframes = float(frames);
+	return floor(mod(time * speed, fframes)) / fframes;
+}
+
+void fragment() {
+	// --- First shader: flow-map displacement ---
+	float c = clock(TIME);
+	vec4 offset = texture(flowMap, vec2(UV.x + c, UV.y + c)) * strength;
+
+	vec2 uv = UV + offset.xy - vec2(0.5, 0.5) * strength;
+
+
+	// --- Second shader: margins ---
+	if (add_margins) {
+		vec2 texture_pixel_size = vec2(1.0) /
+			(vec2(1.0) / TEXTURE_PIXEL_SIZE + vec2(width * 2.0));
+
+		uv = (uv - texture_pixel_size * width)
+			* TEXTURE_PIXEL_SIZE / texture_pixel_size;
+
+		if (uv != clamp(uv, vec2(0.0), vec2(1.0))) {
+			COLOR.a = 0.0;
+		} else {
+			COLOR = texture(TEXTURE, uv);
+		}
+	} else {
+		COLOR = texture(TEXTURE, uv);
+	}
+
+
+	// --- Second shader: contrary neighbour / outline ---
+	if ((COLOR.a > 0.0) == inside &&
+		hasContraryNeighbour(uv, TEXTURE_PIXEL_SIZE, TEXTURE)) {
+
+		COLOR.rgb = inside
+			? mix(COLOR.rgb, color.rgb, color.a)
+			: color.rgb;
+
+		COLOR.a += (1.0 - COLOR.a) * color.a;
+	}
+}
+
+
+// TEST CLOCK
+/*
+void fragment(){
+	float c = clock(TIME);
+	COLOR = vec4( c, c, c, 1);
+}
+*/
+"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_e50rk"]
+shader = SubResource("Shader_mycgk")
+shader_parameter/flowMap = ExtResource("8_feetc")
+shader_parameter/strength = 0.005
+shader_parameter/speed = 5.0
+shader_parameter/frames = 3
+shader_parameter/color = Color(1, 1, 1, 1)
+shader_parameter/width = 0.0
+shader_parameter/pattern = 0
+shader_parameter/inside = false
+shader_parameter/add_margins = true
 
 [sub_resource type="Shader" id="Shader_feetc"]
 code = "shader_type canvas_item;
@@ -224,6 +339,37 @@ offset_bottom = -190.0
 grow_horizontal = 2
 grow_vertical = 2
 
+[node name="MarginContainer" type="MarginContainer" parent="HBoxContainer/Middle/DoorsContainer" unique_id=1800048981]
+layout_mode = 2
+theme_override_constants/margin_top = 64
+theme_override_constants/margin_right = 256
+
+[node name="TextureRect" type="TextureRect" parent="HBoxContainer/Middle/DoorsContainer/MarginContainer" unique_id=1887144047]
+material = ExtResource("3_bk5ov")
+custom_minimum_size = Vector2(256, 256)
+layout_mode = 2
+texture = ExtResource("9_l6kjb")
+stretch_mode = 5
+
+[node name="Eyes" type="TextureRect" parent="HBoxContainer/Middle/DoorsContainer/MarginContainer/TextureRect" unique_id=1302289556]
+material = SubResource("ShaderMaterial_e50rk")
+layout_mode = 0
+offset_left = -10.0
+offset_top = -34.0
+offset_right = 266.0
+offset_bottom = 224.0
+texture = ExtResource("11_jq18f")
+
+[node name="Mustache" type="TextureRect" parent="HBoxContainer/Middle/DoorsContainer/MarginContainer/TextureRect" unique_id=1025481338]
+material = SubResource("ShaderMaterial_e50rk")
+layout_mode = 0
+offset_left = 258.00003
+offset_top = 84.0
+offset_right = 473.13718
+offset_bottom = 285.1065
+rotation = 3.159046
+texture = ExtResource("12_jq18f")
+
 [node name="ShopExitDoor" type="Control" parent="HBoxContainer/Middle/DoorsContainer" unique_id=1200780547]
 layout_mode = 2
 size_flags_horizontal = 3
@@ -262,23 +408,6 @@ theme_override_constants/margin_bottom = 34
 layout_mode = 2
 size_flags_vertical = 3
 theme = ExtResource("8_cl78e")
-text = "Door 1"
-
-[node name="Door1" type="Control" parent="HBoxContainer/Middle/DoorsContainer" unique_id=969298850]
-visible = false
-layout_mode = 2
-size_flags_horizontal = 3
-
-[node name="Door1Button" type="Button" parent="HBoxContainer/Middle/DoorsContainer/Door1" unique_id=1774356943]
-visible = false
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-size_flags_vertical = 3
-text = "Door 2"
 
 [node name="ShopItems" type="Control" parent="HBoxContainer/Middle" unique_id=1273151173]
 anchors_preset = 0
@@ -324,6 +453,7 @@ layout_mode = 2
 size_flags_horizontal = 3
 
 [node name="LevelForeground" type="TextureRect" parent="." unique_id=1596143280]
+visible = false
 layout_mode = 0
 offset_right = 1920.0
 offset_bottom = 1080.0
