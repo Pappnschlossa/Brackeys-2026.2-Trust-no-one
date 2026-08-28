@@ -11,6 +11,9 @@ signal shake_screen
 @export var shop_item_2 : Control
 @export var shop_item_3 : Control
 @onready var shop_items : Array[Control] = [shop_item_0, shop_item_1, shop_item_2, shop_item_3]
+@export var envelope_overlay : Control
+
+var using_envelope : bool = false
 
 func _ready() -> void:
 	randomize_items()
@@ -44,7 +47,18 @@ func use_item(item_id : String) -> void:
 			await get_tree().create_timer(0.1).timeout
 			change_scene.emit("shop_scene")
 		"ENVELOPE":
-			pass
+			var target_modulate = envelope_overlay.modulate
+			target_modulate.a = 1.0
+			envelope_overlay.modulate.a = 0.0
+			envelope_overlay.show()
+			var tween = create_tween()
+			tween.tween_property(
+				envelope_overlay,
+				"modulate",
+				target_modulate,
+				0.3
+			)
+			using_envelope = true
 		"KEY":
 			await get_tree().create_timer(0.6).timeout
 			change_scene.emit("level_scene", "bubble_transition")

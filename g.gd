@@ -168,5 +168,5 @@ const ID_TO_LETTER : Dictionary[int, String] = {
 func reinitialize() -> void:
 	level = 1
 	lives = 3
-	money = 0
+	money = 200
 	current_items = ["EMPTY", "EMPTY", "EMPTY", "EMPTY"]

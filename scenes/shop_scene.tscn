@@ -133,7 +133,7 @@ shader_parameter/pattern = 2
 shader_parameter/inside = false
 shader_parameter/add_margins = true
 
-[node name="Shop" type="Control" unique_id=647607696 node_paths=PackedStringArray("left_ui", "door_node", "shop_item_0", "shop_item_1", "shop_item_2", "shop_item_3")]
+[node name="Shop" type="Control" unique_id=647607696 node_paths=PackedStringArray("left_ui", "door_node", "shop_item_0", "shop_item_1", "shop_item_2", "shop_item_3", "envelope_overlay")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -147,6 +147,7 @@ shop_item_0 = NodePath("HBoxContainer/Middle/ShopItems/ShopItem0")
 shop_item_1 = NodePath("HBoxContainer/Middle/ShopItems/ShopItem1")
 shop_item_2 = NodePath("HBoxContainer/Middle/ShopItems/ShopItem2")
 shop_item_3 = NodePath("HBoxContainer/Middle/ShopItems/ShopItem3")
+envelope_overlay = NodePath("EnvelopeOverlay")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="." unique_id=1200104342]
 layout_mode = 1
@@ -274,41 +275,75 @@ text = "Door 2"
 [node name="ShopItems" type="Control" parent="HBoxContainer/Middle" unique_id=1273151173]
 anchors_preset = 0
 
-[node name="ShopItem0" parent="HBoxContainer/Middle/ShopItems" unique_id=1283795063 instance=ExtResource("9_cl78e")]
+[node name="ShopItem0" parent="HBoxContainer/Middle/ShopItems" unique_id=1283795063 node_paths=PackedStringArray("shop") instance=ExtResource("9_cl78e")]
 layout_mode = 0
 offset_left = 337.0
 offset_top = 634.0
 offset_right = 465.0
 offset_bottom = 762.0
 size_flags_vertical = 2
+shop = NodePath("../../../..")
 
-[node name="ShopItem1" parent="HBoxContainer/Middle/ShopItems" unique_id=477205190 instance=ExtResource("9_cl78e")]
+[node name="ShopItem1" parent="HBoxContainer/Middle/ShopItems" unique_id=477205190 node_paths=PackedStringArray("shop") instance=ExtResource("9_cl78e")]
 layout_mode = 0
 offset_left = 529.0
 offset_top = 844.0
 offset_right = 657.0
 offset_bottom = 972.0
 size_flags_vertical = 2
+shop = NodePath("../../../..")
 
-[node name="ShopItem2" parent="HBoxContainer/Middle/ShopItems" unique_id=1631164716 instance=ExtResource("9_cl78e")]
+[node name="ShopItem2" parent="HBoxContainer/Middle/ShopItems" unique_id=1631164716 node_paths=PackedStringArray("shop") instance=ExtResource("9_cl78e")]
 layout_mode = 0
 offset_left = 1019.0
 offset_top = 648.0
 offset_right = 1147.0
 offset_bottom = 776.0
 size_flags_vertical = 2
+shop = NodePath("../../../..")
 
-[node name="ShopItem3" parent="HBoxContainer/Middle/ShopItems" unique_id=1321005392 instance=ExtResource("9_cl78e")]
+[node name="ShopItem3" parent="HBoxContainer/Middle/ShopItems" unique_id=1321005392 node_paths=PackedStringArray("shop") instance=ExtResource("9_cl78e")]
 layout_mode = 0
 offset_left = 853.0
 offset_top = 846.0
 offset_right = 981.0
 offset_bottom = 974.0
 size_flags_vertical = 2
+shop = NodePath("../../../..")
 
 [node name="Map" parent="HBoxContainer" unique_id=1980888744 instance=ExtResource("3_ykrk4")]
 layout_mode = 2
 size_flags_horizontal = 3
+
+[node name="EnvelopeOverlay" type="Control" parent="." unique_id=1591739664]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="ColorRect" type="ColorRect" parent="EnvelopeOverlay" unique_id=1463323243]
+layout_mode = 0
+offset_right = 514.0
+offset_bottom = 1080.0
+color = Color(0, 0, 0, 0.34117648)
+
+[node name="ColorRect2" type="ColorRect" parent="EnvelopeOverlay" unique_id=544263805]
+layout_mode = 0
+offset_left = 1554.0
+offset_right = 2068.0
+offset_bottom = 1080.0
+color = Color(0, 0, 0, 0.34117648)
+
+[node name="ColorRect3" type="ColorRect" parent="EnvelopeOverlay" unique_id=312190481]
+layout_mode = 0
+offset_left = 514.0
+offset_right = 1554.0
+offset_bottom = 592.0
+color = Color(0, 0, 0, 0.34117648)
 
 [connection signal="mouse_entered" from="HBoxContainer/Middle/DoorsContainer/ShopExitDoor/Texture/MarginContainer/ShopExitButton" to="." method="_on_shop_exit_button_mouse_entered"]
 [connection signal="mouse_exited" from="HBoxContainer/Middle/DoorsContainer/ShopExitDoor/Texture/MarginContainer/ShopExitButton" to="." method="_on_shop_exit_button_mouse_exited"]

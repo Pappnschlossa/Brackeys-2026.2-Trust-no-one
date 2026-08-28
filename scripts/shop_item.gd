@@ -2,6 +2,8 @@ extends Control
 
 signal item_bought
 
+@export var shop : Control
+
 var item_id : String = "DICE"
 var price : int = 99
 var tween_processing : bool = false
@@ -25,7 +27,30 @@ func _on_button_mouse_exited() -> void:
 func _on_button_pressed() -> void:
 	if tween_processing:
 		return
-	if g.can_buy_item(price):
+	if shop.using_envelope:
+		var old_price : int = price
+		while price == old_price:
+			price = max(1, int(randf_range(0.2, 1.0)*g.ITEMS[item_id].average_price))
+			$PriceTag/Text.text = "%s G" % str(price)
+		if randf() < 0.1:
+			price = 1
+			$PriceTag/Text.text = "99 G?"
+		shop.using_envelope = false
+		var target_modulate = shop.envelope_overlay.modulate
+		target_modulate.a = 0.0
+		shop.envelope_overlay.modulate.a = 1.0
+		shop.envelope_overlay.show()
+		var tween = create_tween()
+		tween.tween_property(
+			shop.envelope_overlay,
+			"modulate",
+			target_modulate,
+			0.3
+		)
+		await tween.finished
+		shop.envelope_overlay.visible = false
+		
+	elif g.can_buy_item(price):
 		g.money -= price
 		g.nb_of_items_being_bought += 1
 		$PriceTag/Text.text = "Sold"
