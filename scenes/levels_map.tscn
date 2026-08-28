@@ -164,7 +164,7 @@ grow_vertical = 2
 material = ExtResource("6_0i5vq")
 layout_mode = 2
 theme = ExtResource("7_3qyuh")
-text = "Level 1"
+text = "Floor 50"
 fit_content = true
 horizontal_alignment = 1
 

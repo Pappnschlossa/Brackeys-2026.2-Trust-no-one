@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://cfpx4aji2a1nu"]
 
 [ext_resource type="Script" uid="uid://chawitpunjksv" path="res://scripts/level_scene.gd" id="1_386oa"]
+[ext_resource type="Texture2D" uid="uid://dxxhi5rhqq267" path="res://assets/level_background.png" id="2_agchy"]
 [ext_resource type="Script" uid="uid://bis2ccijh3k6f" path="res://scripts/numbers_container.gd" id="2_bl4ss"]
 [ext_resource type="PackedScene" uid="uid://c7ylr0khyv7u4" path="res://scenes/left_ui.tscn" id="2_c8xsp"]
 [ext_resource type="Theme" uid="uid://bo40cw5tanri6" path="res://assets/themes/title_text.tres" id="3_2m3ut"]
@@ -31,6 +32,7 @@
 [ext_resource type="Texture2D" uid="uid://ukxib1xdsivs" path="res://assets/scratch/scratch_6.png" id="20_ir4rs"]
 [ext_resource type="Texture2D" uid="uid://dnfks3ad4jbvk" path="res://assets/scratch/scratch_7.png" id="21_4vkst"]
 [ext_resource type="Texture2D" uid="uid://bkj0m1ub7nt87" path="res://assets/scratch/scratch_8.png" id="22_3k6xw"]
+[ext_resource type="Texture2D" uid="uid://b4744yp21pkfe" path="res://assets/level_foreground.png" id="22_b0ykq"]
 
 [sub_resource type="Shader" id="Shader_mycgk"]
 code = "shader_type canvas_item;
@@ -244,6 +246,12 @@ door1 = NodePath("HBoxContainer/Middle/DoorsContainer/Door1")
 numbers_container = NodePath("HBoxContainer/Middle/MarginContainer/NumbersContainer")
 fake_transition_rect = NodePath("FakeTransitionRect")
 envelope_overlay = NodePath("EnvelopeOverlay")
+
+[node name="LevelBackground" type="TextureRect" parent="." unique_id=1720293293]
+layout_mode = 0
+offset_right = 1920.0
+offset_bottom = 1080.0
+texture = ExtResource("2_agchy")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="." unique_id=922223910]
 layout_mode = 1
@@ -508,6 +516,13 @@ layout_mode = 2
 [node name="Map" parent="HBoxContainer" unique_id=1980888744 instance=ExtResource("4_fkwfp")]
 layout_mode = 2
 size_flags_horizontal = 3
+
+[node name="LevelForeground" type="TextureRect" parent="." unique_id=245176712]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+mouse_filter = 2
+texture = ExtResource("22_b0ykq")
 
 [node name="EnvelopeOverlay" type="Control" parent="." unique_id=2100560820]
 visible = false

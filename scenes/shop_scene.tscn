@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://cu6crg1ik4yh1" path="res://scripts/shop_scene.gd" id="1_r1uou"]
 [ext_resource type="PackedScene" uid="uid://c7ylr0khyv7u4" path="res://scenes/left_ui.tscn" id="2_hovpq"]
+[ext_resource type="Texture2D" uid="uid://dxxhi5rhqq267" path="res://assets/level_background.png" id="2_nsn86"]
 [ext_resource type="Material" uid="uid://df8s1mvjvgfm0" path="res://shaders/big_texture_wobble_material.tres" id="3_bk5ov"]
 [ext_resource type="Texture2D" uid="uid://wusnm0w27xiu" path="res://assets/shop_sign.png" id="3_fdhsn"]
 [ext_resource type="PackedScene" uid="uid://dev0ijjb7kua6" path="res://scenes/levels_map.tscn" id="3_ykrk4"]
@@ -12,6 +13,7 @@
 [ext_resource type="Theme" uid="uid://fxj3p4ueiqg2" path="res://assets/themes/transparent_button.tres" id="8_cl78e"]
 [ext_resource type="Texture2D" uid="uid://d1felggl4g2s3" path="res://shaders/flow_map_1.jpg" id="8_feetc"]
 [ext_resource type="PackedScene" uid="uid://bihxbucp68nhn" path="res://scenes/shop_item.tscn" id="9_cl78e"]
+[ext_resource type="Texture2D" uid="uid://b4744yp21pkfe" path="res://assets/level_foreground.png" id="14_fuohu"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_feetc"]
 shader = ExtResource("5_ljega")
@@ -148,6 +150,12 @@ shop_item_1 = NodePath("HBoxContainer/Middle/ShopItems/ShopItem1")
 shop_item_2 = NodePath("HBoxContainer/Middle/ShopItems/ShopItem2")
 shop_item_3 = NodePath("HBoxContainer/Middle/ShopItems/ShopItem3")
 envelope_overlay = NodePath("EnvelopeOverlay")
+
+[node name="LevelBackground" type="TextureRect" parent="." unique_id=12818604]
+layout_mode = 0
+offset_right = 1920.0
+offset_bottom = 1080.0
+texture = ExtResource("2_nsn86")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="." unique_id=1200104342]
 layout_mode = 1
@@ -314,6 +322,13 @@ shop = NodePath("../../../..")
 [node name="Map" parent="HBoxContainer" unique_id=1980888744 instance=ExtResource("3_ykrk4")]
 layout_mode = 2
 size_flags_horizontal = 3
+
+[node name="LevelForeground" type="TextureRect" parent="." unique_id=1596143280]
+layout_mode = 0
+offset_right = 1920.0
+offset_bottom = 1080.0
+mouse_filter = 2
+texture = ExtResource("14_fuohu")
 
 [node name="EnvelopeOverlay" type="Control" parent="." unique_id=1591739664]
 visible = false
