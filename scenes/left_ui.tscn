@@ -6,26 +6,27 @@
 [ext_resource type="Texture2D" uid="uid://d4eyrfkeo8awv" path="res://assets/heart_big.png" id="4_1w74l"]
 [ext_resource type="Theme" uid="uid://de1j6ykjdiqd8" path="res://assets/themes/basic_text.tres" id="6_j6n5i"]
 [ext_resource type="Texture2D" uid="uid://dmvgy5pwylkjp" path="res://assets/crystal_ball_back.png" id="6_kwl3u"]
-[ext_resource type="Texture2D" uid="uid://dh3nx4b050i1v" path="res://assets/item_slot.png" id="6_obksd"]
 [ext_resource type="Material" uid="uid://df8s1mvjvgfm0" path="res://shaders/big_texture_wobble_material.tres" id="7_1w74l"]
 [ext_resource type="Texture2D" uid="uid://cp5uvg8hubvfi" path="res://assets/crystal_ball_front.png" id="7_f2cx8"]
+[ext_resource type="Texture2D" uid="uid://d18bhha50hlhe" path="res://assets/chain.png" id="10_bto12"]
+[ext_resource type="Texture2D" uid="uid://px45iopibqgg" path="res://assets/cauldron.png" id="10_h1dx4"]
+[ext_resource type="Texture2D" uid="uid://dh3nx4b050i1v" path="res://assets/item_slot.png" id="10_idkyr"]
 
 [node name="LeftUI" type="Control" unique_id=252584194 node_paths=PackedStringArray("numbers_hiding_text", "money_text", "item_slot_0", "item_slot_1", "item_slot_2", "item_slot_3", "numbers_container", "center")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_right = -1698.0
-offset_bottom = 3.0
+offset_right = -1626.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_4wa6g")
 numbers_hiding_text = NodePath("VBoxContainer/NumbersHidingText")
 money_text = NodePath("VBoxContainer/MoneyText")
-item_slot_0 = NodePath("VBoxContainer/Pockets/Item0")
-item_slot_1 = NodePath("VBoxContainer/Pockets/Item1")
-item_slot_2 = NodePath("VBoxContainer/Pockets/Item2")
-item_slot_3 = NodePath("VBoxContainer/Pockets/Item3")
+item_slot_0 = NodePath("VBoxContainer/Pockets/ChainsAndItems/Item0/ItemSlot")
+item_slot_1 = NodePath("VBoxContainer/Pockets/ChainsAndItems/Item1/ItemSlot")
+item_slot_2 = NodePath("VBoxContainer/Pockets/ChainsAndItems/Item2/ItemSlot")
+item_slot_3 = NodePath("VBoxContainer/Pockets/ChainsAndItems/Item3/ItemSlot")
 numbers_container = NodePath("VBoxContainer/NumbersHiding/NumbersContainer")
 center = NodePath("VBoxContainer/NumbersHiding/NumbersContainer/Center")
 
@@ -115,45 +116,201 @@ layout_mode = 2
 [node name="Center" type="Marker2D" parent="VBoxContainer/NumbersHiding/NumbersContainer" unique_id=78154531]
 position = Vector2(132, 98)
 
-[node name="CrystalFront" type="TextureRect" parent="VBoxContainer/NumbersHiding" unique_id=916230820]
-material = ExtResource("7_1w74l")
-layout_mode = 2
-texture = ExtResource("7_f2cx8")
-expand_mode = 5
-stretch_mode = 5
-
 [node name="ItemsText" type="RichTextLabel" parent="VBoxContainer" unique_id=801772631]
 layout_mode = 2
 theme = ExtResource("6_j6n5i")
-text = "Items"
+text = "	"
 fit_content = true
 
-[node name="Pockets" type="VBoxContainer" parent="VBoxContainer" unique_id=613558426]
+[node name="Pockets" type="MarginContainer" parent="VBoxContainer" unique_id=215503229]
+layout_mode = 2
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 0
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 0
+
+[node name="ChainsAndItems" type="VBoxContainer" parent="VBoxContainer/Pockets" unique_id=613558426]
 layout_mode = 2
 
-[node name="Item0" type="TextureRect" parent="VBoxContainer/Pockets" unique_id=573605344]
-custom_minimum_size = Vector2(128, 128)
+[node name="Item0" type="MarginContainer" parent="VBoxContainer/Pockets/ChainsAndItems" unique_id=1612451367]
 layout_mode = 2
-texture = ExtResource("6_obksd")
-stretch_mode = 4
+size_flags_horizontal = 0
 
-[node name="Item1" type="TextureRect" parent="VBoxContainer/Pockets" unique_id=454157888]
-custom_minimum_size = Vector2(128, 128)
+[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/Pockets/ChainsAndItems/Item0" unique_id=956406958]
 layout_mode = 2
-texture = ExtResource("6_obksd")
-stretch_mode = 4
+mouse_filter = 2
+theme_override_constants/margin_left = -80
+theme_override_constants/margin_top = -160
+theme_override_constants/margin_right = -80
+theme_override_constants/margin_bottom = -32
 
-[node name="Item2" type="TextureRect" parent="VBoxContainer/Pockets" unique_id=1857105189]
-custom_minimum_size = Vector2(128, 128)
+[node name="Chain" type="TextureRect" parent="VBoxContainer/Pockets/ChainsAndItems/Item0/MarginContainer" unique_id=1971394667]
 layout_mode = 2
-texture = ExtResource("6_obksd")
-stretch_mode = 4
+mouse_filter = 2
+texture = ExtResource("10_bto12")
 
-[node name="Item3" type="TextureRect" parent="VBoxContainer/Pockets" unique_id=688280255]
-custom_minimum_size = Vector2(128, 128)
+[node name="ItemSlot" type="TextureRect" parent="VBoxContainer/Pockets/ChainsAndItems/Item0" unique_id=1238240515]
 layout_mode = 2
-texture = ExtResource("6_obksd")
-stretch_mode = 4
+texture = ExtResource("10_idkyr")
+
+[node name="Item1" type="MarginContainer" parent="VBoxContainer/Pockets/ChainsAndItems" unique_id=972725992]
+layout_mode = 2
+size_flags_horizontal = 8
+
+[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/Pockets/ChainsAndItems/Item1" unique_id=733414842]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/margin_left = -80
+theme_override_constants/margin_top = -160
+theme_override_constants/margin_right = -80
+theme_override_constants/margin_bottom = -32
+
+[node name="Chain" type="TextureRect" parent="VBoxContainer/Pockets/ChainsAndItems/Item1/MarginContainer" unique_id=1161134215]
+layout_mode = 2
+mouse_filter = 2
+texture = ExtResource("10_bto12")
+
+[node name="ItemSlot" type="TextureRect" parent="VBoxContainer/Pockets/ChainsAndItems/Item1" unique_id=287546333]
+layout_mode = 2
+texture = ExtResource("10_idkyr")
+
+[node name="Item2" type="MarginContainer" parent="VBoxContainer/Pockets/ChainsAndItems" unique_id=733325326]
+layout_mode = 2
+size_flags_horizontal = 0
+
+[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/Pockets/ChainsAndItems/Item2" unique_id=638421428]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/margin_left = -80
+theme_override_constants/margin_top = -160
+theme_override_constants/margin_right = -80
+theme_override_constants/margin_bottom = -32
+
+[node name="Chain" type="TextureRect" parent="VBoxContainer/Pockets/ChainsAndItems/Item2/MarginContainer" unique_id=1270004421]
+layout_mode = 2
+mouse_filter = 2
+texture = ExtResource("10_bto12")
+
+[node name="ItemSlot" type="TextureRect" parent="VBoxContainer/Pockets/ChainsAndItems/Item2" unique_id=770194209]
+layout_mode = 2
+texture = ExtResource("10_idkyr")
+
+[node name="Item3" type="MarginContainer" parent="VBoxContainer/Pockets/ChainsAndItems" unique_id=1328246410]
+layout_mode = 2
+size_flags_horizontal = 8
+
+[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/Pockets/ChainsAndItems/Item3" unique_id=797801895]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/margin_left = -80
+theme_override_constants/margin_top = -160
+theme_override_constants/margin_right = -80
+theme_override_constants/margin_bottom = -32
+
+[node name="Chain" type="TextureRect" parent="VBoxContainer/Pockets/ChainsAndItems/Item3/MarginContainer" unique_id=1551395401]
+layout_mode = 2
+mouse_filter = 2
+texture = ExtResource("10_bto12")
+
+[node name="ItemSlot" type="TextureRect" parent="VBoxContainer/Pockets/ChainsAndItems/Item3" unique_id=1451975548]
+layout_mode = 2
+texture = ExtResource("10_idkyr")
+
+[node name="Cauldrons" type="VBoxContainer" parent="VBoxContainer/Pockets" unique_id=188482357]
+layout_mode = 2
+mouse_filter = 2
+
+[node name="Item0" type="MarginContainer" parent="VBoxContainer/Pockets/Cauldrons" unique_id=2123962484]
+layout_mode = 2
+size_flags_horizontal = 0
+mouse_filter = 2
+
+[node name="ItemSlot" type="TextureRect" parent="VBoxContainer/Pockets/Cauldrons/Item0" unique_id=1215849692]
+layout_mode = 2
+mouse_filter = 2
+texture = ExtResource("10_idkyr")
+
+[node name="MarginContainer2" type="MarginContainer" parent="VBoxContainer/Pockets/Cauldrons/Item0" unique_id=2099206691]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/margin_left = -80
+theme_override_constants/margin_top = -160
+theme_override_constants/margin_right = -80
+theme_override_constants/margin_bottom = -32
+
+[node name="Cauldron" type="TextureRect" parent="VBoxContainer/Pockets/Cauldrons/Item0/MarginContainer2" unique_id=2076897510]
+layout_mode = 2
+mouse_filter = 2
+texture = ExtResource("10_h1dx4")
+
+[node name="Item1" type="MarginContainer" parent="VBoxContainer/Pockets/Cauldrons" unique_id=1027390455]
+layout_mode = 2
+size_flags_horizontal = 8
+mouse_filter = 2
+
+[node name="ItemSlot" type="TextureRect" parent="VBoxContainer/Pockets/Cauldrons/Item1" unique_id=1760113787]
+layout_mode = 2
+mouse_filter = 2
+texture = ExtResource("10_idkyr")
+
+[node name="MarginContainer2" type="MarginContainer" parent="VBoxContainer/Pockets/Cauldrons/Item1" unique_id=16367077]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/margin_left = -80
+theme_override_constants/margin_top = -160
+theme_override_constants/margin_right = -80
+theme_override_constants/margin_bottom = -32
+
+[node name="Cauldron" type="TextureRect" parent="VBoxContainer/Pockets/Cauldrons/Item1/MarginContainer2" unique_id=617779028]
+layout_mode = 2
+mouse_filter = 2
+texture = ExtResource("10_h1dx4")
+
+[node name="Item2" type="MarginContainer" parent="VBoxContainer/Pockets/Cauldrons" unique_id=1674513267]
+layout_mode = 2
+size_flags_horizontal = 0
+mouse_filter = 2
+
+[node name="ItemSlot" type="TextureRect" parent="VBoxContainer/Pockets/Cauldrons/Item2" unique_id=440255012]
+layout_mode = 2
+mouse_filter = 2
+texture = ExtResource("10_idkyr")
+
+[node name="MarginContainer2" type="MarginContainer" parent="VBoxContainer/Pockets/Cauldrons/Item2" unique_id=48547877]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/margin_left = -80
+theme_override_constants/margin_top = -160
+theme_override_constants/margin_right = -80
+theme_override_constants/margin_bottom = -32
+
+[node name="Cauldron" type="TextureRect" parent="VBoxContainer/Pockets/Cauldrons/Item2/MarginContainer2" unique_id=1547683393]
+layout_mode = 2
+mouse_filter = 2
+texture = ExtResource("10_h1dx4")
+
+[node name="Item3" type="MarginContainer" parent="VBoxContainer/Pockets/Cauldrons" unique_id=1755493972]
+layout_mode = 2
+size_flags_horizontal = 8
+mouse_filter = 2
+
+[node name="ItemSlot" type="TextureRect" parent="VBoxContainer/Pockets/Cauldrons/Item3" unique_id=376997362]
+layout_mode = 2
+mouse_filter = 2
+texture = ExtResource("10_idkyr")
+
+[node name="MarginContainer2" type="MarginContainer" parent="VBoxContainer/Pockets/Cauldrons/Item3" unique_id=1476018745]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/margin_left = -80
+theme_override_constants/margin_top = -160
+theme_override_constants/margin_right = -80
+theme_override_constants/margin_bottom = -32
+
+[node name="Cauldron" type="TextureRect" parent="VBoxContainer/Pockets/Cauldrons/Item3/MarginContainer2" unique_id=498856894]
+layout_mode = 2
+mouse_filter = 2
+texture = ExtResource("10_h1dx4")
 
 [node name="MoneyText" type="RichTextLabel" parent="VBoxContainer" unique_id=131792442]
 layout_mode = 2
@@ -161,3 +318,19 @@ theme = ExtResource("6_j6n5i")
 theme_override_font_sizes/normal_font_size = 32
 text = "Money: 0"
 fit_content = true
+
+[node name="CrystalFront" type="TextureRect" parent="." unique_id=705420214]
+material = ExtResource("7_1w74l")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -15.0
+offset_top = 74.0
+offset_right = 15.0
+offset_bottom = -682.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("7_f2cx8")
+expand_mode = 5
+stretch_mode = 5
