@@ -2,6 +2,7 @@ extends Control
 
 signal change_scene
 signal add_scene_as_an_overlay
+signal shake_screen
 
 @export var left_ui : Control
 @export var door_node : Control
@@ -15,6 +16,7 @@ func _ready() -> void:
 	randomize_items()
 	for item in shop_items:
 		item.item_bought.connect(left_ui._on_item_bought)
+	left_ui._on_inventory_reload()
 
 func randomize_items() -> void:
 	var available_items = g.ITEMS.keys()
@@ -33,3 +35,20 @@ func _on_shop_exit_button_mouse_entered() -> void:
 
 func _on_shop_exit_button_mouse_exited() -> void:
 	door_node.get_node("Texture").material.set_shader_parameter("width", 0.0)
+
+func use_item(item_id : String) -> void:
+	match item_id:
+		"DICE":
+			await get_tree().create_timer(0.6).timeout
+			shake_screen.emit()
+			await get_tree().create_timer(0.1).timeout
+			change_scene.emit("shop_scene")
+		"ENVELOPE":
+			pass
+		"KEY":
+			await get_tree().create_timer(0.6).timeout
+			change_scene.emit("level_scene", "bubble_transition")
+		"LIFE_POTION":
+			pass
+		"MAGNIFYING_GLASS":
+			pass

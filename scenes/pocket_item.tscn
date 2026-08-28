@@ -4,7 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://cdi2td1nhnx3c" path="res://assets/life_potion.png" id="1_5688f"]
 [ext_resource type="Theme" uid="uid://fxj3p4ueiqg2" path="res://assets/themes/transparent_button.tres" id="2_5vj0f"]
 
-[sub_resource type="Shader" id="Shader_mycgk"]
+[sub_resource type="Shader" id="Shader_5vj0f"]
 code = "shader_type canvas_item;
 
 uniform sampler2D flowMap; //Displacement map
@@ -104,12 +104,12 @@ void fragment(){
 */
 "
 
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_w0fhh"]
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_6snns"]
 load_path = "res://.godot/imported/flow_map_1.jpg-7c8a6753d148c7751e068af2f1e274d0.ctex"
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_6snns"]
-shader = SubResource("Shader_mycgk")
-shader_parameter/flowMap = SubResource("CompressedTexture2D_w0fhh")
+shader = SubResource("Shader_5vj0f")
+shader_parameter/flowMap = SubResource("CompressedTexture2D_6snns")
 shader_parameter/strength = 0.01
 shader_parameter/speed = 5.0
 shader_parameter/frames = 3

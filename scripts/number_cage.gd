@@ -29,3 +29,7 @@ func reveal_one_with_magnifying_glass() -> void:
 	number_guess.number = 1
 	number_guess.update_number()
 	number_guess.update_opacity(1)
+
+func is_question() -> void:
+	get_node("%Texture").texture = load("uid://500jfuen1gng")
+	get_node("%Lock").texture = load("uid://buhqjk78imbmr")

@@ -79,6 +79,7 @@ func _ready() -> void:
 		generate_text()
 	update_nodes()
 	numbers_container.add_numpad.connect(_on_add_numpad)
+	left_ui._on_inventory_reload()
 	item_tutorial()
 	left_ui.entered_level()
 
@@ -175,6 +176,7 @@ func initialize_level_variables(odd : bool = false) -> void:
 				random_number_equal_to_answer -= 1
 			else:
 				QUESTION = n
+				number_nodes[n].is_question()
 		n += 1
 	
 func generate_text() -> void:
@@ -306,7 +308,7 @@ func transition_to_next_level() -> void:
 	for id in range(len(number_guesses)):
 		if numbers[id].val == number_guesses[id]:
 			g.money += 1
-	if g.level%10 == 0:
+	if g.level%2 == 0:
 		change_scene.emit("shop_scene", "bubble_transition")
 	else:
 		change_scene.emit("level_scene", "bubble_transition")

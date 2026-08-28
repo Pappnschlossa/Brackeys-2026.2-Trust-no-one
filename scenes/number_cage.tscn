@@ -201,7 +201,8 @@ grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("8_6yf2o")
 
-[node name="TextureRect" type="TextureRect" parent="VBoxContainer/Texture" unique_id=161503731]
+[node name="Lock" type="TextureRect" parent="VBoxContainer/Texture" unique_id=161503731]
+unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -217,7 +218,7 @@ grow_vertical = 2
 mouse_filter = 2
 texture = ExtResource("9_75svu")
 
-[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/Texture/TextureRect" unique_id=1436212147]
+[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/Texture/Lock" unique_id=1436212147]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -228,7 +229,7 @@ mouse_filter = 2
 theme_override_constants/margin_left = 3
 theme_override_constants/margin_top = 11
 
-[node name="TextID" type="RichTextLabel" parent="VBoxContainer/Texture/TextureRect/MarginContainer" unique_id=684650426]
+[node name="TextID" type="RichTextLabel" parent="VBoxContainer/Texture/Lock/MarginContainer" unique_id=684650426]
 unique_name_in_owner = true
 material = ExtResource("4_iwyrd")
 layout_mode = 2
@@ -274,6 +275,13 @@ offset_bottom = 166.0
 grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("11_nycv4")
+
+[node name="TextureRect" type="TextureRect" parent="MagnifyingGlass" unique_id=1128423190]
+layout_mode = 0
+offset_left = -10.0
+offset_top = -51.0
+offset_right = 215.0
+offset_bottom = 174.0
 
 [connection signal="mouse_entered" from="VBoxContainer/Texture/Button" to="VBoxContainer" method="_on_button_mouse_entered"]
 [connection signal="mouse_exited" from="VBoxContainer/Texture/Button" to="VBoxContainer" method="_on_button_mouse_exited"]

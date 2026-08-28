@@ -108,6 +108,18 @@ func _on_item_bought(item_id : String) -> void:
 	).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
 	money_text_previous_value = g.money
 
+func _on_inventory_reload() -> void:
+	for i in range(g.MAX_ITEM_AMOUNT):
+		if g.current_items[i] == "EMPTY":
+			continue
+		var item = load("uid://ces2bhel05kdm")
+		var instance = item.instantiate()
+		instance.item_id = g.current_items[i]
+		instance.item_pos = i
+		instance.item_effect.connect(level.use_item)
+		instance.item_effect.connect(use_item)
+		item_slots[i].add_child(instance)
+
 func use_item(item_id : String) -> void:
 	match item_id:
 		"DICE":

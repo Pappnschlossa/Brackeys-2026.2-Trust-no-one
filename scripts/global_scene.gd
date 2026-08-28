@@ -33,7 +33,7 @@ func _on_change_scene(scene_name, transition_type = null):
 			remove_child(child)
 	instance.change_scene.connect(_on_change_scene)
 	instance.add_scene_as_an_overlay.connect(_on_add_scene_as_an_overlay)
-	if scene_name == "level_scene":
+	if scene_name == "level_scene" or scene_name == "shop_scene":
 		instance.shake_screen.connect(camera_node.apply_shake)
 	add_child(instance)
 	move_child(instance, 0)
