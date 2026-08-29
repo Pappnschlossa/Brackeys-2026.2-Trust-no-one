@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="Orb" format=3 uid="uid://bqg3cm4psd8m0"]
+
+[ext_resource type="Script" uid="uid://cmxm1mjn50e11" path="res://ressource/orb.gd" id="1_e0lep"]
+[ext_resource type="Texture2D" uid="uid://cdye230lb0dv1" path="res://assets/orbs/sun_orb.png" id="2_i1pvr"]
+
+[resource]
+script = ExtResource("1_e0lep")
+id = "SUN"
+texture = ExtResource("2_i1pvr")
+average_price = 40
+metadata/_custom_type_script = "uid://cmxm1mjn50e11"

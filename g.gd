@@ -141,6 +141,7 @@ var ITEMS : Dictionary[String, Item] = {
 }
 
 var current_items : Array[String] = ["EMPTY", "EMPTY", "EMPTY", "EMPTY"]
+
 func get_nb_of_items() -> int:
 	var count : int = 0
 	for item in current_items:
@@ -155,7 +156,14 @@ func can_buy_item(price : int) -> bool:
 		return true
 	return false
 
+func can_buy_orb(price : int) -> bool:
+	if money >= price and get_nb_of_orbs() < (2 - nb_of_orbs_being_bought):
+		return true
+	return false
+
 func can_use_item(item_id : String) -> bool:
+	if item_id == "DICE" and level == 40:
+		return false
 	return true
 
 const ID_TO_LETTER : Dictionary[int, String] = {
@@ -173,10 +181,31 @@ var envelope_in_level_use_amount : int = 0
 
 var total_coins_collected : int = 0
 
+var ORBS : Dictionary[String, Orb] = {
+	"EQUAL" : preload("uid://bm4fysp5kfwb0"),
+	"HEART" : preload("uid://bbgtksphsk3nb"),
+	"QUESTIONMARK" : preload("uid://cdv27yxdcdobp"),
+	"SUN" : preload("uid://bqg3cm4psd8m0")
+	}
+
+var current_orbs : Array[String] = ["EMPTY_ORB", "EMPTY_ORB"]
+
+var nb_of_orbs_being_bought : int = 0
+
+func get_nb_of_orbs() -> int:
+	var count : int = 0
+	for item in current_orbs:
+		if item != "EMPTY_ORB":
+			count += 1
+	return count
+
 func reinitialize() -> void:
-	level = 1
+	level = 39
 	lives = 3
-	money = 0
+	money = 300
 	envelope_in_level_use_amount = 0
 	total_coins_collected = 0
+	nb_of_orbs_being_bought = 0
+	nb_of_items_being_bought = 0
+	current_orbs = ["EMPTY_ORB", "EMPTY_ORB"]
 	current_items = ["EMPTY", "EMPTY", "EMPTY", "EMPTY"]

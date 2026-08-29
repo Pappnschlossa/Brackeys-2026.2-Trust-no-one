@@ -14,8 +14,12 @@ func _ready() -> void:
 
 func update_item(new_item_id : String) -> void:
 	item_id = new_item_id
-	$Texture.texture = g.ITEMS[item_id].texture
-	price = int(randf_range(0.7, 1.3)*g.ITEMS[item_id].average_price)
+	if g.level != 40:
+		$Texture.texture = g.ITEMS[item_id].texture
+		price = int(randf_range(0.7, 1.3)*g.ITEMS[item_id].average_price)
+	else:
+		$Texture.texture = g.ORBS[item_id].texture
+		price = int(randf_range(0.9, 1.1)*g.ORBS[item_id].average_price)
 	$PriceTag/Text.text = "%s G" % str(price)
 
 func _on_button_mouse_entered() -> void:
@@ -50,9 +54,12 @@ func _on_button_pressed() -> void:
 		await tween.finished
 		shop.envelope_overlay.visible = false
 		
-	elif g.can_buy_item(price):
+	elif (g.level != 40 and g.can_buy_item(price)) or (g.level == 40 and g.can_buy_orb(price)):
 		g.money -= price
-		g.nb_of_items_being_bought += 1
+		if g.level != 40:
+			g.nb_of_items_being_bought += 1
+		else:
+			g.nb_of_orbs_being_bought += 1
 		price = -1
 		$PriceTag/Text.text = "Sold"
 		# We animate it
@@ -68,4 +75,7 @@ func _on_button_pressed() -> void:
 		await tween.finished
 		tween_processing = false
 		item_bought.emit(item_id)
-		g.nb_of_items_being_bought -= 1
+		if g.level != 40:
+			g.nb_of_items_being_bought -= 1
+		else:
+			g.nb_of_orbs_being_bought -= 1

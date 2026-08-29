@@ -377,6 +377,7 @@ layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 2.0
 level = NodePath("../..")
+speed = null
 
 [node name="Middle" type="Control" parent="HBoxContainer" unique_id=788715618]
 layout_mode = 2
@@ -433,7 +434,7 @@ grow_vertical = 2
 
 [node name="MarginContainer" type="MarginContainer" parent="HBoxContainer/Middle/DoorsContainer" unique_id=1800048981]
 layout_mode = 2
-theme_override_constants/margin_top = 64
+theme_override_constants/margin_top = 175
 theme_override_constants/margin_right = 256
 
 [node name="TextureRect" type="TextureRect" parent="HBoxContainer/Middle/DoorsContainer/MarginContainer" unique_id=1887144047]
@@ -459,9 +460,9 @@ smoothness = 1.5
 material = SubResource("ShaderMaterial_e50rk")
 layout_mode = 0
 offset_left = 258.00003
-offset_top = 84.0
+offset_top = 93.5
 offset_right = 473.13718
-offset_bottom = 285.1065
+offset_bottom = 294.6065
 rotation = 3.159046
 texture = ExtResource("12_jq18f")
 
@@ -548,11 +549,12 @@ layout_mode = 2
 size_flags_horizontal = 3
 
 [node name="LevelForeground" type="TextureRect" parent="." unique_id=1596143280]
-layout_mode = 0
-offset_left = 11.0
-offset_top = 94.0
-offset_right = 1931.0
-offset_bottom = 1174.0
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 mouse_filter = 2
 texture = ExtResource("14_fuohu")
 

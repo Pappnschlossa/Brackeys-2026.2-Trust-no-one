@@ -10,6 +10,9 @@ extends Control
 @export var numbers_container : Control
 @export var center : Marker2D
 @export var level : Control
+@export var orb_slot_0 : ColorRect
+@export var orb_slot_1 : ColorRect
+@onready var orb_slots : Array[ColorRect] = [orb_slot_0, orb_slot_1]
 
 var money_text_previous_value : int
 var money_to_display
@@ -86,19 +89,34 @@ func update_health() -> void:
 	get_node("%EmptyHeart2").visible = !get_node("%FullHeart2").visible
 
 func _on_item_bought(item_id : String) -> void:
-	# Add item
-	for i in range(g.MAX_ITEM_AMOUNT):
-		if g.current_items[i] == "EMPTY":
-			g.current_items[i] = item_id
-			var item = load("uid://ces2bhel05kdm")
-			var instance = item.instantiate()
-			instance.item_id = item_id
-			instance.item_pos = i
-			instance.item_effect.connect(level.use_item)
-			instance.item_effect.connect(use_item)
-			instance.just_bought = true
-			item_slots[i].add_child(instance)
-			break
+	if item_id in g.ITEMS.keys():
+		# Add item
+		for i in range(g.MAX_ITEM_AMOUNT):
+			if g.current_items[i] == "EMPTY":
+				g.current_items[i] = item_id
+				var item = load("uid://ces2bhel05kdm")
+				var instance = item.instantiate()
+				instance.item_id = item_id
+				instance.item_pos = i
+				instance.item_effect.connect(level.use_item)
+				instance.item_effect.connect(use_item)
+				instance.just_bought = true
+				item_slots[i].add_child(instance)
+				break
+	else:
+		# Add orb
+		for i in range(2):
+			if g.current_orbs[i] == "EMPTY_ORB":
+				g.current_orbs[i] = item_id
+				var orb = load("uid://ctydct30b3etn")
+				var instance = orb.instantiate()
+				instance.item_id = item_id
+				instance.item_pos = i
+				instance.item_effect.connect(level.use_item)
+				instance.item_effect.connect(use_item)
+				instance.just_bought = true
+				orb_slots[i].add_child(instance)
+				break
 	# Update Money
 	money_to_display = money_text_previous_value
 	var tween = create_tween()

@@ -91,7 +91,7 @@ func _on_add_scene_as_an_overlay(scene_name, pos = Vector2(0, 0)):
 			instance,
 			"position",
 			pos,
-			wipe_fade_in_duration
+			0.1
 		).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
 	
 	add_child(instance)
@@ -137,7 +137,7 @@ func transition_in(transition_type):
 			mat,
 			"shader_parameter/progress",
 			0.0,
-			wipe_fade_in_duration
+			0.1
 		).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
 	transition_rect.mouse_filter = Control.MOUSE_FILTER_STOP
 	await tween.finished

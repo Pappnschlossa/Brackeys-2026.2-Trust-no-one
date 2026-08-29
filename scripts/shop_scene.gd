@@ -41,10 +41,16 @@ func _ready() -> void:
 
 func randomize_items() -> void:
 	var available_items = g.ITEMS.keys()
+	var available_orbs = g.ORBS.keys()
 	for item in shop_items:
-		var chosen_item_id: String = available_items.pick_random()
-		available_items.erase(chosen_item_id)
-		item.update_item(chosen_item_id)
+		if g.level != 40:
+			var chosen_item_id: String = available_items.pick_random()
+			available_items.erase(chosen_item_id)
+			item.update_item(chosen_item_id)
+		else:
+			var chosen_item_id: String = available_orbs.pick_random()
+			available_orbs.erase(chosen_item_id)
+			item.update_item(chosen_item_id)
 
 func _on_shop_exit_button_pressed() -> void:
 	g.level += 1
