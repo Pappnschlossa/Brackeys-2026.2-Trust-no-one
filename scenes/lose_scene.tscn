@@ -1,0 +1,131 @@
+[gd_scene format=3 uid="uid://cci5ufq5k1xmr"]
+
+[ext_resource type="Script" uid="uid://b025wpl8qft1n" path="res://scripts/lose_scene.gd" id="1_68m3b"]
+[ext_resource type="PackedScene" uid="uid://dmvvj7vsox4av" path="res://scenes/dialog_box.tscn" id="2_lw2vd"]
+[ext_resource type="Material" uid="uid://bafyasjxgvhj5" path="res://shaders/colored_text_wobble_material.tres" id="3_8w6tn"]
+[ext_resource type="Theme" uid="uid://de1j6ykjdiqd8" path="res://assets/themes/basic_text.tres" id="4_c3pwq"]
+[ext_resource type="FontFile" uid="uid://b75gmbl18kr1" path="res://assets/fonts/DarumadropOne-Regular.ttf" id="5_8w6tn"]
+[ext_resource type="Texture2D" uid="uid://cdi2td1nhnx3c" path="res://assets/life_potion.png" id="6_c3pwq"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_c3pwq"]
+bg_color = Color(1, 0.6784314, 0.5254902, 1)
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5jhep"]
+bg_color = Color(0.99999696, 0.5178328, 0.26352367, 1)
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wknd0"]
+bg_color = Color(1, 0.7855734, 0.68584216, 1)
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+
+[node name="LoseScene" type="Control" unique_id=550794829]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_68m3b")
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=778476122]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.27450982)
+metadata/_edit_lock_ = true
+
+[node name="DialogBox" parent="." unique_id=1303972556 instance=ExtResource("2_lw2vd")]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -192.0
+offset_top = -296.0
+offset_right = 338.0
+offset_bottom = -4.75
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Text2" type="RichTextLabel" parent="DialogBox" unique_id=962308997]
+material = ExtResource("3_8w6tn")
+layout_mode = 2
+theme = ExtResource("4_c3pwq")
+theme_override_constants/line_separation = -16
+bbcode_enabled = true
+text = "Oh no... You lost all your lives.
+
+Clicking on the retry button here will grant you one life potion for your next run."
+horizontal_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="DialogBox" unique_id=1112383720]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_constants/separation = 22
+
+[node name="MainMenuButton" type="Button" parent="DialogBox/HBoxContainer" unique_id=726152258]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 8
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
+theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_pressed_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("5_8w6tn")
+theme_override_font_sizes/font_size = 30
+theme_override_styles/normal = SubResource("StyleBoxFlat_c3pwq")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_5jhep")
+theme_override_styles/hover = SubResource("StyleBoxFlat_wknd0")
+text = "  Main Menu  "
+
+[node name="RetryButton" type="Button" parent="DialogBox/HBoxContainer" unique_id=614926725]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 8
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
+theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_pressed_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("5_8w6tn")
+theme_override_font_sizes/font_size = 30
+theme_override_styles/normal = SubResource("StyleBoxFlat_c3pwq")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_5jhep")
+theme_override_styles/hover = SubResource("StyleBoxFlat_wknd0")
+text = "  Retry (+1     )  "
+
+[node name="TextureRect" type="TextureRect" parent="DialogBox/HBoxContainer/RetryButton" unique_id=1403778205]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 37.99997
+offset_top = -19.5
+offset_right = 78.99997
+offset_bottom = 24.5
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("6_c3pwq")
+expand_mode = 5
+stretch_mode = 4
+
+[connection signal="pressed" from="DialogBox/HBoxContainer/MainMenuButton" to="." method="_on_main_menu_button_pressed"]
+[connection signal="pressed" from="DialogBox/HBoxContainer/RetryButton" to="." method="_on_retry_button_pressed"]

@@ -5,7 +5,7 @@ extends Node
 @export var transition_rect : ColorRect
 @export var gear_fade_in_duration = 3.0
 @export var gear_fade_out_duration = 3.0
-@export var wipe_fade_in_duration = 0.3
+@export var wipe_fade_in_duration = 0.1
 @export var wipe_fade_out_duration = 0.3
 @export var camera_node : Camera2D
 
@@ -13,7 +13,9 @@ const SCENES = {
 	"title_scene" : "uid://bv0o1kuyl8te6",
 	"level_scene" : "uid://cfpx4aji2a1nu",
 	"shop_scene" : "uid://bswonif37ehh8",
-	"numpad_overlay" : "uid://cdtr5twexbdo3"
+	"numpad_overlay" : "uid://cdtr5twexbdo3",
+	"win_scene" : "uid://cqaslhsfp3ynx",
+	"lose_scene" : "uid://cci5ufq5k1xmr"
 }
 
 # Called when the node enters the scene tree for the first time.
@@ -55,15 +57,15 @@ func _on_add_scene_as_an_overlay(scene_name, pos = Vector2(0, 0)):
 	if scene_name == "numpad_overlay":
 		instance.numpad_button_pressed.connect(get_node("Level")._on_numpad_button_pressed)
 	
-	## Animation
-	#instance.position.y = 1080
-	#var tween = create_tween()
-	#tween.tween_property(
-			#instance,
-			#"position",
-			#Vector2(0, 0),
-			#wipe_fade_in_duration
-		#).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
+	# Animation
+	instance.position.y = 1080
+	var tween = create_tween()
+	tween.tween_property(
+			instance,
+			"position",
+			pos,
+			wipe_fade_in_duration
+		).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
 	
 	add_child(instance)
 	move_child(instance, 1)

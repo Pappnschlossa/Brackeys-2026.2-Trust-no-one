@@ -315,6 +315,22 @@ sprite_frames = SubResource("SpriteFrames_e0uvl")
 animation = &"coin_spin"
 frame_progress = 0.63351554
 
+[node name="TrueNumber" parent="." unique_id=1952454688 instance=ExtResource("10_ej4a6")]
+unique_name_in_owner = true
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -213.0
+offset_top = -148.0
+offset_right = -85.0
+offset_bottom = -20.0
+mouse_filter = 2
+mouse_behavior_recursive = 1
+
 [connection signal="mouse_entered" from="VBoxContainer/Texture/Button" to="VBoxContainer" method="_on_button_mouse_entered"]
 [connection signal="mouse_exited" from="VBoxContainer/Texture/Button" to="VBoxContainer" method="_on_button_mouse_exited"]
 [connection signal="pressed" from="VBoxContainer/Texture/Button" to="." method="_on_button_pressed"]

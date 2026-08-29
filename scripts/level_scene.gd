@@ -370,7 +370,18 @@ func _on_door_1_button_pressed() -> void:
 func wrong_door(door_id : int) -> void:
 	await fake_transition_rect.fake_transition()
 	left_ui.update_health()
+	if g.lives == 0:
+		lose()
 	doors[door_id].get_node("DoorEyes").visible = true
+
+func lose() -> void:
+	# Show every number without cage
+	for i in range(len(numbers)):
+		number_nodes[i].get_node("%NumberGuess").modulate.a = 0.6
+		number_nodes[i].get_node("%TrueNumber").number = numbers[i].val
+		number_nodes[i].get_node("%TrueNumber").update_number()
+		number_nodes[i].get_node("%TrueNumber").show()
+	add_scene_as_an_overlay.emit("lose_scene")
 
 func guess_needed_warning() -> void:
 	warning.show()
@@ -397,7 +408,7 @@ func transition_to_next_level() -> void:
 		await get_tree().create_timer(1.5).timeout
 	if g.level == 51:
 		change_scene.emit("win_scene", "bubble_transition")
-	if g.level%10 == 0 and g.level != 50:
+	elif g.level%10 == 0 and g.level != 50:
 		change_scene.emit("shop_scene", "bubble_transition")
 	else:
 		change_scene.emit("level_scene", "bubble_transition")

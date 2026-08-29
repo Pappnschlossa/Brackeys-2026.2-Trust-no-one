@@ -172,8 +172,8 @@ var tutorial : bool = false
 var envelope_in_level_use_amount : int = 0
 
 func reinitialize() -> void:
-	level = 50
-	lives = 3
+	level = 5
+	lives = 1
 	money = 0
 	envelope_in_level_use_amount = 0
 	current_items = ["EMPTY", "EMPTY", "EMPTY", "EMPTY"]
