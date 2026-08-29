@@ -9,8 +9,10 @@ func amount_of_numbers() -> int:
 		return 3
 	elif level < 20:
 		return 4
-	else:
+	elif level < 50:
 		return 6
+	else:
+		return 1
 
 var number_occurences : Dictionary[int, int] = {
 	0 : 0,
@@ -167,8 +169,11 @@ const ID_TO_LETTER : Dictionary[int, String] = {
 
 var tutorial : bool = false
 
+var envelope_in_level_use_amount : int = 0
+
 func reinitialize() -> void:
-	level = 1
+	level = 50
 	lives = 3
 	money = 0
+	envelope_in_level_use_amount = 0
 	current_items = ["EMPTY", "EMPTY", "EMPTY", "EMPTY"]

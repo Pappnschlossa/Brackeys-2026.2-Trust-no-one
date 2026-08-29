@@ -19,8 +19,8 @@
 [ext_resource type="Texture2D" uid="uid://cl71esw7yroi2" path="res://assets/door_eyes_3.png" id="12_ir4rs"]
 [ext_resource type="Material" uid="uid://bmp2oqi20jmk5" path="res://shaders/bubble_transition_material.tres" id="12_lkilr"]
 [ext_resource type="Material" uid="uid://df8s1mvjvgfm0" path="res://shaders/big_texture_wobble_material.tres" id="12_vw353"]
-[ext_resource type="Script" uid="uid://bt2cqiwwo5dl5" path="res://scenes/fake_transition_rect.gd" id="13_cupps"]
-[ext_resource type="Script" uid="uid://hx7uf70m2ejt" path="res://scenes/door_eyes.gd" id="13_ytrdw"]
+[ext_resource type="Script" uid="uid://bt2cqiwwo5dl5" path="res://scripts/fake_transition_rect.gd" id="13_cupps"]
+[ext_resource type="Script" uid="uid://hx7uf70m2ejt" path="res://scripts/door_eyes.gd" id="13_ytrdw"]
 [ext_resource type="Texture2D" uid="uid://yxjt7mh4vrfu" path="res://assets/scratch/scratch_0.png" id="14_g7d3g"]
 [ext_resource type="Texture2D" uid="uid://crprqyf7qji5r" path="res://assets/rock_sign.png" id="14_oht43"]
 [ext_resource type="Texture2D" uid="uid://ck4438a3b73r6" path="res://assets/scratch/scratch_1.png" id="15_y1xxd"]
@@ -659,7 +659,6 @@ animation = &"scratch"
 speed_scale = 3.0
 
 [node name="Warning" type="Control" parent="." unique_id=457052574]
-visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0

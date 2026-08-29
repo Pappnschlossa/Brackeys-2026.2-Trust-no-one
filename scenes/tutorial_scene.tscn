@@ -1,9 +1,9 @@
 [gd_scene format=3 uid="uid://dpe25lmps37pr"]
 
-[ext_resource type="Script" uid="uid://b5w422tqsjbwt" path="res://scenes/tutorial_scene.gd" id="1_4yomp"]
+[ext_resource type="Script" uid="uid://b5w422tqsjbwt" path="res://scripts/tutorial_scene.gd" id="1_4yomp"]
 [ext_resource type="PackedScene" uid="uid://dmvvj7vsox4av" path="res://scenes/dialog_box.tscn" id="1_iarw2"]
 [ext_resource type="Material" uid="uid://bafyasjxgvhj5" path="res://shaders/colored_text_wobble_material.tres" id="2_4yomp"]
-[ext_resource type="Shader" uid="uid://bjcd5ffjh5ud8" path="res://scenes/rectangle_hole.gdshader" id="2_u6jee"]
+[ext_resource type="Shader" uid="uid://bjcd5ffjh5ud8" path="res://shaders/rectangle_hole.gdshader" id="2_u6jee"]
 [ext_resource type="Theme" uid="uid://de1j6ykjdiqd8" path="res://assets/themes/basic_text.tres" id="3_8ox5i"]
 [ext_resource type="Texture2D" uid="uid://cg4b1qvhnkyj7" path="res://assets/previous_button_0.png" id="4_u6jee"]
 [ext_resource type="Texture2D" uid="uid://cyxcyrjak7v2k" path="res://assets/previous_button_1.png" id="5_gvpdk"]

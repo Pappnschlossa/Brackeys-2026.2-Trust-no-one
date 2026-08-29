@@ -28,7 +28,7 @@ func update_money() -> void:
 	money_text.text = "%s" % str(g.money)
 	
 func _process(delta: float) -> void:
-	if !in_level or false:
+	if !in_level or g.level == 50:
 		return
 	angle += speed*delta
 	var i : int = 0

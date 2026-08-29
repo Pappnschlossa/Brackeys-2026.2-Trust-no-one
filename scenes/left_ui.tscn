@@ -223,6 +223,24 @@ layout_mode = 2
 texture = ExtResource("4_1w74l")
 expand_mode = 4
 
+[node name="EmptyHeart3" type="TextureRect" parent="VBoxContainer/HeartsContainer" unique_id=1584039959]
+unique_name_in_owner = true
+visible = false
+material = ExtResource("2_lfvck")
+custom_minimum_size = Vector2(70, 70)
+layout_mode = 2
+texture = ExtResource("3_lfvck")
+expand_mode = 4
+
+[node name="FullHeart3" type="TextureRect" parent="VBoxContainer/HeartsContainer" unique_id=157094957]
+unique_name_in_owner = true
+visible = false
+material = ExtResource("2_lfvck")
+custom_minimum_size = Vector2(70, 70)
+layout_mode = 2
+texture = ExtResource("4_1w74l")
+expand_mode = 4
+
 [node name="NumbersHidingText" type="RichTextLabel" parent="VBoxContainer" unique_id=736723458]
 visible = false
 layout_mode = 2

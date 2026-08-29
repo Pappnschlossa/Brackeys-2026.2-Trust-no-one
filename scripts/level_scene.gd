@@ -69,6 +69,7 @@ var MAX_ID : int
 var QUESTION : int # ID of number
 var TRUE_ANSWER : int # Value of number
 var FALSE_ANSWER : int # False value of number
+var ANSWER_50 : String
 
 var active_numpad : int = -1
 var number_guesses : Array[int]
@@ -78,11 +79,15 @@ func _ready() -> void:
 	if g.level < g.tutorial_level_threshold:
 		initialize_level_variables(true)
 		generate_tutorial_text()
+	elif g.level == 50:
+		generate_level_50()
 	else:
 		initialize_level_variables(false)
 		generate_text()
 	update_nodes()
 	numbers_container.add_numpad.connect(_on_add_numpad)
+	if g.level == 50:
+		g.current_items = ["EMPTY", "EMPTY", "EMPTY", "EMPTY"]
 	left_ui._on_inventory_reload()
 	item_tutorial()
 	left_ui.entered_level()
@@ -95,6 +100,8 @@ func _ready() -> void:
 func item_tutorial() -> void:
 	if g.level == 3 or g.level == 6:
 		left_ui._on_item_bought("MAGNIFYING_GLASS")
+	if g.level == 50:
+		left_ui._on_item_bought("ENVELOPE")
 
 func _on_add_numpad(numpad_id: int) -> void:
 	var pos = number_nodes[numpad_id].global_position + number_nodes[numpad_id].size/2
@@ -184,7 +191,7 @@ func initialize_level_variables(odd : bool = false) -> void:
 				QUESTION = n
 				number_nodes[n].is_question()
 		n += 1
-	
+
 func generate_text(envelope_id = null) -> void:
 	var id = 0
 	
@@ -246,6 +253,31 @@ func generate_text(envelope_id = null) -> void:
 						N.clue.equation_targets.reverse()
 		id += 1
 
+func generate_level_50() -> void:
+	TRUE_DOOR_ID = randi_range(0, 1)
+	FALSE_DOOR_ID = abs(TRUE_DOOR_ID - 1)
+	if TRUE_DOOR_ID == 0:
+		ANSWER_50 = "right"
+	else:
+		ANSWER_50 = "left"
+	AMOUNT = 1
+	MAX_ID = AMOUNT - 1
+	number_guesses.resize(AMOUNT)
+	number_guesses.fill(-1)
+	var N : Number = Number.new()
+	N.clue = Clue.new()
+	numbers.append(N)
+	numbers[0].val = 1
+	for n in g.number_occurences:
+		g.number_occurences[n] = 0
+	g.number_occurences[1] = 1
+	# Check if this still works with items
+	#(update the enveloppe to always trigger without having to push a button)
+	# Die does the same effect
+	# Key does something
+	QUESTION = -1
+	N.clue.is_text = true
+	N.clue.text = "There is no way for you to pick the correct door"
 
 func update_nodes(envelope_id = null) -> void:
 	for i in range(len(number_nodes)):
@@ -255,13 +287,17 @@ func update_nodes(envelope_id = null) -> void:
 			#number_nodes[i].get_node("VBoxContainer/Text").text = str(numbers[i].val)
 			var N = numbers[i]
 			var text_line : String
-			if !N.clue.is_equation:
-				if N.clue.target == i: # Target is self
-					text_line = "I am\n%s" % FORMAT_PARITY_SELF[N.clue.value]
+			if !N.clue.is_text:
+				if !N.clue.is_equation:
+					if N.clue.target == i: # Target is self
+						text_line = "I am\n%s" % FORMAT_PARITY_SELF[N.clue.value]
+					else:
+						text_line = "The number %s is %s" % [g.direction_of_number(i, N.clue.target), FORMAT_PARITY[N.clue.value]]
 				else:
-					text_line = "The number %s is %s" % [g.direction_of_number(i, N.clue.target), FORMAT_PARITY[N.clue.value]]
+					text_line = "I'm equal to\n%s %s %s" % [g.ID_TO_LETTER[N.clue.equation_targets[0]], OPERATOR_TO_SIGN[N.clue.operator], g.ID_TO_LETTER[N.clue.equation_targets[1]]]
 			else:
-				text_line = "I'm equal to\n%s %s %s" % [g.ID_TO_LETTER[N.clue.equation_targets[0]], OPERATOR_TO_SIGN[N.clue.operator], g.ID_TO_LETTER[N.clue.equation_targets[1]]]
+				text_line = N.clue.text
+				number_nodes[0].get_node("%Text").add_theme_font_size_override("normal_font_size", 28)
 			number_nodes[i].get_node("%Text").text = text_line
 			number_nodes[i].visible = true
 		else:
@@ -269,13 +305,18 @@ func update_nodes(envelope_id = null) -> void:
 	if envelope_id != null:
 		return
 	left_ui.update_hidden_numbers()
-	question.get_node("Text").text = "Which number is in cage %s?" % g.ID_TO_LETTER[QUESTION]
-	if TRUE_DOOR_ID == 0:
-		door0.get_node("SignTexture/Text").text = str(TRUE_ANSWER)
-		door1.get_node("SignTexture/Text").text = str(FALSE_ANSWER)
+	if g.level < 50:
+		question.get_node("Text").text = "Which number is in cage %s?" % g.ID_TO_LETTER[QUESTION]
+		if TRUE_DOOR_ID == 0:
+			door0.get_node("SignTexture/Text").text = str(TRUE_ANSWER)
+			door1.get_node("SignTexture/Text").text = str(FALSE_ANSWER)
+		else:
+			door0.get_node("SignTexture/Text").text = str(FALSE_ANSWER)
+			door1.get_node("SignTexture/Text").text = str(TRUE_ANSWER)
 	else:
-		door0.get_node("SignTexture/Text").text = str(FALSE_ANSWER)
-		door1.get_node("SignTexture/Text").text = str(TRUE_ANSWER)
+		question.get_node("Text").text = "Which is the correct door?"
+		door0.get_node("SignTexture/Text").text = "?"
+		door1.get_node("SignTexture/Text").text = "?"
 
 func can_be_equation(id) -> bool:
 	for i in range(AMOUNT-1):
@@ -307,15 +348,21 @@ func find_equations(id) -> Array[Array]:
 	return equations
 
 func _on_door_0_button_pressed() -> void:
-	if number_guesses[QUESTION] == -1:
+	if g.level != 50 and number_guesses[QUESTION] == -1:
 		guess_needed_warning()
+		return
+	if g.level == 50 and g.current_items[0] == "ENVELOPE":
+		envelope_needed_warning()
 		return
 	if TRUE_DOOR_ID == 0:	transition_to_next_level()
 	else:	wrong_door(0)
 
 func _on_door_1_button_pressed() -> void:
-	if number_guesses[QUESTION] == -1:
+	if g.level != 50 and number_guesses[QUESTION] == -1:
 		guess_needed_warning()
+		return
+	if g.level == 50 and g.current_items[0] == "ENVELOPE":
+		envelope_needed_warning()
 		return
 	if TRUE_DOOR_ID == 1:	transition_to_next_level()
 	else:	wrong_door(1)
@@ -328,6 +375,16 @@ func wrong_door(door_id : int) -> void:
 func guess_needed_warning() -> void:
 	warning.show()
 
+func envelope_needed_warning() -> void:
+	warning.get_node("DialogBox").size.y -= 250
+	warning.get_node("DialogBox/Wait").text = "Are you sure?"
+	var additional_text : String = ""
+	if g.envelope_in_level_use_amount <= 2:
+		warning.get_node("DialogBox").size.y += 100
+		additional_text = "\n\nThe envelope in your items forces the selected number to say something else."
+	warning.get_node("DialogBox/Text").text = "\n\n\nYou collected an item on your path you might need to use.%s" % additional_text
+	warning.show()
+
 func transition_to_next_level() -> void:
 	g.level += 1
 	var has_correct_guesses : bool = false
@@ -338,7 +395,9 @@ func transition_to_next_level() -> void:
 			has_correct_guesses = true
 	if has_correct_guesses:
 		await get_tree().create_timer(1.5).timeout
-	if g.level%10 == 0:
+	if g.level == 51:
+		change_scene.emit("win_scene", "bubble_transition")
+	if g.level%10 == 0 and g.level != 50:
 		change_scene.emit("shop_scene", "bubble_transition")
 	else:
 		change_scene.emit("level_scene", "bubble_transition")
@@ -363,6 +422,7 @@ func use_item(item_id : String) -> void:
 				0.3
 			)
 			using_envelope = true
+			g.envelope_in_level_use_amount += 1
 		"KEY":
 			await get_tree().create_timer(0.6).timeout
 			transition_to_next_level()
@@ -376,4 +436,5 @@ func use_item(item_id : String) -> void:
 					break
 
 func _on_warning_button_pressed() -> void:
+	warning.get_node("DialogBox").size = Vector2(788.0, 563.75)
 	warning.hide()

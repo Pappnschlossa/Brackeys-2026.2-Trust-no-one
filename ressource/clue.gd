@@ -1,6 +1,8 @@
 extends Resource
 class_name Clue
 
+var is_text : bool = false
+var text : String
 var is_equation : bool
 
 # Boolean clue variables (if !is_equation)

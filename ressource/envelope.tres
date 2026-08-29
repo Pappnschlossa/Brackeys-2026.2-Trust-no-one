@@ -7,6 +7,6 @@
 script = ExtResource("1_1vtrv")
 id = "ENVELOPE"
 texture = ExtResource("2_62o1v")
-average_price = 10
+average_price = 8
 description = "Changes what a number will say"
 metadata/_custom_type_script = "uid://mwlqykq1cuuq"
