@@ -20,6 +20,7 @@ signal shake_screen
 @export var fake_transition_rect : ColorRect
 @export var envelope_overlay : Control
 @export var warning : Control
+@export var tutorial_scene : Control
 
 const TRUE_NUMBERS : Array[int] = [0, 2, 3, 4, 5, 6, 7, 8, 9]
 const TRUE_ODD_NUMBERS : Array[int] = [3, 5, 7, 9]
@@ -85,6 +86,11 @@ func _ready() -> void:
 	left_ui._on_inventory_reload()
 	item_tutorial()
 	left_ui.entered_level()
+	if g.level == 1 and g.tutorial:
+		tutorial_scene.show()
+	if g.level == 1 and g.tutorial:
+		tutorial_scene.part_two()
+		tutorial_scene.show()
 
 func item_tutorial() -> void:
 	if g.level == 3 or g.level == 6:

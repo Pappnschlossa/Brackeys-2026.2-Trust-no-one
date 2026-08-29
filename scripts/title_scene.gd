@@ -3,10 +3,8 @@ extends Control
 signal change_scene
 signal add_scene_as_an_overlay
 
-# Called when the node enters the scene tree for the first time.
-func _ready() -> void:
-	pass # Replace with function body.
-
+@export var check_button : CheckBox
 
 func _on_start_button_pressed() -> void:
+	g.tutorial = check_button.button_pressed
 	change_scene.emit("level_scene", null)

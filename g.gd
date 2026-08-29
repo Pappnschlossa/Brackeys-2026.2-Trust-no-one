@@ -165,6 +165,8 @@ const ID_TO_LETTER : Dictionary[int, String] = {
 	5 : "F"
 }
 
+var tutorial : bool = false
+
 func reinitialize() -> void:
 	level = 1
 	lives = 3

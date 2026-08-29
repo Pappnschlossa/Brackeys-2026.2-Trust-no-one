@@ -41,6 +41,7 @@
 [ext_resource type="Texture2D" uid="uid://p5eyv1rv7x8p" path="res://assets/heart_break/heartbreak_5.png" id="30_f3ugr"]
 [ext_resource type="PackedScene" uid="uid://dmvvj7vsox4av" path="res://scenes/dialog_box.tscn" id="40_wmw8n"]
 [ext_resource type="FontFile" uid="uid://b75gmbl18kr1" path="res://assets/fonts/DarumadropOne-Regular.ttf" id="41_vcw7i"]
+[ext_resource type="PackedScene" uid="uid://dpe25lmps37pr" path="res://scenes/tutorial_scene.tscn" id="42_wdw0c"]
 
 [sub_resource type="Shader" id="Shader_mycgk"]
 code = "shader_type canvas_item;
@@ -280,7 +281,7 @@ corner_radius_top_right = 20
 corner_radius_bottom_right = 20
 corner_radius_bottom_left = 20
 
-[node name="Level" type="Control" unique_id=1635183676 node_paths=PackedStringArray("A", "B", "C", "D", "E", "F", "left_ui", "question", "door0", "door1", "numbers_container", "fake_transition_rect", "envelope_overlay", "warning")]
+[node name="Level" type="Control" unique_id=1635183676 node_paths=PackedStringArray("A", "B", "C", "D", "E", "F", "left_ui", "question", "door0", "door1", "numbers_container", "fake_transition_rect", "envelope_overlay", "warning", "tutorial_scene")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -302,6 +303,7 @@ numbers_container = NodePath("HBoxContainer/Middle/MarginContainer/NumbersContai
 fake_transition_rect = NodePath("FakeTransitionRect")
 envelope_overlay = NodePath("EnvelopeOverlay")
 warning = NodePath("Warning")
+tutorial_scene = NodePath("TutorialScene")
 
 [node name="Marker2D" type="Marker2D" parent="." unique_id=229607956]
 position = Vector2(146, 1040)
@@ -719,6 +721,10 @@ theme_override_styles/normal = SubResource("StyleBoxFlat_4xkny")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_wdw0c")
 theme_override_styles/hover = SubResource("StyleBoxFlat_luuy5")
 text = " Click here to continue "
+
+[node name="TutorialScene" parent="." unique_id=987435827 instance=ExtResource("42_wdw0c")]
+visible = false
+layout_mode = 1
 
 [connection signal="mouse_entered" from="HBoxContainer/Middle/DoorsContainer/Door0/Texture/MarginContainer/Door0Button" to="HBoxContainer/Middle/DoorsContainer/Door0" method="_on_button_mouse_entered"]
 [connection signal="mouse_exited" from="HBoxContainer/Middle/DoorsContainer/Door0/Texture/MarginContainer/Door0Button" to="HBoxContainer/Middle/DoorsContainer/Door0" method="_on_button_mouse_exited"]
