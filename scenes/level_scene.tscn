@@ -675,9 +675,9 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -394.0
-offset_top = -262.75
+offset_top = -281.875
 offset_right = 394.0
-offset_bottom = 352.0
+offset_bottom = 281.875
 grow_horizontal = 2
 grow_vertical = 2
 
@@ -701,7 +701,7 @@ To enter the door of your choice, you must first select the number you think is 
 
 Just click on that cage to assign a number.
 
-You should also consider trying to guess the numbers in the other cages (by clicking on those cages).
+You can also do the same with the other cages.
 
 Each correct guess will grant you one gold coin upon entering the correct door."
 horizontal_alignment = 1

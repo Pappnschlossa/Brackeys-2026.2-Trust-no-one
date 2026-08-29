@@ -88,7 +88,7 @@ func _ready() -> void:
 	left_ui.entered_level()
 	if g.level == 1 and g.tutorial:
 		tutorial_scene.show()
-	if g.level == 1 and g.tutorial:
+	if g.level == 3 and g.tutorial:
 		tutorial_scene.part_two()
 		tutorial_scene.show()
 

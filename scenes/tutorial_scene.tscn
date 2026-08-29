@@ -39,7 +39,7 @@ corner_radius_top_right = 20
 corner_radius_bottom_right = 20
 corner_radius_bottom_left = 20
 
-[node name="TutorialScene" type="Control" unique_id=987435827 node_paths=PackedStringArray("previous_button", "next_button", "step_nb_text", "text_1", "text_2", "text_3", "text_4", "text_5", "continue_button", "text_box", "overlay")]
+[node name="TutorialScene" type="Control" unique_id=987435827 node_paths=PackedStringArray("previous_button", "next_button", "step_nb_text", "text_1", "text_2", "text_3", "text_4", "text_5", "text_2_1", "text_2_2", "text_2_3", "continue_button", "text_box", "overlay")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -55,6 +55,9 @@ text_2 = NodePath("MarginContainer/DialogBox/VBoxContainer/MarginContainer/Text2
 text_3 = NodePath("MarginContainer/DialogBox/VBoxContainer/MarginContainer/Text3")
 text_4 = NodePath("MarginContainer/DialogBox/VBoxContainer/MarginContainer/Text4")
 text_5 = NodePath("MarginContainer/DialogBox/VBoxContainer/MarginContainer/Text5")
+text_2_1 = NodePath("MarginContainer/DialogBox/VBoxContainer/MarginContainer/Text2_1")
+text_2_2 = NodePath("MarginContainer/DialogBox/VBoxContainer/MarginContainer/Text2_2")
+text_2_3 = NodePath("MarginContainer/DialogBox/VBoxContainer/MarginContainer/Text2_3")
 continue_button = NodePath("MarginContainer/DialogBox/VBoxContainer/HBoxContainer/ContinueButton")
 text_box = NodePath("MarginContainer")
 overlay = NodePath("ColorRect")
@@ -104,12 +107,13 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="Text2" type="RichTextLabel" parent="MarginContainer/DialogBox/VBoxContainer/MarginContainer" unique_id=1980321080]
-visible = false
 material = ExtResource("2_4yomp")
 layout_mode = 2
 theme = ExtResource("3_8ox5i")
 theme_override_constants/line_separation = -16
-text = "To find it, you have to listen to what the numbers in the cages say. Careful: every number will say the truth except the number 1, which will always lie.
+bbcode_enabled = true
+text = "To find it, you have to listen to what the numbers in the cages say.
+[shake rate=20.0 level=5 connected=1]Careful[/shake]: every number will say the truth except the number 1, which will always lie.
 "
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -120,7 +124,7 @@ material = ExtResource("2_4yomp")
 layout_mode = 2
 theme = ExtResource("3_8ox5i")
 theme_override_constants/line_separation = -16
-text = "Your Crystal Ball can help you guess what the numbers in the cages are. The numbers appearing in it are the numbers locked in the cages. Also note that there is always only one number one on each floor."
+text = "Your Crystal Ball can help you guess what the numbers in the cages are. The numbers appearing in it are the numbers locked in the cages. Also note that there is always only one number 1 on each floor."
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -130,18 +134,49 @@ material = ExtResource("2_4yomp")
 layout_mode = 2
 theme = ExtResource("3_8ox5i")
 theme_override_constants/line_separation = -16
-text = "You can click the cages to assign the number you think is locked in. At the end of the floor, each correct guess will be rewarded with 1 gold coin.
+text = "You will be able to click the cages to assign the number you think is locked in. At the end of the floor, each correct guess will be rewarded with 1 gold coin.
 "
 horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="Text5" type="RichTextLabel" parent="MarginContainer/DialogBox/VBoxContainer/MarginContainer" unique_id=1873040620]
+visible = false
 material = ExtResource("2_4yomp")
 layout_mode = 2
 theme = ExtResource("3_8ox5i")
 theme_override_constants/line_separation = -16
 text = "Can you figure out who is lying here with the help of your crystal ball?
 Once you have guessed what numbers are inside the cages, enter the correct door by clicking on it."
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Text2_1" type="RichTextLabel" parent="MarginContainer/DialogBox/VBoxContainer/MarginContainer" unique_id=451541674]
+visible = false
+material = ExtResource("2_4yomp")
+layout_mode = 2
+theme = ExtResource("3_8ox5i")
+theme_override_constants/line_separation = -16
+text = "Sometimes, it will be impossible to know the solution. This is a good occasion to use items. Choosing the wrong door will cost you a heart."
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Text2_2" type="RichTextLabel" parent="MarginContainer/DialogBox/VBoxContainer/MarginContainer" unique_id=698674937]
+visible = false
+material = ExtResource("2_4yomp")
+layout_mode = 2
+theme = ExtResource("3_8ox5i")
+theme_override_constants/line_separation = -16
+text = "If you collect enough gold by clicking on cages and assigning the right number, you may buy items at the shops you will find on your path."
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Text2_3" type="RichTextLabel" parent="MarginContainer/DialogBox/VBoxContainer/MarginContainer" unique_id=1027571737]
+visible = false
+material = ExtResource("2_4yomp")
+layout_mode = 2
+theme = ExtResource("3_8ox5i")
+theme_override_constants/line_separation = -16
+text = "Try using the magnifying glass (on the left) by clicking on it, to see what it does!"
 horizontal_alignment = 1
 vertical_alignment = 1
 
