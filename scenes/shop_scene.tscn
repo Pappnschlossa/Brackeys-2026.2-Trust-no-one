@@ -446,12 +446,14 @@ stretch_mode = 5
 [node name="Eyes" type="TextureRect" parent="HBoxContainer/Middle/DoorsContainer/MarginContainer/TextureRect" unique_id=1302289556]
 material = SubResource("ShaderMaterial_e50rk")
 layout_mode = 0
-offset_left = -10.0
-offset_top = -34.0
-offset_right = 266.0
-offset_bottom = 224.0
+offset_left = -14.0
+offset_top = -26.0
+offset_right = 262.0
+offset_bottom = 232.0
 texture = ExtResource("11_jq18f")
 script = ExtResource("22_eyb44")
+strength = 25.0
+smoothness = 1.5
 
 [node name="Mustache" type="TextureRect" parent="HBoxContainer/Middle/DoorsContainer/MarginContainer/TextureRect" unique_id=1025481338]
 material = SubResource("ShaderMaterial_e50rk")
@@ -547,8 +549,10 @@ size_flags_horizontal = 3
 
 [node name="LevelForeground" type="TextureRect" parent="." unique_id=1596143280]
 layout_mode = 0
-offset_right = 1920.0
-offset_bottom = 1080.0
+offset_left = 11.0
+offset_top = 94.0
+offset_right = 1931.0
+offset_bottom = 1174.0
 mouse_filter = 2
 texture = ExtResource("14_fuohu")
 
