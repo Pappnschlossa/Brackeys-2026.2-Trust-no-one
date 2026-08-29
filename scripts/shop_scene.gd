@@ -48,6 +48,7 @@ func randomize_items() -> void:
 
 func _on_shop_exit_button_pressed() -> void:
 	g.level += 1
+	get_node("FootstepsSFX").play()
 	change_scene.emit("level_scene", "bubble_transition")
 
 

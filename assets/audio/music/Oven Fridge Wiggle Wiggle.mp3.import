@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://bmfqi1vx0svs"
+path="res://.godot/imported/Oven Fridge Wiggle Wiggle.mp3-3091d17916bae4c27225ba3c575b8572.mp3str"
+
+[deps]
+
+source_file="res://assets/audio/music/Oven Fridge Wiggle Wiggle.mp3"
+dest_files=["res://.godot/imported/Oven Fridge Wiggle Wiggle.mp3-3091d17916bae4c27225ba3c575b8572.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

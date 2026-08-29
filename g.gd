@@ -174,8 +174,8 @@ var envelope_in_level_use_amount : int = 0
 var total_coins_collected : int = 0
 
 func reinitialize() -> void:
-	level = 50
-	lives = 1
+	level = 1
+	lives = 3
 	money = 0
 	envelope_in_level_use_amount = 0
 	total_coins_collected = 0

@@ -91,6 +91,7 @@ func _ready() -> void:
 		backgrounds_20.hide()
 		backgrounds_40.hide()
 		backgrounds_50.show()
+		$Shadow40.show()
 	if g.level < g.tutorial_level_threshold:
 		initialize_level_variables(true)
 		generate_tutorial_text()
@@ -371,6 +372,7 @@ func _on_door_0_button_pressed() -> void:
 	if g.level == 50 and g.current_items[0] == "ENVELOPE":
 		envelope_needed_warning()
 		return
+	get_node("FootstepsSFX").play()
 	if TRUE_DOOR_ID == 0:	transition_to_next_level()
 	else:	wrong_door(0)
 
@@ -381,6 +383,7 @@ func _on_door_1_button_pressed() -> void:
 	if g.level == 50 and g.current_items[0] == "ENVELOPE":
 		envelope_needed_warning()
 		return
+	get_node("FootstepsSFX").play()
 	if TRUE_DOOR_ID == 1:	transition_to_next_level()
 	else:	wrong_door(1)
 

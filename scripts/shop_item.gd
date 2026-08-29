@@ -63,6 +63,7 @@ func _on_button_pressed() -> void:
 			Vector2($Texture.position.x, -1080),
 			0.6
 		).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
+		get_node("SFX").play()
 		tween_processing = true
 		await tween.finished
 		tween_processing = false

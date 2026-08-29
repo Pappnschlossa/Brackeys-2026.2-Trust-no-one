@@ -54,6 +54,7 @@ func collect_coin(to : Vector2) -> void:
 		1.0
 	).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
 	await tween.finished
+	coin.get_node("SFX").play()
 	g.money += 1
 	g.total_coins_collected += 1
 	left_ui.update_money()

@@ -2,8 +2,51 @@
 
 [ext_resource type="Script" uid="uid://d37c1qoisagq6" path="res://scripts/title_scene.gd" id="1_6jsh8"]
 [ext_resource type="Texture2D" uid="uid://b1lbiru3wd51j" path="res://assets/case_coche.png" id="2_4k7ef"]
+[ext_resource type="FontFile" uid="uid://b75gmbl18kr1" path="res://assets/fonts/DarumadropOne-Regular.ttf" id="2_l5n7b"]
 [ext_resource type="Theme" uid="uid://de1j6ykjdiqd8" path="res://assets/themes/basic_text.tres" id="2_l8sac"]
+[ext_resource type="Texture2D" uid="uid://dvftbm63tbj0m" path="res://assets/Backgrounds/title/layers/battleground.png" id="2_lqobm"]
+[ext_resource type="Texture2D" uid="uid://dfwjdv60yq3ll" path="res://assets/Backgrounds/title/layers/back_land.png" id="3_6ppm8"]
 [ext_resource type="Texture2D" uid="uid://8vejktr4h4ck" path="res://assets/case.png" id="3_l8sac"]
+[ext_resource type="Texture2D" uid="uid://hnt4vq33uteg" path="res://assets/curse_of_the_number_dungeon_title_warped.png" id="5_bq8jb"]
+[ext_resource type="Texture2D" uid="uid://dy3fwlpepm0qk" path="res://assets/Backgrounds/title/layers/ground_decor.png" id="5_ur11i"]
+[ext_resource type="Texture2D" uid="uid://xw8skn8dycv6" path="res://assets/Backgrounds/title/layers/front_decor.png" id="6_u3gtk"]
+[ext_resource type="Script" uid="uid://341hykmhokin" path="res://scenes/floating.gd" id="11_lqobm"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_s8xmt"]
+bg_color = Color(0.41960785, 0.5803922, 0.7411765, 1)
+border_width_left = 8
+border_width_top = 8
+border_width_right = 8
+border_width_bottom = 8
+border_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7rdyk"]
+bg_color = Color(0.27195352, 0.38646525, 0.4965729, 1)
+border_width_left = 8
+border_width_top = 8
+border_width_right = 8
+border_width_bottom = 8
+border_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ofksa"]
+bg_color = Color(0.7140452, 0.80838317, 0.9019721, 1)
+border_width_left = 8
+border_width_top = 8
+border_width_right = 8
+border_width_bottom = 8
+border_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
 
 [node name="TitleScene" type="Control" unique_id=945108710 node_paths=PackedStringArray("check_button")]
 layout_mode = 3
@@ -15,23 +58,22 @@ grow_vertical = 2
 script = ExtResource("1_6jsh8")
 check_button = NodePath("MarginContainer/VBoxContainer/HBoxContainer/CheckBox")
 
-[node name="RichTextLabel" type="RichTextLabel" parent="." unique_id=459163126]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -488.0
-offset_top = -117.5
-offset_right = 488.0
-offset_bottom = 117.5
-grow_horizontal = 2
-grow_vertical = 2
-size_flags_vertical = 3
-text = "TITLE"
-horizontal_alignment = 1
-vertical_alignment = 1
+[node name="Backgrounds40" type="Node2D" parent="." unique_id=28917868]
+position = Vector2(960, 425)
+scale = Vector2(0.515, 0.638)
+script = ExtResource("11_lqobm")
+
+[node name="BattleGround" type="Sprite2D" parent="Backgrounds40" unique_id=710968369]
+texture = ExtResource("2_lqobm")
+
+[node name="BackLand" type="Sprite2D" parent="Backgrounds40" unique_id=88494807]
+texture = ExtResource("3_6ppm8")
+
+[node name="GroundDecor" type="Sprite2D" parent="Backgrounds40" unique_id=1441627516]
+texture = ExtResource("5_ur11i")
+
+[node name="FrontDecor" type="Sprite2D" parent="Backgrounds40" unique_id=712458192]
+texture = ExtResource("6_u3gtk")
 
 [node name="MarginContainer" type="MarginContainer" parent="." unique_id=1572215159]
 layout_mode = 1
@@ -41,32 +83,87 @@ anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
 offset_left = -361.5
-offset_top = -392.0
+offset_top = -480.0
 offset_right = 361.5
+offset_bottom = -225.0
 grow_horizontal = 2
 grow_vertical = 0
 
 [node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer" unique_id=1636310916]
 layout_mode = 2
 
-[node name="StartButton" type="Button" parent="MarginContainer/VBoxContainer" unique_id=516420891]
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer" unique_id=1814496068]
 layout_mode = 2
 size_flags_horizontal = 4
-size_flags_vertical = 4
-text = "Start"
-
-[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer" unique_id=1183949150]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
+size_flags_vertical = 3
 
 [node name="CheckBox" type="CheckBox" parent="MarginContainer/VBoxContainer/HBoxContainer" unique_id=1095873911]
 layout_mode = 2
 theme = ExtResource("2_l8sac")
-theme_override_font_sizes/font_size = 32
+theme_override_constants/h_separation = 74
+theme_override_font_sizes/font_size = 51
 theme_override_icons/checked = ExtResource("2_4k7ef")
 theme_override_icons/unchecked = ExtResource("3_l8sac")
 button_pressed = true
-text = "Tutorial at the start"
+
+[node name="RichTextLabel" type="RichTextLabel" parent="MarginContainer/VBoxContainer/HBoxContainer" unique_id=773390916]
+custom_minimum_size = Vector2(180, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("2_l8sac")
+theme_override_font_sizes/normal_font_size = 36
+text = "Tutorial at
+the start"
+
+[node name="StartButton" type="Button" parent="MarginContainer/VBoxContainer" unique_id=532592728]
+custom_minimum_size = Vector2(200, 70)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 8
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
+theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_pressed_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("2_l5n7b")
+theme_override_font_sizes/font_size = 42
+theme_override_styles/normal = SubResource("StyleBoxFlat_s8xmt")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_7rdyk")
+theme_override_styles/hover = SubResource("StyleBoxFlat_ofksa")
+text = "  New Run  "
+
+[node name="QuitButton" type="Button" parent="MarginContainer/VBoxContainer" unique_id=127009995]
+custom_minimum_size = Vector2(200, 70)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 8
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
+theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_pressed_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("2_l5n7b")
+theme_override_font_sizes/font_size = 42
+theme_override_styles/normal = SubResource("StyleBoxFlat_s8xmt")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_7rdyk")
+theme_override_styles/hover = SubResource("StyleBoxFlat_ofksa")
+text = "  Quit  "
+
+[node name="Title" type="TextureRect" parent="." unique_id=1734733336]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -512.0
+offset_top = -664.0
+offset_right = 512.0
+offset_bottom = 360.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("5_bq8jb")
 
 [connection signal="pressed" from="MarginContainer/VBoxContainer/StartButton" to="." method="_on_start_button_pressed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/QuitButton" to="." method="_on_quit_button_pressed"]

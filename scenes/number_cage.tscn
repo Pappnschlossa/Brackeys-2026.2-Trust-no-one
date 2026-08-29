@@ -15,6 +15,7 @@
 [ext_resource type="Texture2D" uid="uid://d1g53oosnrhbr" path="res://assets/coin/coin_1.png" id="13_6yf2o"]
 [ext_resource type="Texture2D" uid="uid://dsfohbdrnlbs0" path="res://assets/coin/coin_2.png" id="14_75svu"]
 [ext_resource type="Texture2D" uid="uid://dys8yxigr6vq" path="res://assets/coin/coin_3.png" id="15_ws70j"]
+[ext_resource type="AudioStream" uid="uid://di27t24rnaxyq" path="res://assets/audio/sfx/Coin.ogg" id="16_6yf2o"]
 
 [sub_resource type="Shader" id="Shader_mycgk"]
 code = "shader_type canvas_item;
@@ -314,6 +315,10 @@ position = Vector2(176, 196)
 sprite_frames = SubResource("SpriteFrames_e0uvl")
 animation = &"coin_spin"
 frame_progress = 0.63351554
+
+[node name="SFX" type="AudioStreamPlayer2D" parent="Coin" unique_id=605849768]
+stream = ExtResource("16_6yf2o")
+bus = &"SFX"
 
 [node name="TrueNumber" parent="." unique_id=1952454688 instance=ExtResource("10_ej4a6")]
 unique_name_in_owner = true

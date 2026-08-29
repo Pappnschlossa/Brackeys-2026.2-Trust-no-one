@@ -11,9 +11,11 @@
 [ext_resource type="Texture2D" uid="uid://dxd12m67yopl1" path="res://assets/Backgrounds/base/layers/ground_decor.png" id="4_q0x7d"]
 [ext_resource type="Theme" uid="uid://bo40cw5tanri6" path="res://assets/themes/title_text.tres" id="4_tvdqs"]
 [ext_resource type="Texture2D" uid="uid://ffmej460h0xo" path="res://shaders/flow_map_0.jpg" id="5_27noo"]
+[ext_resource type="Shader" uid="uid://b30q36o4ty1by" path="res://scenes/hue_shader.gdshader" id="5_jqp1e"]
 [ext_resource type="Shader" uid="uid://bf82dgbp53hju" path="res://shaders/colored_text_wobble.gdshader" id="5_ljega"]
 [ext_resource type="Texture2D" uid="uid://bkeoykex1tq13" path="res://assets/Backgrounds/lava/layers/battleground.png" id="5_osghn"]
 [ext_resource type="Texture2D" uid="uid://cdja4hd4thvti" path="res://assets/Backgrounds/lava/layers/back_land.png" id="6_jqp1e"]
+[ext_resource type="Texture2D" uid="uid://dfwjdv60yq3ll" path="res://assets/Backgrounds/title/layers/back_land.png" id="6_n4a0c"]
 [ext_resource type="Texture2D" uid="uid://cnp7je8qtt26v" path="res://assets/Backgrounds/lava/layers/ground_decor.png" id="7_n4a0c"]
 [ext_resource type="Texture2D" uid="uid://dskpc6rj5lkeu" path="res://assets/door.png" id="7_pptjr"]
 [ext_resource type="Theme" uid="uid://fxj3p4ueiqg2" path="res://assets/themes/transparent_button.tres" id="8_cl78e"]
@@ -28,6 +30,19 @@
 [ext_resource type="Texture2D" uid="uid://ctvl3fem82ld6" path="res://assets/mustache.png" id="12_jq18f"]
 [ext_resource type="Texture2D" uid="uid://b4744yp21pkfe" path="res://assets/level_foreground.png" id="14_fuohu"]
 [ext_resource type="Script" uid="uid://b5eisf74wfvdf" path="res://scenes/eyes.gd" id="22_eyb44"]
+[ext_resource type="AudioStream" uid="uid://dwh0ijhqgroo8" path="res://assets/audio/sfx/Footsteps.ogg" id="31_jqp1e"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_o2hrr"]
+shader = ExtResource("5_jqp1e")
+shader_parameter/hue_shift = 0.3170000150575
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_limxy"]
+shader = ExtResource("5_jqp1e")
+shader_parameter/hue_shift = 0.382000018145
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_uwuor"]
+shader = ExtResource("5_jqp1e")
+shader_parameter/hue_shift = 0.578000027455
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_feetc"]
 shader = ExtResource("5_ljega")
@@ -294,6 +309,12 @@ texture = ExtResource("3_eyb44")
 [node name="GroundDecor" type="Sprite2D" parent="Backgrounds20" unique_id=2047153604]
 texture = ExtResource("4_q0x7d")
 
+[node name="BackLand2" type="Sprite2D" parent="Backgrounds20" unique_id=2098903116]
+material = SubResource("ShaderMaterial_o2hrr")
+position = Vector2(216, 691.9354)
+scale = Vector2(1.4221923, 1.4221923)
+texture = ExtResource("6_n4a0c")
+
 [node name="Backgrounds40" type="Node2D" parent="." unique_id=984096946]
 visible = false
 position = Vector2(960, 425)
@@ -311,6 +332,12 @@ texture = ExtResource("7_n4a0c")
 [node name="FrontDecor" type="Sprite2D" parent="Backgrounds40" unique_id=1150216700]
 texture = ExtResource("8_o2hrr")
 
+[node name="BackLand2" type="Sprite2D" parent="Backgrounds40" unique_id=2048380374]
+material = SubResource("ShaderMaterial_limxy")
+position = Vector2(216, 691.9354)
+scale = Vector2(1.4221923, 1.4221923)
+texture = ExtResource("6_n4a0c")
+
 [node name="Backgrounds50" type="Node2D" parent="." unique_id=299434616]
 visible = false
 position = Vector2(960, 425)
@@ -324,6 +351,12 @@ texture = ExtResource("10_uwuor")
 
 [node name="GroundDecor" type="Sprite2D" parent="Backgrounds50" unique_id=483861783]
 texture = ExtResource("11_dec6b")
+
+[node name="BackLand2" type="Sprite2D" parent="Backgrounds50" unique_id=1126266538]
+material = SubResource("ShaderMaterial_uwuor")
+position = Vector2(216, 691.9355)
+scale = Vector2(1.4221923, 1.4221923)
+texture = ExtResource("6_n4a0c")
 
 [node name="LevelBackground" type="TextureRect" parent="." unique_id=12818604]
 layout_mode = 0
@@ -548,6 +581,11 @@ offset_left = 514.0
 offset_right = 1554.0
 offset_bottom = 592.0
 color = Color(0, 0, 0, 0.34117648)
+
+[node name="FootstepsSFX" type="AudioStreamPlayer2D" parent="." unique_id=71876389]
+stream = ExtResource("31_jqp1e")
+volume_db = 24.0
+bus = &"SFX"
 
 [connection signal="mouse_entered" from="HBoxContainer/Middle/DoorsContainer/ShopExitDoor/Texture/MarginContainer/ShopExitButton" to="." method="_on_shop_exit_button_mouse_entered"]
 [connection signal="mouse_exited" from="HBoxContainer/Middle/DoorsContainer/ShopExitDoor/Texture/MarginContainer/ShopExitButton" to="." method="_on_shop_exit_button_mouse_exited"]
