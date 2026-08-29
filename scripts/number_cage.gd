@@ -37,6 +37,10 @@ func is_question() -> void:
 	get_node("%Texture").texture = load("uid://500jfuen1gng")
 	get_node("%Lock").texture = load("uid://buhqjk78imbmr")
 
+func is_not_question() -> void:
+	get_node("%Texture").texture = load("uid://c51b1cgdr8rlk")
+	get_node("%Lock").texture = load("uid://dmkaut56mi1t3")
+
 func collect_coin(to : Vector2) -> void:
 	coin.global_position = global_position + size/2 + Vector2(0, 30)
 	coin.play("coin_spin")
@@ -51,5 +55,6 @@ func collect_coin(to : Vector2) -> void:
 	).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
 	await tween.finished
 	g.money += 1
+	g.total_coins_collected += 1
 	left_ui.update_money()
 	coin.hide()

@@ -3,20 +3,31 @@
 [ext_resource type="Script" uid="uid://cu6crg1ik4yh1" path="res://scripts/shop_scene.gd" id="1_r1uou"]
 [ext_resource type="PackedScene" uid="uid://c7ylr0khyv7u4" path="res://scenes/left_ui.tscn" id="2_hovpq"]
 [ext_resource type="Texture2D" uid="uid://dxxhi5rhqq267" path="res://assets/level_background.png" id="2_nsn86"]
+[ext_resource type="Texture2D" uid="uid://bwhbf6vaqonce" path="res://assets/Backgrounds/base/layers/battleground.png" id="2_s3gox"]
 [ext_resource type="Material" uid="uid://df8s1mvjvgfm0" path="res://shaders/big_texture_wobble_material.tres" id="3_bk5ov"]
+[ext_resource type="Texture2D" uid="uid://d2yv728yoxehh" path="res://assets/Backgrounds/base/layers/back_land.png" id="3_eyb44"]
 [ext_resource type="Texture2D" uid="uid://wusnm0w27xiu" path="res://assets/shop_sign.png" id="3_fdhsn"]
 [ext_resource type="PackedScene" uid="uid://dev0ijjb7kua6" path="res://scenes/levels_map.tscn" id="3_ykrk4"]
+[ext_resource type="Texture2D" uid="uid://dxd12m67yopl1" path="res://assets/Backgrounds/base/layers/ground_decor.png" id="4_q0x7d"]
 [ext_resource type="Theme" uid="uid://bo40cw5tanri6" path="res://assets/themes/title_text.tres" id="4_tvdqs"]
 [ext_resource type="Texture2D" uid="uid://ffmej460h0xo" path="res://shaders/flow_map_0.jpg" id="5_27noo"]
 [ext_resource type="Shader" uid="uid://bf82dgbp53hju" path="res://shaders/colored_text_wobble.gdshader" id="5_ljega"]
+[ext_resource type="Texture2D" uid="uid://bkeoykex1tq13" path="res://assets/Backgrounds/lava/layers/battleground.png" id="5_osghn"]
+[ext_resource type="Texture2D" uid="uid://cdja4hd4thvti" path="res://assets/Backgrounds/lava/layers/back_land.png" id="6_jqp1e"]
+[ext_resource type="Texture2D" uid="uid://cnp7je8qtt26v" path="res://assets/Backgrounds/lava/layers/ground_decor.png" id="7_n4a0c"]
 [ext_resource type="Texture2D" uid="uid://dskpc6rj5lkeu" path="res://assets/door.png" id="7_pptjr"]
 [ext_resource type="Theme" uid="uid://fxj3p4ueiqg2" path="res://assets/themes/transparent_button.tres" id="8_cl78e"]
 [ext_resource type="Texture2D" uid="uid://d1felggl4g2s3" path="res://shaders/flow_map_1.jpg" id="8_feetc"]
+[ext_resource type="Texture2D" uid="uid://c64osl6f4xdxp" path="res://assets/Backgrounds/lava/layers/front_decor.png" id="8_o2hrr"]
 [ext_resource type="PackedScene" uid="uid://bihxbucp68nhn" path="res://scenes/shop_item.tscn" id="9_cl78e"]
 [ext_resource type="Texture2D" uid="uid://5jh68phn0wb3" path="res://assets/numbers/pi.png" id="9_l6kjb"]
+[ext_resource type="Texture2D" uid="uid://k8vorc84c134" path="res://assets/Backgrounds/lava2/layers/battleground.png" id="9_limxy"]
+[ext_resource type="Texture2D" uid="uid://bvnhhehrswikt" path="res://assets/Backgrounds/lava2/layers/back_decor.png" id="10_uwuor"]
+[ext_resource type="Texture2D" uid="uid://b4hkwk0dur7mh" path="res://assets/Backgrounds/lava2/layers/ground_decor.png" id="11_dec6b"]
 [ext_resource type="Texture2D" uid="uid://b543ulmlfrewp" path="res://assets/eyes.png" id="11_jq18f"]
 [ext_resource type="Texture2D" uid="uid://ctvl3fem82ld6" path="res://assets/mustache.png" id="12_jq18f"]
 [ext_resource type="Texture2D" uid="uid://b4744yp21pkfe" path="res://assets/level_foreground.png" id="14_fuohu"]
+[ext_resource type="Script" uid="uid://b5eisf74wfvdf" path="res://scenes/eyes.gd" id="22_eyb44"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_feetc"]
 shader = ExtResource("5_ljega")
@@ -250,7 +261,7 @@ shader_parameter/pattern = 2
 shader_parameter/inside = false
 shader_parameter/add_margins = true
 
-[node name="Shop" type="Control" unique_id=647607696 node_paths=PackedStringArray("left_ui", "door_node", "shop_item_0", "shop_item_1", "shop_item_2", "shop_item_3", "envelope_overlay")]
+[node name="Shop" type="Control" unique_id=647607696 node_paths=PackedStringArray("left_ui", "door_node", "shop_item_0", "shop_item_1", "shop_item_2", "shop_item_3", "envelope_overlay", "backgrounds_20", "backgrounds_40", "backgrounds_50")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -265,6 +276,54 @@ shop_item_1 = NodePath("HBoxContainer/Middle/ShopItems/ShopItem1")
 shop_item_2 = NodePath("HBoxContainer/Middle/ShopItems/ShopItem2")
 shop_item_3 = NodePath("HBoxContainer/Middle/ShopItems/ShopItem3")
 envelope_overlay = NodePath("EnvelopeOverlay")
+backgrounds_20 = NodePath("Backgrounds20")
+backgrounds_40 = NodePath("Backgrounds40")
+backgrounds_50 = NodePath("Backgrounds50")
+
+[node name="Backgrounds20" type="Node2D" parent="." unique_id=759524773]
+visible = false
+position = Vector2(960, 425)
+scale = Vector2(0.5, 0.62)
+
+[node name="BattleGround" type="Sprite2D" parent="Backgrounds20" unique_id=924473503]
+texture = ExtResource("2_s3gox")
+
+[node name="BackLand" type="Sprite2D" parent="Backgrounds20" unique_id=2023853376]
+texture = ExtResource("3_eyb44")
+
+[node name="GroundDecor" type="Sprite2D" parent="Backgrounds20" unique_id=2047153604]
+texture = ExtResource("4_q0x7d")
+
+[node name="Backgrounds40" type="Node2D" parent="." unique_id=984096946]
+visible = false
+position = Vector2(960, 425)
+scale = Vector2(0.5, 0.62)
+
+[node name="BattleGround" type="Sprite2D" parent="Backgrounds40" unique_id=846170479]
+texture = ExtResource("5_osghn")
+
+[node name="BackLand" type="Sprite2D" parent="Backgrounds40" unique_id=682497468]
+texture = ExtResource("6_jqp1e")
+
+[node name="GroundDecor" type="Sprite2D" parent="Backgrounds40" unique_id=819543344]
+texture = ExtResource("7_n4a0c")
+
+[node name="FrontDecor" type="Sprite2D" parent="Backgrounds40" unique_id=1150216700]
+texture = ExtResource("8_o2hrr")
+
+[node name="Backgrounds50" type="Node2D" parent="." unique_id=299434616]
+visible = false
+position = Vector2(960, 425)
+scale = Vector2(0.5, 0.62)
+
+[node name="BattleGround" type="Sprite2D" parent="Backgrounds50" unique_id=1256576674]
+texture = ExtResource("9_limxy")
+
+[node name="BackDecor" type="Sprite2D" parent="Backgrounds50" unique_id=1106521539]
+texture = ExtResource("10_uwuor")
+
+[node name="GroundDecor" type="Sprite2D" parent="Backgrounds50" unique_id=483861783]
+texture = ExtResource("11_dec6b")
 
 [node name="LevelBackground" type="TextureRect" parent="." unique_id=12818604]
 layout_mode = 0
@@ -359,6 +418,7 @@ offset_top = -34.0
 offset_right = 266.0
 offset_bottom = 224.0
 texture = ExtResource("11_jq18f")
+script = ExtResource("22_eyb44")
 
 [node name="Mustache" type="TextureRect" parent="HBoxContainer/Middle/DoorsContainer/MarginContainer/TextureRect" unique_id=1025481338]
 material = SubResource("ShaderMaterial_e50rk")
@@ -453,7 +513,6 @@ layout_mode = 2
 size_flags_horizontal = 3
 
 [node name="LevelForeground" type="TextureRect" parent="." unique_id=1596143280]
-visible = false
 layout_mode = 0
 offset_right = 1920.0
 offset_bottom = 1080.0

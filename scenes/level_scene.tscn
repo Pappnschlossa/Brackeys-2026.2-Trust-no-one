@@ -4,16 +4,26 @@
 [ext_resource type="Texture2D" uid="uid://dxxhi5rhqq267" path="res://assets/level_background.png" id="2_agchy"]
 [ext_resource type="Script" uid="uid://bis2ccijh3k6f" path="res://scripts/numbers_container.gd" id="2_bl4ss"]
 [ext_resource type="PackedScene" uid="uid://c7ylr0khyv7u4" path="res://scenes/left_ui.tscn" id="2_c8xsp"]
+[ext_resource type="Texture2D" uid="uid://dxd12m67yopl1" path="res://assets/Backgrounds/base/layers/ground_decor.png" id="2_ddp5f"]
 [ext_resource type="Theme" uid="uid://bo40cw5tanri6" path="res://assets/themes/title_text.tres" id="3_2m3ut"]
 [ext_resource type="Texture2D" uid="uid://d1felggl4g2s3" path="res://shaders/flow_map_1.jpg" id="4_0jxn2"]
+[ext_resource type="Texture2D" uid="uid://bwhbf6vaqonce" path="res://assets/Backgrounds/base/layers/battleground.png" id="4_47n7i"]
 [ext_resource type="Script" uid="uid://38i0j54yej6w" path="res://scripts/highlight.gd" id="4_cu2va"]
 [ext_resource type="PackedScene" uid="uid://dev0ijjb7kua6" path="res://scenes/levels_map.tscn" id="4_fkwfp"]
 [ext_resource type="Texture2D" uid="uid://dskpc6rj5lkeu" path="res://assets/door.png" id="4_ojpky"]
 [ext_resource type="Theme" uid="uid://fxj3p4ueiqg2" path="res://assets/themes/transparent_button.tres" id="5_1lj4f"]
+[ext_resource type="Texture2D" uid="uid://bkeoykex1tq13" path="res://assets/Backgrounds/lava/layers/battleground.png" id="5_47n7i"]
+[ext_resource type="Texture2D" uid="uid://d2yv728yoxehh" path="res://assets/Backgrounds/base/layers/back_land.png" id="5_xii70"]
+[ext_resource type="Texture2D" uid="uid://cdja4hd4thvti" path="res://assets/Backgrounds/lava/layers/back_land.png" id="6_xii70"]
+[ext_resource type="Texture2D" uid="uid://cnp7je8qtt26v" path="res://assets/Backgrounds/lava/layers/ground_decor.png" id="7_10qpx"]
 [ext_resource type="Theme" uid="uid://de1j6ykjdiqd8" path="res://assets/themes/basic_text.tres" id="7_78t5s"]
+[ext_resource type="Texture2D" uid="uid://c64osl6f4xdxp" path="res://assets/Backgrounds/lava/layers/front_decor.png" id="8_lw5jg"]
+[ext_resource type="Texture2D" uid="uid://k8vorc84c134" path="res://assets/Backgrounds/lava2/layers/battleground.png" id="9_lw5jg"]
 [ext_resource type="Texture2D" uid="uid://dus2s06jr3xun" path="res://assets/door_eyes.png" id="9_y1xxd"]
 [ext_resource type="PackedScene" uid="uid://bh8a77f3toafp" path="res://scenes/number_cage.tscn" id="10_cu2va"]
+[ext_resource type="Texture2D" uid="uid://bvnhhehrswikt" path="res://assets/Backgrounds/lava2/layers/back_decor.png" id="10_u8fe7"]
 [ext_resource type="Texture2D" uid="uid://dpey7kehsyvwu" path="res://assets/door_eyes_1.png" id="10_wcwpw"]
+[ext_resource type="Texture2D" uid="uid://b4hkwk0dur7mh" path="res://assets/Backgrounds/lava2/layers/ground_decor.png" id="11_ayr5r"]
 [ext_resource type="Material" uid="uid://bafyasjxgvhj5" path="res://shaders/colored_text_wobble_material.tres" id="11_lkilr"]
 [ext_resource type="Texture2D" uid="uid://dumo4s7r3u1p4" path="res://assets/door_eyes_2.png" id="11_ytrdw"]
 [ext_resource type="Texture2D" uid="uid://cl71esw7yroi2" path="res://assets/door_eyes_3.png" id="12_ir4rs"]
@@ -281,7 +291,7 @@ corner_radius_top_right = 20
 corner_radius_bottom_right = 20
 corner_radius_bottom_left = 20
 
-[node name="Level" type="Control" unique_id=1635183676 node_paths=PackedStringArray("A", "B", "C", "D", "E", "F", "left_ui", "question", "door0", "door1", "numbers_container", "fake_transition_rect", "envelope_overlay", "warning", "tutorial_scene")]
+[node name="Level" type="Control" unique_id=1635183676 node_paths=PackedStringArray("A", "B", "C", "D", "E", "F", "left_ui", "question", "door0", "door1", "numbers_container", "fake_transition_rect", "envelope_overlay", "warning", "tutorial_scene", "backgrounds_20", "backgrounds_40", "backgrounds_50")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -304,6 +314,54 @@ fake_transition_rect = NodePath("FakeTransitionRect")
 envelope_overlay = NodePath("EnvelopeOverlay")
 warning = NodePath("Warning")
 tutorial_scene = NodePath("TutorialScene")
+backgrounds_20 = NodePath("Backgrounds20")
+backgrounds_40 = NodePath("Backgrounds40")
+backgrounds_50 = NodePath("Backgrounds50")
+
+[node name="Backgrounds20" type="Node2D" parent="." unique_id=1689315978]
+visible = false
+position = Vector2(960, 425)
+scale = Vector2(0.5, 0.62)
+
+[node name="BattleGround" type="Sprite2D" parent="Backgrounds20" unique_id=453744181]
+texture = ExtResource("4_47n7i")
+
+[node name="BackLand" type="Sprite2D" parent="Backgrounds20" unique_id=545566881]
+texture = ExtResource("5_xii70")
+
+[node name="GroundDecor" type="Sprite2D" parent="Backgrounds20" unique_id=502723131]
+texture = ExtResource("2_ddp5f")
+
+[node name="Backgrounds40" type="Node2D" parent="." unique_id=1849121396]
+visible = false
+position = Vector2(960, 425)
+scale = Vector2(0.5, 0.62)
+
+[node name="BattleGround" type="Sprite2D" parent="Backgrounds40" unique_id=1762813745]
+texture = ExtResource("5_47n7i")
+
+[node name="BackLand" type="Sprite2D" parent="Backgrounds40" unique_id=1881987122]
+texture = ExtResource("6_xii70")
+
+[node name="GroundDecor" type="Sprite2D" parent="Backgrounds40" unique_id=1139921700]
+texture = ExtResource("7_10qpx")
+
+[node name="FrontDecor" type="Sprite2D" parent="Backgrounds40" unique_id=631002966]
+texture = ExtResource("8_lw5jg")
+
+[node name="Backgrounds50" type="Node2D" parent="." unique_id=1365494049]
+visible = false
+position = Vector2(960, 425)
+scale = Vector2(0.5, 0.62)
+
+[node name="BattleGround" type="Sprite2D" parent="Backgrounds50" unique_id=1547904943]
+texture = ExtResource("9_lw5jg")
+
+[node name="BackDecor" type="Sprite2D" parent="Backgrounds50" unique_id=3853091]
+texture = ExtResource("10_u8fe7")
+
+[node name="GroundDecor" type="Sprite2D" parent="Backgrounds50" unique_id=1980574985]
+texture = ExtResource("11_ayr5r")
 
 [node name="Marker2D" type="Marker2D" parent="." unique_id=229607956]
 position = Vector2(146, 1040)

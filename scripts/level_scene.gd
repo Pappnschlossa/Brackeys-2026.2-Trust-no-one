@@ -21,6 +21,9 @@ signal shake_screen
 @export var envelope_overlay : Control
 @export var warning : Control
 @export var tutorial_scene : Control
+@export var backgrounds_20 : Node2D
+@export var backgrounds_40 : Node2D
+@export var backgrounds_50 : Node2D
 
 const TRUE_NUMBERS : Array[int] = [0, 2, 3, 4, 5, 6, 7, 8, 9]
 const TRUE_ODD_NUMBERS : Array[int] = [3, 5, 7, 9]
@@ -76,6 +79,18 @@ var number_guesses : Array[int]
 var using_envelope : bool = false
 
 func _ready() -> void:
+	if g.level <= 20:
+		backgrounds_20.show()
+		backgrounds_40.hide()
+		backgrounds_50.hide()
+	elif g.level <= 40:
+		backgrounds_20.hide()
+		backgrounds_40.show()
+		backgrounds_50.hide()
+	else:
+		backgrounds_20.hide()
+		backgrounds_40.hide()
+		backgrounds_50.show()
 	if g.level < g.tutorial_level_threshold:
 		initialize_level_variables(true)
 		generate_tutorial_text()
@@ -189,6 +204,8 @@ func initialize_level_variables(odd : bool = false) -> void:
 				random_number_equal_to_answer -= 1
 			else:
 				QUESTION = n
+				for node in number_nodes:
+					node.is_not_question()
 				number_nodes[n].is_question()
 		n += 1
 

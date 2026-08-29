@@ -13,10 +13,26 @@ signal magnifying_glass_used
 @export var shop_item_3 : Control
 @onready var shop_items : Array[Control] = [shop_item_0, shop_item_1, shop_item_2, shop_item_3]
 @export var envelope_overlay : Control
+@export var backgrounds_20 : Node2D
+@export var backgrounds_40 : Node2D
+@export var backgrounds_50 : Node2D
+
 
 var using_envelope : bool = false
 
 func _ready() -> void:
+	if g.level <= 20:
+		backgrounds_20.show()
+		backgrounds_40.hide()
+		backgrounds_50.hide()
+	elif g.level < 40:
+		backgrounds_20.hide()
+		backgrounds_40.show()
+		backgrounds_50.hide()
+	else:
+		backgrounds_20.hide()
+		backgrounds_40.hide()
+		backgrounds_50.show()
 	randomize_items()
 	for item in shop_items:
 		item.item_bought.connect(left_ui._on_item_bought)
