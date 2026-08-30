@@ -318,6 +318,7 @@ frame_progress = 0.63351554
 
 [node name="SFX" type="AudioStreamPlayer2D" parent="Coin" unique_id=605849768]
 stream = ExtResource("16_6yf2o")
+volume_db = 10.0
 bus = &"SFX"
 
 [node name="TrueNumber" parent="." unique_id=1952454688 instance=ExtResource("10_ej4a6")]
