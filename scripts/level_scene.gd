@@ -50,7 +50,7 @@ const FORMAT_PARITY : Dictionary[int, String] = {
 }
 
 const FORMAT_PARITY_SELF : Dictionary[int, String] = {
-	-2 : "even number",
+	-2 : "an even number",
 	-1 : "an odd number",
 	0 : "the number 0",
 	1 : "the number 1",
@@ -259,7 +259,10 @@ func generate_text(envelope_id = null) -> void:
 						if g.level < 30:
 							N.clue.value = randi_range(0, 9)
 							if N.clue.value >= old_value:
-								N.clue.value = (N.clue.value + 1) % 10
+								if N.clue.value == 9 and old_value == 0:
+									N.clue.value = randi_range(1, 9) # Bug fixed
+								else:
+									N.clue.value = (N.clue.value + 1) % 10
 						else: # Only use numbers that are in present
 							var possible_numbers : Array[int] = g.get_array_of_numbers_in_use_without_multiplicity()
 							possible_numbers.erase(old_value)
