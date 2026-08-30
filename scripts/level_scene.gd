@@ -91,10 +91,21 @@ func _ready() -> void:
 		backgrounds_20.hide()
 		backgrounds_40.hide()
 		backgrounds_50.show()
-		if "SUN" in g.current_orbs:
+		if "SUN" in g.current_orbs and g.level != 50:
 			$ShadowSun.show()
 		else:
 			$Shadow40.show()
+			if g.level == 50:
+				var material = $Shadow40.material as ShaderMaterial
+				var start_value = material.get_shader_parameter("shape_treshold")
+				var tween = create_tween()
+				tween.tween_method(
+					func(value):
+						material.set_shader_parameter("shape_treshold", value),
+					start_value,
+					0.5,
+					5.0
+				)
 	if g.level < g.tutorial_level_threshold:
 		initialize_level_variables(true)
 		generate_tutorial_text()
@@ -478,7 +489,7 @@ func _on_warning_button_pressed() -> void:
 func reveal_one_number() -> void:
 	var id : int = randi_range(0, 5)
 	if g.level == 50:
-		id = 1
+		id = 0
 	number_guesses[id] = numbers[id].val
 	var number_guess : MarginContainer = number_nodes[id].get_node("%NumberGuess")
 	number_guess.number = numbers[id].val

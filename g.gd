@@ -201,12 +201,12 @@ func get_nb_of_orbs() -> int:
 	return count
 
 func reinitialize() -> void:
-	level = 39
+	level = 1
 	lives = 3
-	money = 300
+	money = 0
 	envelope_in_level_use_amount = 0
 	total_coins_collected = 0
 	nb_of_orbs_being_bought = 0
 	nb_of_items_being_bought = 0
 	current_orbs = ["EMPTY_ORB", "EMPTY_ORB"]
-	current_items = ["ENVELOPE", "EMPTY", "EMPTY", "EMPTY"]
+	current_items = ["EMPTY", "EMPTY", "EMPTY", "EMPTY"]

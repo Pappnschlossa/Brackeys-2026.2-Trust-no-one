@@ -13,4 +13,4 @@ func _on_main_menu_button_pressed() -> void:
 func _on_retry_button_pressed() -> void:
 	g.reinitialize()
 	g.tutorial = false
-	change_scene.emit("title_scene", "bubble_transition")
+	change_scene.emit("level_scene", "bubble_transition")

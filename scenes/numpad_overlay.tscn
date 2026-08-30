@@ -52,7 +52,7 @@ layout_mode = 2
 script = ExtResource("2_p2itk")
 
 [node name="Number" parent="MarginContainer/HBoxContainer/0" unique_id=1952454688 instance=ExtResource("3_ayucx")]
-custom_minimum_size = Vector2(128, 128)
+custom_minimum_size = Vector2(105, 105)
 layout_mode = 2
 number = 0
 
@@ -65,7 +65,7 @@ layout_mode = 2
 script = ExtResource("2_p2itk")
 
 [node name="Number" parent="MarginContainer/HBoxContainer/1" unique_id=108654192 instance=ExtResource("3_ayucx")]
-custom_minimum_size = Vector2(128, 128)
+custom_minimum_size = Vector2(105, 105)
 layout_mode = 2
 number = 1
 
@@ -79,7 +79,7 @@ layout_mode = 2
 script = ExtResource("2_p2itk")
 
 [node name="Number" parent="MarginContainer/HBoxContainer/2" unique_id=917664211 instance=ExtResource("3_ayucx")]
-custom_minimum_size = Vector2(128, 128)
+custom_minimum_size = Vector2(105, 105)
 layout_mode = 2
 number = 2
 
@@ -93,7 +93,7 @@ layout_mode = 2
 script = ExtResource("2_p2itk")
 
 [node name="Number" parent="MarginContainer/HBoxContainer/3" unique_id=134256593 instance=ExtResource("3_ayucx")]
-custom_minimum_size = Vector2(128, 128)
+custom_minimum_size = Vector2(105, 105)
 layout_mode = 2
 number = 3
 
@@ -106,7 +106,7 @@ layout_mode = 2
 script = ExtResource("2_p2itk")
 
 [node name="Number" parent="MarginContainer/HBoxContainer/4" unique_id=1633577404 instance=ExtResource("3_ayucx")]
-custom_minimum_size = Vector2(128, 128)
+custom_minimum_size = Vector2(105, 105)
 layout_mode = 2
 number = 4
 
@@ -120,7 +120,7 @@ layout_mode = 2
 script = ExtResource("2_p2itk")
 
 [node name="Number" parent="MarginContainer/HBoxContainer/5" unique_id=1197521610 instance=ExtResource("3_ayucx")]
-custom_minimum_size = Vector2(128, 128)
+custom_minimum_size = Vector2(105, 105)
 layout_mode = 2
 number = 5
 
@@ -133,7 +133,7 @@ layout_mode = 2
 script = ExtResource("2_p2itk")
 
 [node name="Number" parent="MarginContainer/HBoxContainer/6" unique_id=1858022545 instance=ExtResource("3_ayucx")]
-custom_minimum_size = Vector2(128, 128)
+custom_minimum_size = Vector2(105, 105)
 layout_mode = 2
 number = 6
 
@@ -147,7 +147,7 @@ layout_mode = 2
 script = ExtResource("2_p2itk")
 
 [node name="Number" parent="MarginContainer/HBoxContainer/7" unique_id=97500302 instance=ExtResource("3_ayucx")]
-custom_minimum_size = Vector2(128, 128)
+custom_minimum_size = Vector2(105, 105)
 layout_mode = 2
 number = 7
 
@@ -160,7 +160,7 @@ layout_mode = 2
 script = ExtResource("2_p2itk")
 
 [node name="Number" parent="MarginContainer/HBoxContainer/8" unique_id=1453626307 instance=ExtResource("3_ayucx")]
-custom_minimum_size = Vector2(128, 128)
+custom_minimum_size = Vector2(105, 105)
 layout_mode = 2
 
 [node name="Button" type="Button" parent="MarginContainer/HBoxContainer/8" unique_id=1423843105]
@@ -172,7 +172,7 @@ layout_mode = 2
 script = ExtResource("2_p2itk")
 
 [node name="Number" parent="MarginContainer/HBoxContainer/9" unique_id=1340182333 instance=ExtResource("3_ayucx")]
-custom_minimum_size = Vector2(128, 128)
+custom_minimum_size = Vector2(105, 105)
 layout_mode = 2
 number = 9
 
