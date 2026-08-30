@@ -425,7 +425,7 @@ func transition_to_next_level() -> void:
 			await get_tree().create_timer(0.7).timeout
 			has_correct_guesses = true
 	if has_correct_guesses:
-		await get_tree().create_timer(1.5).timeout
+		await get_tree().create_timer(1.1).timeout
 	if g.level == 51:
 		change_scene.emit("win_scene", "bubble_transition")
 	elif g.level%10 == 0 and g.level != 50:

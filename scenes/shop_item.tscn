@@ -8,6 +8,8 @@
 [ext_resource type="Material" uid="uid://bafyasjxgvhj5" path="res://shaders/colored_text_wobble_material.tres" id="5_4j1ft"]
 [ext_resource type="Theme" uid="uid://de1j6ykjdiqd8" path="res://assets/themes/basic_text.tres" id="6_aojmw"]
 [ext_resource type="AudioStream" uid="uid://mmq8sdcagjgx" path="res://assets/audio/sfx/Purchase.ogg" id="8_gbrp1"]
+[ext_resource type="Material" uid="uid://df8s1mvjvgfm0" path="res://shaders/big_texture_wobble_material.tres" id="9_4j1ft"]
+[ext_resource type="Texture2D" uid="uid://bei6gjl8b6odr" path="res://assets/speech_bubble.png" id="10_aojmw"]
 
 [sub_resource type="Shader" id="Shader_w0fhh"]
 code = "shader_type canvas_item;
@@ -124,7 +126,7 @@ shader_parameter/pattern = 2
 shader_parameter/inside = false
 shader_parameter/add_margins = true
 
-[node name="ShopItem" type="Control" unique_id=1283795063]
+[node name="ShopItem" type="Control" unique_id=1283795063 node_paths=PackedStringArray("text_background")]
 custom_minimum_size = Vector2(128, 128)
 layout_mode = 3
 anchors_preset = 0
@@ -133,6 +135,7 @@ offset_bottom = 128.0
 size_flags_horizontal = 6
 size_flags_vertical = 6
 script = ExtResource("1_w0fhh")
+text_background = NodePath("TextBackground")
 
 [node name="Texture" type="TextureRect" parent="." unique_id=2100254157]
 material = SubResource("ShaderMaterial_gbrp1")
@@ -187,6 +190,46 @@ vertical_alignment = 1
 stream = ExtResource("8_gbrp1")
 volume_db = 6.631
 bus = &"SFX"
+
+[node name="TextBackground" type="TextureRect" parent="." unique_id=2006283866]
+visible = false
+material = ExtResource("9_4j1ft")
+layout_mode = 0
+offset_left = -132.0
+offset_top = -126.0
+offset_right = 223.0
+offset_bottom = 26.0
+mouse_filter = 2
+texture = ExtResource("10_aojmw")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="MarginContainer" type="MarginContainer" parent="TextBackground" unique_id=788734541]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_constants/margin_left = 42
+theme_override_constants/margin_top = -34
+theme_override_constants/margin_right = 41
+
+[node name="Text" type="RichTextLabel" parent="TextBackground/MarginContainer" unique_id=868049404]
+unique_name_in_owner = true
+material = ExtResource("5_4j1ft")
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+mouse_filter = 2
+theme = ExtResource("6_aojmw")
+theme_override_constants/line_separation = -19
+theme_override_font_sizes/normal_font_size = 26
+text = "I will reveal one random number at the start of each floor"
+scroll_active = false
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [connection signal="mouse_entered" from="Texture/Button" to="." method="_on_button_mouse_entered"]
 [connection signal="mouse_exited" from="Texture/Button" to="." method="_on_button_mouse_exited"]

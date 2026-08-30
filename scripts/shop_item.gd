@@ -3,6 +3,7 @@ extends Control
 signal item_bought
 
 @export var shop : Control
+@export var text_background : TextureRect
 
 var item_id : String = "DICE"
 var price : int = 99
@@ -20,6 +21,16 @@ func update_item(new_item_id : String) -> void:
 	else:
 		$Texture.texture = g.ORBS[item_id].texture
 		price = int(randf_range(0.9, 1.1)*g.ORBS[item_id].average_price)
+		match item_id:
+			"EQUAL":
+				get_node("%Text").text = "I will make equations less likely to appear"
+			"HEART":
+				get_node("%Text").text = "I will heal you to full and grant you one extra life"
+			"QUESTIONMARK":
+				get_node("%Text").text = "I will reveal one random number at the start of each floor"
+			"SUN":
+				get_node("%Text").text = "I will light your path for the next floors"
+		text_background.show()
 	$PriceTag/Text.text = "%s G" % str(price)
 
 func _on_button_mouse_entered() -> void:
@@ -34,7 +45,10 @@ func _on_button_pressed() -> void:
 	if shop.using_envelope:
 		var old_price : int = price
 		while price == old_price:
-			price = max(1, int(randf_range(0.2, 1.0)*g.ITEMS[item_id].average_price))
+			if g.level != 40:
+				price = max(1, int(randf_range(0.2, 1.0)*g.ITEMS[item_id].average_price))
+			else:
+				price = max(1, int(randf_range(0.2, 1.0)*g.ORBS[item_id].average_price))
 			$PriceTag/Text.text = "%s G" % str(price)
 		if randf() < 0.1:
 			price = 1
@@ -60,6 +74,7 @@ func _on_button_pressed() -> void:
 			g.nb_of_items_being_bought += 1
 		else:
 			g.nb_of_orbs_being_bought += 1
+			text_background.hide()
 		price = -1
 		$PriceTag/Text.text = "Sold"
 		# We animate it

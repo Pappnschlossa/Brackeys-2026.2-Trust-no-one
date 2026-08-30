@@ -30,6 +30,10 @@
 [ext_resource type="Texture2D" uid="uid://ctvl3fem82ld6" path="res://assets/mustache.png" id="12_jq18f"]
 [ext_resource type="Texture2D" uid="uid://b4744yp21pkfe" path="res://assets/level_foreground.png" id="14_fuohu"]
 [ext_resource type="Script" uid="uid://b5eisf74wfvdf" path="res://scenes/eyes.gd" id="22_eyb44"]
+[ext_resource type="Texture2D" uid="uid://bei6gjl8b6odr" path="res://assets/speech_bubble.png" id="26_limxy"]
+[ext_resource type="Script" uid="uid://dmykn8ntodi4x" path="res://scenes/shopkeep_text.gd" id="27_dec6b"]
+[ext_resource type="Material" uid="uid://bafyasjxgvhj5" path="res://shaders/colored_text_wobble_material.tres" id="27_uwuor"]
+[ext_resource type="Theme" uid="uid://de1j6ykjdiqd8" path="res://assets/themes/basic_text.tres" id="28_dec6b"]
 [ext_resource type="AudioStream" uid="uid://dwh0ijhqgroo8" path="res://assets/audio/sfx/Footsteps.ogg" id="31_jqp1e"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_o2hrr"]
@@ -377,7 +381,6 @@ layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 2.0
 level = NodePath("../..")
-speed = null
 
 [node name="Middle" type="Control" parent="HBoxContainer" unique_id=788715618]
 layout_mode = 2
@@ -465,6 +468,46 @@ offset_right = 473.13718
 offset_bottom = 294.6065
 rotation = 3.159046
 texture = ExtResource("12_jq18f")
+
+[node name="TextBackground" type="TextureRect" parent="HBoxContainer/Middle/DoorsContainer/MarginContainer/TextureRect" unique_id=534657988]
+visible = false
+material = ExtResource("3_bk5ov")
+layout_mode = 0
+offset_left = -45.0
+offset_top = -162.5
+offset_right = 310.0
+offset_bottom = -10.5
+mouse_filter = 2
+texture = ExtResource("26_limxy")
+expand_mode = 1
+stretch_mode = 5
+script = ExtResource("27_dec6b")
+
+[node name="MarginContainer" type="MarginContainer" parent="HBoxContainer/Middle/DoorsContainer/MarginContainer/TextureRect/TextBackground" unique_id=2087723614]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_constants/margin_left = 42
+theme_override_constants/margin_top = -34
+theme_override_constants/margin_right = 41
+
+[node name="Text" type="RichTextLabel" parent="HBoxContainer/Middle/DoorsContainer/MarginContainer/TextureRect/TextBackground/MarginContainer" unique_id=1558676242]
+material = ExtResource("27_uwuor")
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+mouse_filter = 2
+theme = ExtResource("28_dec6b")
+theme_override_constants/line_separation = -19
+theme_override_font_sizes/normal_font_size = 25
+text = "The next floors are dangerous. I'll let you buy two of my charms."
+scroll_active = false
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="ShopExitDoor" type="Control" parent="HBoxContainer/Middle/DoorsContainer" unique_id=1200780547]
 layout_mode = 2

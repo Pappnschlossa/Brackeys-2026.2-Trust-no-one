@@ -208,4 +208,4 @@ func reinitialize() -> void:
 	nb_of_orbs_being_bought = 0
 	nb_of_items_being_bought = 0
 	current_orbs = ["EMPTY_ORB", "EMPTY_ORB"]
-	current_items = ["EMPTY", "EMPTY", "EMPTY", "EMPTY"]
+	current_items = ["ENVELOPE", "EMPTY", "EMPTY", "EMPTY"]
