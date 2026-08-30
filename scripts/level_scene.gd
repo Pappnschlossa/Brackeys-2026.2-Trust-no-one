@@ -91,7 +91,10 @@ func _ready() -> void:
 		backgrounds_20.hide()
 		backgrounds_40.hide()
 		backgrounds_50.show()
-		$Shadow40.show()
+		if "SUN" in g.current_orbs:
+			$ShadowSun.show()
+		else:
+			$Shadow40.show()
 	if g.level < g.tutorial_level_threshold:
 		initialize_level_variables(true)
 		generate_tutorial_text()
@@ -222,6 +225,8 @@ func generate_text(envelope_id = null) -> void:
 		if can_be_equation(id) or (N.val == 1 and AMOUNT >= 3):
 			N.clue.is_equation = possible_types.pick_random()
 		else:
+			N.clue.is_equation = false
+		if "EQUAL" in g.current_orbs and randf() < 0.8:
 			N.clue.is_equation = false
 		if !N.clue.is_equation:
 			var possible_targets : Array[int] = g.possible_targets(id)
@@ -469,3 +474,13 @@ func use_item(item_id : String) -> void:
 func _on_warning_button_pressed() -> void:
 	warning.get_node("DialogBox").size = Vector2(788.0, 563.75)
 	warning.hide()
+
+func reveal_one_number() -> void:
+	var id : int = randi_range(0, 5)
+	if g.level == 50:
+		id = 1
+	number_guesses[id] = numbers[id].val
+	var number_guess : MarginContainer = number_nodes[id].get_node("%NumberGuess")
+	number_guess.number = numbers[id].val
+	number_guess.update_number()
+	number_guess.update_opacity(1)

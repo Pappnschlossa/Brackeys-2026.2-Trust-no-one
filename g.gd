@@ -35,6 +35,7 @@ func get_array_of_numbers_in_use_without_multiplicity() -> Array[int]:
 	return numbers_in_use
 
 var lives : int = 3
+var max_lives : int = 3
 
 func possible_targets(id : int) -> Array[int]:
 	match amount_of_numbers():

@@ -57,6 +57,7 @@
 [ext_resource type="PackedScene" uid="uid://dpe25lmps37pr" path="res://scenes/tutorial_scene.tscn" id="42_wdw0c"]
 [ext_resource type="AudioStream" uid="uid://cd6mc6fnspbfm" path="res://assets/audio/sfx/Attack.ogg" id="52_nq0hr"]
 [ext_resource type="Material" uid="uid://drl3yh0c0gmfi" path="res://shaders/dark_zone_material.tres" id="53_u8fe7"]
+[ext_resource type="Shader" uid="uid://ovrd5ydp8p0q" path="res://shaders/transition.gdshader" id="58_p45ax"]
 [ext_resource type="AudioStream" uid="uid://dwh0ijhqgroo8" path="res://assets/audio/sfx/Footsteps.ogg" id="58_qpprj"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_vfeax"]
@@ -308,6 +309,41 @@ corner_radius_top_left = 20
 corner_radius_top_right = 20
 corner_radius_bottom_right = 20
 corner_radius_bottom_left = 20
+
+[sub_resource type="Gradient" id="Gradient_dbqim"]
+colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_0i6t3"]
+gradient = SubResource("Gradient_dbqim")
+fill = 1
+fill_from = Vector2(0.005, 0.685)
+fill_to = Vector2(1, -0.1)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_0aw0m"]
+noise_type = 4
+seed = 13
+fractal_type = 2
+fractal_octaves = 1
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_1qddu"]
+noise = SubResource("FastNoiseLite_0aw0m")
+seamless = true
+seamless_blend_skirt = 0.4
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ribqp"]
+shader = ExtResource("58_p45ax")
+shader_parameter/base_color = Color(0, 0, 0, 1)
+shader_parameter/node_resolution = Vector2(1920, 1080)
+shader_parameter/factor = 0.5
+shader_parameter/width = 0.4
+shader_parameter/gradient_texture = SubResource("GradientTexture2D_0i6t3")
+shader_parameter/gradient_fixed = true
+shader_parameter/shape_texture = SubResource("NoiseTexture2D_1qddu")
+shader_parameter/shape_tiling = 4.0
+shader_parameter/shape_rotation = 0.0
+shader_parameter/shape_scroll = Vector2(0.065, 0.05)
+shader_parameter/shape_feathering = 0.8999999798832
+shader_parameter/shape_treshold = 0.51999998837696
 
 [node name="Level" type="Control" unique_id=1635183676 node_paths=PackedStringArray("A", "B", "C", "D", "E", "F", "left_ui", "question", "door0", "door1", "numbers_container", "fake_transition_rect", "envelope_overlay", "warning", "tutorial_scene", "backgrounds_20", "backgrounds_40", "backgrounds_50")]
 layout_mode = 3
@@ -837,6 +873,17 @@ layout_mode = 1
 [node name="Shadow40" type="ColorRect" parent="." unique_id=1070114479]
 visible = false
 material = ExtResource("53_u8fe7")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="ShadowSun" type="ColorRect" parent="." unique_id=939008265]
+visible = false
+material = SubResource("ShaderMaterial_ribqp")
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
