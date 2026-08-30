@@ -7,5 +7,5 @@
 script = ExtResource("1_i4sfy")
 id = "HEART"
 texture = ExtResource("2_cidic")
-average_price = 40
+average_price = 30
 metadata/_custom_type_script = "uid://cmxm1mjn50e11"

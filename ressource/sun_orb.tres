@@ -7,5 +7,5 @@
 script = ExtResource("1_e0lep")
 id = "SUN"
 texture = ExtResource("2_i1pvr")
-average_price = 40
+average_price = 30
 metadata/_custom_type_script = "uid://cmxm1mjn50e11"

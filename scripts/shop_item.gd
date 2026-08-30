@@ -25,7 +25,7 @@ func update_item(new_item_id : String) -> void:
 			"EQUAL":
 				get_node("%Text").text = "I will make equations less likely to appear"
 			"HEART":
-				get_node("%Text").text = "I will restore all your lives and grant you one extra life"
+				get_node("%Text").text = "I will restore all your\nlives and grant you\none extra life"
 			"QUESTIONMARK":
 				get_node("%Text").text = "I will reveal one random number at the start of each floor"
 			"SUN":

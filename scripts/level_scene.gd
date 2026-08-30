@@ -77,6 +77,7 @@ var ANSWER_50 : String
 var active_numpad : int = -1
 var number_guesses : Array[int]
 var using_envelope : bool = false
+var can_click_other_door : bool = true
 
 func _ready() -> void:
 	if g.level <= 20:
@@ -382,28 +383,29 @@ func find_equations(id) -> Array[Array]:
 	return equations
 
 func _on_door_0_button_pressed() -> void:
-	if g.level != 50 and number_guesses[QUESTION] == -1:
-		guess_needed_warning()
-		return
-	if g.level == 50 and g.current_items[0] == "ENVELOPE":
-		envelope_needed_warning()
-		return
-	get_node("FootstepsSFX").play()
-	if TRUE_DOOR_ID == 0:	transition_to_next_level()
-	else:	wrong_door(0)
+	if can_click_other_door:
+		if g.level != 50 and number_guesses[QUESTION] == -1:
+			guess_needed_warning()
+			return
+		if g.level == 50 and g.current_items[0] == "ENVELOPE":
+			envelope_needed_warning()
+			return
+		if TRUE_DOOR_ID == 0:	transition_to_next_level()
+		else:	wrong_door(0)
 
 func _on_door_1_button_pressed() -> void:
-	if g.level != 50 and number_guesses[QUESTION] == -1:
-		guess_needed_warning()
-		return
-	if g.level == 50 and g.current_items[0] == "ENVELOPE":
-		envelope_needed_warning()
-		return
-	get_node("FootstepsSFX").play()
-	if TRUE_DOOR_ID == 1:	transition_to_next_level()
-	else:	wrong_door(1)
+	if can_click_other_door:
+		if g.level != 50 and number_guesses[QUESTION] == -1:
+			guess_needed_warning()
+			return
+		if g.level == 50 and g.current_items[0] == "ENVELOPE":
+			envelope_needed_warning()
+			return
+		if TRUE_DOOR_ID == 1:	transition_to_next_level()
+		else:	wrong_door(1)
 
 func wrong_door(door_id : int) -> void:
+	get_node("FootstepsSFX").play()
 	await fake_transition_rect.fake_transition()
 	left_ui.update_health()
 	if g.lives == 0:
@@ -433,6 +435,7 @@ func envelope_needed_warning() -> void:
 	warning.show()
 
 func transition_to_next_level() -> void:
+	can_click_other_door = false
 	g.level += 1
 	var has_correct_guesses : bool = false
 	for id in range(len(number_guesses)):
@@ -442,6 +445,7 @@ func transition_to_next_level() -> void:
 			has_correct_guesses = true
 	if has_correct_guesses:
 		await get_tree().create_timer(1.1).timeout
+	get_node("FootstepsSFX").play()
 	if g.level == 51:
 		change_scene.emit("win_scene", "bubble_transition")
 	elif g.level%10 == 0 and g.level != 50:

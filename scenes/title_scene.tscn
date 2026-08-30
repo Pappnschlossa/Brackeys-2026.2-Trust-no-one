@@ -10,7 +10,9 @@
 [ext_resource type="Texture2D" uid="uid://hnt4vq33uteg" path="res://assets/curse_of_the_number_dungeon_title_warped.png" id="5_bq8jb"]
 [ext_resource type="Texture2D" uid="uid://dy3fwlpepm0qk" path="res://assets/Backgrounds/title/layers/ground_decor.png" id="5_ur11i"]
 [ext_resource type="Texture2D" uid="uid://xw8skn8dycv6" path="res://assets/Backgrounds/title/layers/front_decor.png" id="6_u3gtk"]
+[ext_resource type="Script" uid="uid://dwlrlvenwhgqy" path="res://scenes/check_box_text.gd" id="10_bre4b"]
 [ext_resource type="Script" uid="uid://341hykmhokin" path="res://scenes/floating.gd" id="11_lqobm"]
+[ext_resource type="Texture2D" uid="uid://dym20ml2irr1h" path="res://assets/button_alpha.png" id="12_6ppm8"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_s8xmt"]
 bg_color = Color(0.41960785, 0.5803922, 0.7411765, 1)
@@ -47,6 +49,121 @@ corner_radius_top_left = 20
 corner_radius_top_right = 20
 corner_radius_bottom_right = 20
 corner_radius_bottom_left = 20
+
+[sub_resource type="Shader" id="Shader_mycgk"]
+code = "shader_type canvas_item;
+
+uniform sampler2D flowMap; //Displacement map
+uniform float strength;    //Force of the effect
+uniform float speed;       //Speed of the effect
+uniform int frames : hint_range(1, 10); //Frames of the effect
+
+uniform vec4 color : source_color = vec4(1.0);
+uniform float width : hint_range(0, 10) = 0.0;
+uniform int pattern : hint_range(0, 2) = 0; // diamond, circle, square
+uniform bool inside = false;
+uniform bool add_margins = true; // only useful when inside is false
+
+void vertex() {
+	if (add_margins) {
+		VERTEX += (UV * 2.0 - 1.0) * width;
+	}
+}
+
+bool hasContraryNeighbour(vec2 uv, vec2 texture_pixel_size, sampler2D texture) {
+	for (float i = -ceil(width); i <= ceil(width); i++) {
+		float x = abs(i) > width ? width * sign(i) : i;
+		float offset;
+		
+		if (pattern == 0) {
+			offset = width - abs(x);
+		} else if (pattern == 1) {
+			offset = floor(sqrt(pow(width + 0.5, 2) - x * x));
+		} else if (pattern == 2) {
+			offset = width;
+		}
+		
+		for (float j = -ceil(offset); j <= ceil(offset); j++) {
+			float y = abs(j) > offset ? offset * sign(j) : j;
+			vec2 xy = uv + texture_pixel_size * vec2(x, y);
+			
+			if ((xy != clamp(xy, vec2(0.0), vec2(1.0)) || texture(texture, xy).a <= 0.0) == inside) {
+				return true;
+			}
+		}
+	}
+	
+	return false;
+}
+
+//Returns a value between 0 and 1 depending of the frames -> exemple: frames = 4, frame 1 = 0.25
+float clock(float time){
+	float fframes = float(frames);
+	return floor(mod(time * speed, fframes)) / fframes;
+}
+
+void fragment() {
+	// --- First shader: flow-map displacement ---
+	float c = clock(TIME);
+	vec4 offset = texture(flowMap, vec2(UV.x + c, UV.y + c)) * strength;
+
+	vec2 uv = UV + offset.xy - vec2(0.5, 0.5) * strength;
+
+
+	// --- Second shader: margins ---
+	if (add_margins) {
+		vec2 texture_pixel_size = vec2(1.0) /
+			(vec2(1.0) / TEXTURE_PIXEL_SIZE + vec2(width * 2.0));
+
+		uv = (uv - texture_pixel_size * width)
+			* TEXTURE_PIXEL_SIZE / texture_pixel_size;
+
+		if (uv != clamp(uv, vec2(0.0), vec2(1.0))) {
+			COLOR.a = 0.0;
+		} else {
+			COLOR = texture(TEXTURE, uv);
+		}
+	} else {
+		COLOR = texture(TEXTURE, uv);
+	}
+
+
+	// --- Second shader: contrary neighbour / outline ---
+	if ((COLOR.a > 0.0) == inside &&
+		hasContraryNeighbour(uv, TEXTURE_PIXEL_SIZE, TEXTURE)) {
+
+		COLOR.rgb = inside
+			? mix(COLOR.rgb, color.rgb, color.a)
+			: color.rgb;
+
+		COLOR.a += (1.0 - COLOR.a) * color.a;
+	}
+}
+
+
+// TEST CLOCK
+/*
+void fragment(){
+	float c = clock(TIME);
+	COLOR = vec4( c, c, c, 1);
+}
+*/
+"
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_lqobm"]
+load_path = "res://.godot/imported/flow_map_1.jpg-7c8a6753d148c7751e068af2f1e274d0.ctex"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_6ppm8"]
+shader = SubResource("Shader_mycgk")
+shader_parameter/flowMap = SubResource("CompressedTexture2D_lqobm")
+shader_parameter/strength = 0.002
+shader_parameter/speed = 5.0
+shader_parameter/frames = 3
+shader_parameter/color = Color(1, 1, 1, 1)
+shader_parameter/width = 0.0
+shader_parameter/pattern = 0
+shader_parameter/inside = false
+shader_parameter/add_margins = true
 
 [node name="TitleScene" type="Control" unique_id=945108710 node_paths=PackedStringArray("check_button")]
 layout_mode = 3
@@ -96,6 +213,7 @@ layout_mode = 2
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 3
+theme_override_constants/separation = 0
 
 [node name="CheckBox" type="CheckBox" parent="MarginContainer/VBoxContainer/HBoxContainer" unique_id=1095873911]
 layout_mode = 2
@@ -106,14 +224,16 @@ theme_override_icons/checked = ExtResource("2_4k7ef")
 theme_override_icons/unchecked = ExtResource("3_l8sac")
 button_pressed = true
 
-[node name="RichTextLabel" type="RichTextLabel" parent="MarginContainer/VBoxContainer/HBoxContainer" unique_id=773390916]
-custom_minimum_size = Vector2(180, 0)
+[node name="RichTextLabel" type="RichTextLabel" parent="MarginContainer/VBoxContainer/HBoxContainer" unique_id=773390916 node_paths=PackedStringArray("check_box")]
+custom_minimum_size = Vector2(280, 0)
 layout_mode = 2
 size_flags_horizontal = 3
 theme = ExtResource("2_l8sac")
 theme_override_font_sizes/normal_font_size = 36
 text = "Tutorial at
-the start"
+the start enabled"
+script = ExtResource("10_bre4b")
+check_box = NodePath("../CheckBox")
 
 [node name="StartButton" type="Button" parent="MarginContainer/VBoxContainer" unique_id=532592728]
 custom_minimum_size = Vector2(200, 70)
@@ -150,6 +270,7 @@ theme_override_styles/hover = SubResource("StyleBoxFlat_ofksa")
 text = "  Quit  "
 
 [node name="Title" type="TextureRect" parent="." unique_id=1734733336]
+material = SubResource("ShaderMaterial_6ppm8")
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -165,5 +286,28 @@ grow_vertical = 2
 mouse_filter = 2
 texture = ExtResource("5_bq8jb")
 
+[node name="ButtonAlpha" type="TextureRect" parent="." unique_id=756742557]
+layout_mode = 0
+offset_left = 851.0
+offset_top = 621.0
+offset_right = 1065.0
+offset_bottom = 842.0
+mouse_filter = 2
+texture = ExtResource("12_6ppm8")
+expand_mode = 5
+stretch_mode = 5
+
+[node name="ButtonAlpha2" type="TextureRect" parent="." unique_id=747116913]
+layout_mode = 0
+offset_left = 857.0
+offset_top = 706.0
+offset_right = 1062.0
+offset_bottom = 927.0
+mouse_filter = 2
+texture = ExtResource("12_6ppm8")
+expand_mode = 5
+stretch_mode = 5
+
+[connection signal="pressed" from="MarginContainer/VBoxContainer/HBoxContainer/CheckBox" to="MarginContainer/VBoxContainer/HBoxContainer/RichTextLabel" method="_on_check_box_pressed"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/StartButton" to="." method="_on_start_button_pressed"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/QuitButton" to="." method="_on_quit_button_pressed"]
