@@ -10,7 +10,7 @@ config_version=5
 
 [application]
 
-config/name="Brackeys Trust no one"
+config/name="Curse of the Number Dungeon"
 run/main_scene="uid://bblehwgt70du3"
 config/features=PackedStringArray("4.7", "GL Compatibility")
 config/icon="res://icon.svg"
