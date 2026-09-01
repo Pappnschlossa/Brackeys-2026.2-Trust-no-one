@@ -228,4 +228,4 @@ func reinitialize() -> void:
 	nb_of_items_being_bought = 0
 	max_lives = 3
 	current_orbs = ["EMPTY_ORB", "EMPTY_ORB"]
-	current_items = ["ENVELOPE", "MAGNIFYING_GLASS", "ENVELOPE", "ENVELOPE"]
+	current_items = ["EMPTY", "EMPTY", "EMPTY", "EMPTY"]

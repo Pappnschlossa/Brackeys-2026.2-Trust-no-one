@@ -39,7 +39,7 @@ func update_explanation():
 		match step:
 			1:
 				text_box.position.y = center_position.y + 150
-				overlay.material.set_shader_parameter("hole_rect", Vector4(0.26, 0.0, 0.55, 0.46))
+				overlay.material.set_shader_parameter("hole_rect", Vector4(0.16, 0.0, 0.745, 0.45))
 				overlay.material.set_shader_parameter("hole_rect_2", Vector4(0.0, 0.0, 0.0, 0.0))
 			2:
 				text_box.position.y = center_position.y - 200
