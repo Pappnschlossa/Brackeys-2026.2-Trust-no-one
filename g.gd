@@ -1,5 +1,32 @@
 extends Node
 
+const languages : Array[String] = ["en", "fr"]
+var current_language_id : int = 0
+
+func _ready() -> void:
+	var preferred_language = OS.get_locale_language()
+	for i in range(len(languages)):
+		if preferred_language == languages[i]:
+			TranslationServer.set_locale(preferred_language)
+			current_language_id = i
+		else:
+			TranslationServer.set_locale("en")
+			current_language_id = 0
+	update_directions_language()
+
+
+func update_directions_language() -> void:
+	DIRECTIONS = {
+		0 : tr("above me"),
+		1 : tr("to my upper right"),
+		2 : tr("to my right"),
+		3 : tr("to my lower right"),
+		4 : tr("below me"),
+		5 : tr("to my lower left"),
+		6 : tr("to my left"),
+		7 : tr("to my upper left")
+	}
+
 var level : int = 1
 const tutorial_level_threshold : int = 4
 func amount_of_numbers() -> int:
@@ -61,16 +88,7 @@ func possible_targets(id : int) -> Array[int]:
 					return [1, 2, 4, 5, 5, 5]
 	return [-1]
 
-const DIRECTIONS : Dictionary[int, String] = {
-	0 : "above me",
-	1 : "to my upper right",
-	2 : "to my right",
-	3 : "to my lower right",
-	4 : "below me",
-	5 : "to my lower left",
-	6 : "to my left",
-	7 : "to my upper left"
-}
+var DIRECTIONS : Dictionary[int, String]
 
 func direction_of_number(source_id : int, target_id : int) -> String:
 	match amount_of_numbers():
@@ -210,4 +228,4 @@ func reinitialize() -> void:
 	nb_of_items_being_bought = 0
 	max_lives = 3
 	current_orbs = ["EMPTY_ORB", "EMPTY_ORB"]
-	current_items = ["EMPTY", "EMPTY", "EMPTY", "EMPTY"]
+	current_items = ["ENVELOPE", "MAGNIFYING_GLASS", "ENVELOPE", "ENVELOPE"]

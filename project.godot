@@ -30,6 +30,13 @@ window/size/viewport_width=1920
 window/size/viewport_height=1080
 window/size/mode=3
 window/stretch/mode="canvas_items"
+window/test=""
+
+[internationalization]
+
+locale/translations=PackedStringArray("res://localization.en.translation", "res://localization.fr.translation")
+locale/translations_pot_files=PackedStringArray("res://scenes/audio_manager.tscn", "res://scenes/dialog_box.tscn", "res://scenes/global.tscn", "res://scenes/left_ui.tscn", "res://scenes/levels_map.tscn", "res://scenes/level_scene.tscn", "res://scenes/lose_scene.tscn", "res://scenes/number.tscn", "res://scenes/number_cage.tscn", "res://scenes/numpad_overlay.tscn", "res://scenes/orb.tscn", "res://scenes/pocket_item.tscn", "res://scenes/shop_item.tscn", "res://scenes/shop_scene.tscn", "res://scenes/title_scene.tscn", "res://scenes/tutorial_scene.tscn", "res://scenes/win_scene.tscn", "res://scripts/camera_2d.gd", "res://scripts/check_box_text.gd", "res://scripts/door_eyes.gd", "res://scripts/eyes.gd", "res://scripts/fake_transition_rect.gd", "res://scripts/floating.gd", "res://scripts/global_scene.gd", "res://scripts/highlight.gd", "res://scripts/left_ui.gd", "res://scripts/levels_map.gd", "res://scripts/level_scene.gd", "res://scripts/lose_scene.gd", "res://scripts/music_player.gd", "res://scripts/numbers_container.gd", "res://scripts/number_cage.gd", "res://scripts/number_scene.gd", "res://scripts/numpad_highlight.gd", "res://scripts/numpad_overlay.gd", "res://scripts/pocket_item.gd", "res://scripts/shopkeep_text.gd", "res://scripts/shop_item.gd", "res://scripts/shop_scene.gd", "res://scripts/title_scene.gd", "res://scripts/tutorial_scene.gd", "res://scripts/win_scene.gd")
+locale/test="fr"
 
 [physics]
 

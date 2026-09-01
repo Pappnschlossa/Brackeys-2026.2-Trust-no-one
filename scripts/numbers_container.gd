@@ -33,7 +33,7 @@ func _on_cage_button_pressed(numpad_id : int) -> void:
 				level.update_nodes(numpad_id)
 				new_text = level.number_nodes[numpad_id].get_node("%Text").text
 		else:
-			level.numbers[0].clue.text = "Alright, I'll tell you. The correct door is the %s one" % level.ANSWER_50
+			level.numbers[0].clue.text = tr("Alright, I'll tell you. The correct door is the %s one") % level.ANSWER_50
 			level.update_nodes()
 		level.using_envelope = false
 		var target_modulate = level.envelope_overlay.modulate

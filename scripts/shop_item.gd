@@ -23,15 +23,15 @@ func update_item(new_item_id : String) -> void:
 		price = int(randf_range(0.9, 1.1)*g.ORBS[item_id].average_price)
 		match item_id:
 			"EQUAL":
-				get_node("%Text").text = "I will make equations less likely to appear"
+				get_node("%Text").text = tr("I will make equations less likely to appear")
 			"HEART":
-				get_node("%Text").text = "I will restore all your\nlives and grant you\none extra life"
+				get_node("%Text").text = tr("I will restore all your\nlives and grant you\none extra life")
 			"QUESTIONMARK":
-				get_node("%Text").text = "I will reveal one random number at the start of each floor"
+				get_node("%Text").text = tr("I will reveal one random number at the start of each floor")
 			"SUN":
-				get_node("%Text").text = "I will light your path for the next floors"
+				get_node("%Text").text = tr("I will light your path for the next floors")
 		text_background.show()
-	$PriceTag/Text.text = "%s G" % str(price)
+	$PriceTag/Text.text = tr("%s G") % str(price)
 
 func _on_button_mouse_entered() -> void:
 	$Texture.material.set_shader_parameter("width", 2.0)
@@ -49,10 +49,10 @@ func _on_button_pressed() -> void:
 				price = max(1, int(randf_range(0.2, 1.0)*g.ITEMS[item_id].average_price))
 			else:
 				price = max(1, int(randf_range(0.2, 1.0)*g.ORBS[item_id].average_price))
-			$PriceTag/Text.text = "%s G" % str(price)
+			$PriceTag/Text.text = tr("%s G") % str(price)
 		if randf() < 0.1:
 			price = 1
-			$PriceTag/Text.text = "99 G?"
+			$PriceTag/Text.text = tr("99 G?")
 		shop.using_envelope = false
 		var target_modulate = shop.envelope_overlay.modulate
 		target_modulate.a = 0.0

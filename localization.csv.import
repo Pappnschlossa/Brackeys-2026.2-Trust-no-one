@@ -6,7 +6,10 @@ uid="uid://lndvawt2cg10"
 
 [deps]
 
+files=["res://localization.en.translation", "res://localization.fr.translation"]
+
 source_file="res://localization.csv"
+dest_files=["res://localization.en.translation", "res://localization.fr.translation"]
 
 [params]
 

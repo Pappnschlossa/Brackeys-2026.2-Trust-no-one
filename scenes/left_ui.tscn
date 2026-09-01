@@ -547,9 +547,9 @@ stretch_mode = 5
 [node name="Text" type="RichTextLabel" parent="CrystalFront" unique_id=1023554367]
 material = ExtResource("15_wj6jc")
 layout_mode = 0
-offset_left = 95.0
+offset_left = 88.0
 offset_top = 259.0
-offset_right = 230.0
+offset_right = 243.0
 offset_bottom = 316.0
 theme = ExtResource("6_j6n5i")
 theme_override_constants/line_separation = -18

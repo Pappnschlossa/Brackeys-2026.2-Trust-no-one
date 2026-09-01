@@ -164,19 +164,15 @@ grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("3_torse")
 
-[node name="VBox" type="VBoxContainer" parent="." unique_id=652960508]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="Text" type="RichTextLabel" parent="VBox" unique_id=1247472892]
+[node name="Text" type="RichTextLabel" parent="." unique_id=1247472892]
 material = ExtResource("6_0i5vq")
-layout_mode = 2
+layout_mode = 0
+offset_left = 20.0
+offset_right = 148.0
+offset_bottom = 66.0
 theme = ExtResource("7_3qyuh")
-text = "  Floor 50"
+theme_override_font_sizes/normal_font_size = 28
+text = "Floor 50"
 fit_content = true
 horizontal_alignment = 1
 

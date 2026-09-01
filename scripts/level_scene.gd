@@ -34,9 +34,9 @@ const OPERATOR_TO_SIGN : Dictionary[String, String] = {
 	"mult" : "x"
 }
 
-const FORMAT_PARITY : Dictionary[int, String] = {
-	-2 : "even",
-	-1 : "odd",
+var FORMAT_PARITY : Dictionary[int, String] = {
+	-2 : tr("even"),
+	-1 : tr("odd"),
 	0 : "0",
 	1 : "1",
 	2 : "2",
@@ -49,19 +49,19 @@ const FORMAT_PARITY : Dictionary[int, String] = {
 	9 : "9"
 }
 
-const FORMAT_PARITY_SELF : Dictionary[int, String] = {
-	-2 : "an even number",
-	-1 : "an odd number",
-	0 : "the number 0",
-	1 : "the number 1",
-	2 : "the number 2",
-	3 : "the number 3",
-	4 : "the number 4",
-	5 : "the number 5",
-	6 : "the number 6",
-	7 : "the number 7",
-	8 : "the number 8",
-	9 : "the number 9"
+var FORMAT_PARITY_SELF : Dictionary[int, String] = {
+	-2 : tr("an even number"),
+	-1 : tr("an odd number"),
+	0 : tr("the number 0"),
+	1 : tr("the number 1"),
+	2 : tr("the number 2"),
+	3 : tr("the number 3"),
+	4 : tr("the number 4"),
+	5 : tr("the number 5"),
+	6 : tr("the number 6"),
+	7 : tr("the number 7"),
+	8 : tr("the number 8"),
+	9 : tr("the number 9")
 }
 
 var TRUE_DOOR_ID : int
@@ -295,9 +295,9 @@ func generate_level_50() -> void:
 	TRUE_DOOR_ID = randi_range(0, 1)
 	FALSE_DOOR_ID = abs(TRUE_DOOR_ID - 1)
 	if TRUE_DOOR_ID == 0:
-		ANSWER_50 = "right"
+		ANSWER_50 = tr("right")
 	else:
-		ANSWER_50 = "left"
+		ANSWER_50 = tr("left")
 	AMOUNT = 1
 	MAX_ID = AMOUNT - 1
 	number_guesses.resize(AMOUNT)
@@ -315,7 +315,7 @@ func generate_level_50() -> void:
 	# Key does something
 	QUESTION = -1
 	N.clue.is_text = true
-	N.clue.text = "There is no way for you to pick the correct door"
+	N.clue.text = tr("There is no way for you to pick the correct door")
 
 func update_nodes(envelope_id = null) -> void:
 	for i in range(len(number_nodes)):
@@ -328,11 +328,11 @@ func update_nodes(envelope_id = null) -> void:
 			if !N.clue.is_text:
 				if !N.clue.is_equation:
 					if N.clue.target == i: # Target is self
-						text_line = "I am\n%s" % FORMAT_PARITY_SELF[N.clue.value]
+						text_line = tr("I am\n%s") % FORMAT_PARITY_SELF[N.clue.value]
 					else:
-						text_line = "The number %s is %s" % [g.direction_of_number(i, N.clue.target), FORMAT_PARITY[N.clue.value]]
+						text_line = tr("The number %s is %s") % [g.direction_of_number(i, N.clue.target), FORMAT_PARITY[N.clue.value]]
 				else:
-					text_line = "I'm equal to\n%s %s %s" % [g.ID_TO_LETTER[N.clue.equation_targets[0]], OPERATOR_TO_SIGN[N.clue.operator], g.ID_TO_LETTER[N.clue.equation_targets[1]]]
+					text_line = tr("I'm equal to\n%s %s %s") % [g.ID_TO_LETTER[N.clue.equation_targets[0]], OPERATOR_TO_SIGN[N.clue.operator], g.ID_TO_LETTER[N.clue.equation_targets[1]]]
 			else:
 				text_line = N.clue.text
 				number_nodes[0].get_node("%Text").add_theme_font_size_override("normal_font_size", 28)
@@ -344,7 +344,7 @@ func update_nodes(envelope_id = null) -> void:
 		return
 	left_ui.update_hidden_numbers()
 	if g.level < 50:
-		question.get_node("Text").text = "Which number is in cage %s?" % g.ID_TO_LETTER[QUESTION]
+		question.get_node("Text").text = tr("Which number is in cage %s?") % g.ID_TO_LETTER[QUESTION]
 		if TRUE_DOOR_ID == 0:
 			door0.get_node("SignTexture/Text").text = str(TRUE_ANSWER)
 			door1.get_node("SignTexture/Text").text = str(FALSE_ANSWER)
@@ -352,7 +352,7 @@ func update_nodes(envelope_id = null) -> void:
 			door0.get_node("SignTexture/Text").text = str(FALSE_ANSWER)
 			door1.get_node("SignTexture/Text").text = str(TRUE_ANSWER)
 	else:
-		question.get_node("Text").text = "Which is the correct door?"
+		question.get_node("Text").text = tr("Which is the correct door?")
 		door0.get_node("SignTexture/Text").text = "?"
 		door1.get_node("SignTexture/Text").text = "?"
 
@@ -429,22 +429,26 @@ func guess_needed_warning() -> void:
 
 func envelope_needed_warning() -> void:
 	warning.get_node("DialogBox").size.y -= 250
-	warning.get_node("DialogBox/Wait").text = "Are you sure?"
+	warning.get_node("DialogBox/Wait").text = tr("Are you sure?")
 	var additional_text : String = ""
 	if g.envelope_in_level_use_amount <= 2:
 		warning.get_node("DialogBox").size.y += 100
-		additional_text = "\n\nThe envelope in your items forces the selected number to say something else."
-	warning.get_node("DialogBox/Text").text = "\n\n\nYou collected an item on your path you might need to use.%s" % additional_text
+		additional_text = tr("\n\nThe envelope in your items forces the selected number to say something else.")
+	warning.get_node("DialogBox/Text").text = tr("\n\n\nYou collected an item on your path you might need to use.%s") % additional_text
 	warning.show()
 
 func transition_to_next_level() -> void:
 	can_click_other_door = false
 	g.level += 1
+	var wait_duration = 0.6
+	var move_duration = 1.0
 	var has_correct_guesses : bool = false
 	for id in range(len(number_guesses)):
 		if numbers[id].val == number_guesses[id]:
-			number_nodes[id].collect_coin(Vector2(146.0, 1040.0))
-			await get_tree().create_timer(0.7).timeout
+			number_nodes[id].collect_coin(Vector2(146.0, 1040.0), wait_duration, move_duration)
+			wait_duration *= 0.9
+			move_duration *= 0.8
+			await get_tree().create_timer(wait_duration).timeout
 			has_correct_guesses = true
 	if has_correct_guesses:
 		await get_tree().create_timer(1.1).timeout

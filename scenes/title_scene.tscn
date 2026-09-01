@@ -10,45 +10,48 @@
 [ext_resource type="Texture2D" uid="uid://hnt4vq33uteg" path="res://assets/curse_of_the_number_dungeon_title_warped.png" id="5_bq8jb"]
 [ext_resource type="Texture2D" uid="uid://dy3fwlpepm0qk" path="res://assets/Backgrounds/title/layers/ground_decor.png" id="5_ur11i"]
 [ext_resource type="Texture2D" uid="uid://xw8skn8dycv6" path="res://assets/Backgrounds/title/layers/front_decor.png" id="6_u3gtk"]
-[ext_resource type="Script" uid="uid://dwlrlvenwhgqy" path="res://scenes/check_box_text.gd" id="10_bre4b"]
-[ext_resource type="Script" uid="uid://341hykmhokin" path="res://scenes/floating.gd" id="11_lqobm"]
-[ext_resource type="Texture2D" uid="uid://dym20ml2irr1h" path="res://assets/button_alpha.png" id="12_6ppm8"]
+[ext_resource type="Script" uid="uid://dwlrlvenwhgqy" path="res://scripts/check_box_text.gd" id="10_bre4b"]
+[ext_resource type="Script" uid="uid://341hykmhokin" path="res://scripts/floating.gd" id="11_lqobm"]
+[ext_resource type="Script" uid="uid://bajynucxp8lef" path="res://scenes/language_button.gd" id="13_bre4b"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4xkny"]
+bg_color = Color(0, 0, 0, 1)
+border_width_left = 8
+border_width_top = 8
+border_width_right = 8
+border_width_bottom = 8
+border_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_s8xmt"]
 bg_color = Color(0.41960785, 0.5803922, 0.7411765, 1)
 border_width_left = 8
-border_width_top = 8
-border_width_right = 8
 border_width_bottom = 8
-border_color = Color(0, 0, 0, 1)
-corner_radius_top_left = 20
-corner_radius_top_right = 20
-corner_radius_bottom_right = 20
-corner_radius_bottom_left = 20
+border_color = Color(0.22745098, 0.36862746, 0.5176471, 1)
+corner_radius_top_left = 15
+corner_radius_top_right = 15
+corner_radius_bottom_right = 15
+corner_radius_bottom_left = 15
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7rdyk"]
 bg_color = Color(0.27195352, 0.38646525, 0.4965729, 1)
-border_width_left = 8
-border_width_top = 8
-border_width_right = 8
-border_width_bottom = 8
-border_color = Color(0, 0, 0, 1)
-corner_radius_top_left = 20
-corner_radius_top_right = 20
-corner_radius_bottom_right = 20
-corner_radius_bottom_left = 20
+corner_radius_top_left = 15
+corner_radius_top_right = 15
+corner_radius_bottom_right = 15
+corner_radius_bottom_left = 15
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ofksa"]
 bg_color = Color(0.7140452, 0.80838317, 0.9019721, 1)
 border_width_left = 8
-border_width_top = 8
-border_width_right = 8
 border_width_bottom = 8
-border_color = Color(0, 0, 0, 1)
-corner_radius_top_left = 20
-corner_radius_top_right = 20
-corner_radius_bottom_right = 20
-corner_radius_bottom_left = 20
+border_color = Color(0.41960785, 0.5803922, 0.7411765, 1)
+corner_radius_top_left = 15
+corner_radius_top_right = 15
+corner_radius_bottom_right = 15
+corner_radius_bottom_left = 15
 
 [sub_resource type="Shader" id="Shader_mycgk"]
 code = "shader_type canvas_item;
@@ -224,7 +227,12 @@ theme_override_icons/checked = ExtResource("2_4k7ef")
 theme_override_icons/unchecked = ExtResource("3_l8sac")
 button_pressed = true
 
-[node name="RichTextLabel" type="RichTextLabel" parent="MarginContainer/VBoxContainer/HBoxContainer" unique_id=773390916 node_paths=PackedStringArray("check_box")]
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/VBoxContainer/HBoxContainer" unique_id=1906498131]
+layout_mode = 2
+theme_override_constants/margin_top = -10
+theme_override_constants/margin_right = -69
+
+[node name="RichTextLabel" type="RichTextLabel" parent="MarginContainer/VBoxContainer/HBoxContainer/MarginContainer" unique_id=773390916 node_paths=PackedStringArray("check_box")]
 custom_minimum_size = Vector2(280, 0)
 layout_mode = 2
 size_flags_horizontal = 3
@@ -233,9 +241,14 @@ theme_override_font_sizes/normal_font_size = 36
 text = "Tutorial at
 the start enabled"
 script = ExtResource("10_bre4b")
-check_box = NodePath("../CheckBox")
+check_box = NodePath("../../CheckBox")
 
-[node name="StartButton" type="Button" parent="MarginContainer/VBoxContainer" unique_id=532592728]
+[node name="PanelContainer" type="PanelContainer" parent="MarginContainer/VBoxContainer" unique_id=1526638168]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_styles/panel = SubResource("StyleBoxFlat_4xkny")
+
+[node name="StartButton" type="Button" parent="MarginContainer/VBoxContainer/PanelContainer" unique_id=532592728]
 custom_minimum_size = Vector2(200, 70)
 layout_mode = 2
 size_flags_horizontal = 4
@@ -252,7 +265,12 @@ theme_override_styles/pressed = SubResource("StyleBoxFlat_7rdyk")
 theme_override_styles/hover = SubResource("StyleBoxFlat_ofksa")
 text = "  New Run  "
 
-[node name="QuitButton" type="Button" parent="MarginContainer/VBoxContainer" unique_id=127009995]
+[node name="PanelContainer2" type="PanelContainer" parent="MarginContainer/VBoxContainer" unique_id=798795533]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_styles/panel = SubResource("StyleBoxFlat_4xkny")
+
+[node name="QuitButton" type="Button" parent="MarginContainer/VBoxContainer/PanelContainer2" unique_id=127009995]
 custom_minimum_size = Vector2(200, 70)
 layout_mode = 2
 size_flags_horizontal = 4
@@ -286,28 +304,43 @@ grow_vertical = 2
 mouse_filter = 2
 texture = ExtResource("5_bq8jb")
 
-[node name="ButtonAlpha" type="TextureRect" parent="." unique_id=756742557]
-layout_mode = 0
-offset_left = 851.0
-offset_top = 621.0
-offset_right = 1065.0
-offset_bottom = 842.0
-mouse_filter = 2
-texture = ExtResource("12_6ppm8")
-expand_mode = 5
-stretch_mode = 5
+[node name="MarginContainer2" type="MarginContainer" parent="." unique_id=1798782398]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -100.0
+offset_top = -100.0
+grow_horizontal = 0
+grow_vertical = 0
+theme_override_constants/margin_right = 30
+theme_override_constants/margin_bottom = 30
 
-[node name="ButtonAlpha2" type="TextureRect" parent="." unique_id=747116913]
-layout_mode = 0
-offset_left = 857.0
-offset_top = 706.0
-offset_right = 1062.0
-offset_bottom = 927.0
-mouse_filter = 2
-texture = ExtResource("12_6ppm8")
-expand_mode = 5
-stretch_mode = 5
+[node name="PanelContainer2" type="PanelContainer" parent="MarginContainer2" unique_id=1916941856]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_styles/panel = SubResource("StyleBoxFlat_4xkny")
 
-[connection signal="pressed" from="MarginContainer/VBoxContainer/HBoxContainer/CheckBox" to="MarginContainer/VBoxContainer/HBoxContainer/RichTextLabel" method="_on_check_box_pressed"]
-[connection signal="pressed" from="MarginContainer/VBoxContainer/StartButton" to="." method="_on_start_button_pressed"]
-[connection signal="pressed" from="MarginContainer/VBoxContainer/QuitButton" to="." method="_on_quit_button_pressed"]
+[node name="LanguageButton" type="Button" parent="MarginContainer2/PanelContainer2" unique_id=1295103378]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 8
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
+theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_pressed_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("2_l5n7b")
+theme_override_font_sizes/font_size = 42
+theme_override_styles/normal = SubResource("StyleBoxFlat_s8xmt")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_7rdyk")
+theme_override_styles/hover = SubResource("StyleBoxFlat_ofksa")
+text = "  en  "
+script = ExtResource("13_bre4b")
+
+[connection signal="pressed" from="MarginContainer/VBoxContainer/HBoxContainer/CheckBox" to="MarginContainer/VBoxContainer/HBoxContainer/MarginContainer/RichTextLabel" method="_on_check_box_pressed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/PanelContainer/StartButton" to="." method="_on_start_button_pressed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/PanelContainer2/QuitButton" to="." method="_on_quit_button_pressed"]
+[connection signal="pressed" from="MarginContainer2/PanelContainer2/LanguageButton" to="MarginContainer2/PanelContainer2/LanguageButton" method="_on_pressed"]

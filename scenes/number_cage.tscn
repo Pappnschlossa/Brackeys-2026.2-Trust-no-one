@@ -189,12 +189,12 @@ stretch_mode = 5
 
 [node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/MarginContainer" unique_id=1715727517]
 layout_mode = 2
-theme_override_constants/margin_left = 54
+theme_override_constants/margin_left = 52
 theme_override_constants/margin_top = 18
-theme_override_constants/margin_right = 51
+theme_override_constants/margin_right = 49
 theme_override_constants/margin_bottom = 53
 
-[node name="Text" type="RichTextLabel" parent="VBoxContainer/MarginContainer/MarginContainer" unique_id=1280792549]
+[node name="Text" type="RichTextLabel" parent="VBoxContainer/MarginContainer/MarginContainer" unique_id=1743920616]
 unique_name_in_owner = true
 material = ExtResource("4_iwyrd")
 layout_mode = 2

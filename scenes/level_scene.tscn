@@ -23,7 +23,7 @@
 [ext_resource type="Texture2D" uid="uid://dus2s06jr3xun" path="res://assets/door_eyes.png" id="9_y1xxd"]
 [ext_resource type="PackedScene" uid="uid://bh8a77f3toafp" path="res://scenes/number_cage.tscn" id="10_cu2va"]
 [ext_resource type="Texture2D" uid="uid://bvnhhehrswikt" path="res://assets/Backgrounds/lava2/layers/back_decor.png" id="10_u8fe7"]
-[ext_resource type="Shader" uid="uid://b30q36o4ty1by" path="res://scenes/hue_shader.gdshader" id="10_vfeax"]
+[ext_resource type="Shader" uid="uid://b30q36o4ty1by" path="res://shaders/hue_shader.gdshader" id="10_vfeax"]
 [ext_resource type="Texture2D" uid="uid://dpey7kehsyvwu" path="res://assets/door_eyes_1.png" id="10_wcwpw"]
 [ext_resource type="Texture2D" uid="uid://b4hkwk0dur7mh" path="res://assets/Backgrounds/lava2/layers/ground_decor.png" id="11_ayr5r"]
 [ext_resource type="Material" uid="uid://bafyasjxgvhj5" path="res://shaders/colored_text_wobble_material.tres" id="11_lkilr"]
