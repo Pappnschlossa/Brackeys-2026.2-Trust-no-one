@@ -44,11 +44,13 @@ func randomize_items() -> void:
 	var available_orbs = g.ORBS.keys()
 	for item in shop_items:
 		if g.level != 40:
-			var chosen_item_id: String = available_items.pick_random()
+			var i : int = g.shop_rng.randi_range(0, len(available_items)-1)
+			var chosen_item_id: String = available_items[i]
 			available_items.erase(chosen_item_id)
 			item.update_item(chosen_item_id)
 		else:
-			var chosen_item_id: String = available_orbs.pick_random()
+			var i : int = g.shop_rng.randi_range(0, len(available_orbs)-1)
+			var chosen_item_id: String = available_orbs[i]
 			available_orbs.erase(chosen_item_id)
 			item.update_item(chosen_item_id)
 
@@ -100,4 +102,7 @@ func use_item(item_id : String) -> void:
 		"MAGNIFYING_GLASS":
 			var available_items = g.ITEMS.keys()
 			available_items.erase("MAGNIFYING_GLASS")
-			magnifying_glass_used.emit(available_items.pick_random())
+			var magnifying_glass_rng = RandomNumberGenerator.new()
+			magnifying_glass_rng.seed = g.shop_rng.state
+			var i : int = g.shop_rng.randi_range(0, len(available_items)-1)
+			magnifying_glass_used.emit(available_items[i])

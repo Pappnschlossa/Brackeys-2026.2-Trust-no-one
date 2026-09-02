@@ -17,10 +17,10 @@ func update_item(new_item_id : String) -> void:
 	item_id = new_item_id
 	if g.level != 40:
 		$Texture.texture = g.ITEMS[item_id].texture
-		price = int(randf_range(0.7, 1.3)*g.ITEMS[item_id].average_price)
+		price = int(g.shop_rng.randf_range(0.7, 1.3)*g.ITEMS[item_id].average_price)
 	else:
 		$Texture.texture = g.ORBS[item_id].texture
-		price = int(randf_range(0.9, 1.1)*g.ORBS[item_id].average_price)
+		price = int(g.shop_rng.randf_range(0.9, 1.1)*g.ORBS[item_id].average_price)
 		match item_id:
 			"EQUAL":
 				get_node("%Text").text = tr("I will make equations less likely to appear")
@@ -45,12 +45,14 @@ func _on_button_pressed() -> void:
 	if shop.using_envelope:
 		var old_price : int = price
 		while price == old_price:
+			var change_price_rng = RandomNumberGenerator.new()
+			change_price_rng.seed = g.shop_rng.state
 			if g.level != 40:
-				price = max(1, int(randf_range(0.2, 1.0)*g.ITEMS[item_id].average_price))
+				price = max(1, int(change_price_rng.randf_range(0.2, 1.0)*g.ITEMS[item_id].average_price))
 			else:
-				price = max(1, int(randf_range(0.2, 1.0)*g.ORBS[item_id].average_price))
+				price = max(1, int(change_price_rng.randf_range(0.2, 1.0)*g.ORBS[item_id].average_price))
 			$PriceTag/Text.text = tr("%s G") % str(price)
-		if randf() < 0.1:
+		if g.level_rng.randf() < 0.1:
 			price = 1
 			$PriceTag/Text.text = tr("99 G?")
 		shop.using_envelope = false

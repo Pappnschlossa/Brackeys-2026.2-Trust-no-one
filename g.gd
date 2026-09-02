@@ -1,9 +1,17 @@
 extends Node
 
+var level_rng = RandomNumberGenerator.new()
+var shop_rng = RandomNumberGenerator.new()
 const languages : Array[String] = ["en", "fr"]
 var current_language_id : int = 0
 
 func _ready() -> void:
+	var master_seed : int = "T tee".hash()
+	level_rng.seed = master_seed
+	shop_rng.seed = master_seed
+	update_directions_language()
+
+func update_language() -> void:
 	var preferred_language = OS.get_locale_language()
 	for i in range(len(languages)):
 		if preferred_language == languages[i]:
@@ -12,7 +20,6 @@ func _ready() -> void:
 		else:
 			TranslationServer.set_locale("en")
 			current_language_id = 0
-	update_directions_language()
 
 
 func update_directions_language() -> void:
@@ -219,7 +226,7 @@ func get_nb_of_orbs() -> int:
 	return count
 
 func reinitialize() -> void:
-	level = 1
+	level = 39
 	lives = 3
 	money = 0
 	envelope_in_level_use_amount = 0
