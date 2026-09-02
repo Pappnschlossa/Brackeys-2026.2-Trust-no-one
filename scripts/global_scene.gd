@@ -23,7 +23,7 @@ const SCENES = {
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	g.reinitialize()
+	#g.reinitialize()
 	
 	get_tree().node_added.connect(_on_node_added)
 

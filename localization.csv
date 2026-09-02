@@ -62,6 +62,8 @@ res://scripts/check_box_text.gd:6
 res://scripts/check_box_text.gd:10","Tutorial at
 the start enabled","Tutoriel du
 début activé"
+ERROR: save file invalid,res://scenes/title_scene.tscn,ERROR: save file invalid,ERREUR : Fichier de sauvegarde invalide
+  Continue  ,res://scenes/title_scene.tscn,  Continue  ,  Continuer  
   New Run  ,"res://scenes/title_scene.tscn
 res://scenes/win_scene.tscn",  New Run  ,  Nouvelle Partie  
   Quit  ,res://scenes/title_scene.tscn,  Quit  ,  Quitter  

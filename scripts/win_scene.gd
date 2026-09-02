@@ -4,6 +4,7 @@ signal change_scene
 signal add_scene_as_an_overlay
 
 func _ready() -> void:
+	g.erase_save_file()
 	$DialogBox/CollectedText.text = "\n\n\n\n\n\n\n\n\n[font_size=50]	[/font_size]\n[font_size=23]You collected %s coins out of 223 during this run![/font_size]" % g.total_coins_collected
 
 

@@ -4,11 +4,15 @@ var level_rng = RandomNumberGenerator.new()
 var shop_rng = RandomNumberGenerator.new()
 const languages : Array[String] = ["en", "fr"]
 var current_language_id : int = 0
+const SAVE_PATH = "user://savefile.save"
+const KEY : String = "I don't know what to use for a password"
 
 func _ready() -> void:
-	var master_seed : int = "T tee".hash()
+	var master_seed : int = randi()
 	level_rng.seed = master_seed
 	shop_rng.seed = master_seed
+	old_level_rng_state = level_rng.state
+	old_shop_rng_state = shop_rng.state
 	update_directions_language()
 
 func update_language() -> void:
@@ -225,8 +229,109 @@ func get_nb_of_orbs() -> int:
 			count += 1
 	return count
 
+var amount_of_tutorial_items_received : int = 0
+
+var old_level_rng_state : int
+var old_shop_rng_state : int
+
+func save_game():
+	var save_file = FileAccess.open_encrypted_with_pass(SAVE_PATH, FileAccess.WRITE, KEY)
+	var save_dict = {
+		"master_seed" : level_rng.seed,
+		"level_rng_state" : level_rng,
+		"shop_rng_state" : shop_rng,
+		"level" : level,
+		"lives" : lives,
+		"money" : money,
+		"envelope_in_level_use_amount" : envelope_in_level_use_amount,
+		"total_coins_collected" : total_coins_collected,
+		"nb_orbs_being_bought" : nb_of_items_being_bought,
+		"nb_of_items_being_bought" : nb_of_items_being_bought,
+		"max_lives" : max_lives,
+		"amount_of_tutorial_items_received" : amount_of_tutorial_items_received,
+		"current_orbs" : current_orbs,
+		"current_items": current_items
+	}
+	old_level_rng_state = level_rng.state
+	old_shop_rng_state = shop_rng.state
+	# JSON provides a static method to serialized JSON string.
+	var json_string = JSON.stringify(save_dict)
+	# Store the save dictionary as a new line in the save file.
+	save_file.store_line(json_string)
+	save_file.close()
+
+func update_save(changed_items : Array[String], values : Array) -> void:
+	var save_dict = {
+		"master_seed" : level_rng.seed,
+		"level_rng_state" : old_level_rng_state,
+		"shop_rng_state" : old_shop_rng_state,
+		"level" : level,
+		"lives" : lives,
+		"money" : money,
+		"envelope_in_level_use_amount" : envelope_in_level_use_amount,
+		"total_coins_collected" : total_coins_collected,
+		"nb_orbs_being_bought" : nb_of_items_being_bought,
+		"nb_of_items_being_bought" : nb_of_items_being_bought,
+		"max_lives" : max_lives,
+		"amount_of_tutorial_items_received" : amount_of_tutorial_items_received,
+		"current_orbs" : current_orbs,
+		"current_items": current_items
+	}
+	for i in range(len(changed_items)):
+		save_dict[changed_items[i]] = values[i]
+	var save_file = FileAccess.open_encrypted_with_pass(SAVE_PATH, FileAccess.WRITE, KEY)
+	var json_string = JSON.stringify(save_dict)
+	save_file.store_line(json_string)
+	save_file.close()
+
+func load_game() -> bool:
+	if not FileAccess.file_exists(SAVE_PATH):
+		return false
+
+	var save_file = FileAccess.open_encrypted_with_pass(SAVE_PATH, FileAccess.READ, KEY)
+	if save_file == null:
+		print("Failed to open save file")
+		return false
+	
+	while save_file.get_position() < save_file.get_length():
+		var json_string = save_file.get_line()
+		# Creates the helper class to interact with JSON.
+		var json = JSON.new()
+		# Check if there is any error while parsing the JSON string, skip in case of failure.
+		var parse_result = json.parse(json_string)
+		if not parse_result == OK:
+			print("JSON Parse Error: ", json.get_error_message(), " in ", json_string, " at line ", json.get_error_line())
+			continue
+		# Get the data from the JSON object.
+		var data = json.data
+		# Now we set the remaining variables.
+		for i in data.keys():
+			match i:
+				"master_seed" :
+					level_rng.set("seed", data[i])
+					shop_rng.set("seed", data[i])
+				"level_rng_state" :	level_rng.set("state", data[i])
+				"shop_rng_state" :	shop_rng.set("state", data[i])
+				"current_items" :
+					var items : Array[String] = []
+					for item in data[i]:
+						items.append(item)
+					current_items = items
+				"current_orbs" :
+					var orbs : Array[String] = []
+					for orb in data[i]:
+						orbs.append(orb)
+					current_orbs = orbs
+				_:	set(i, data[i])
+	save_file.close()
+	return true
+
+func erase_save_file() -> void:
+	if FileAccess.file_exists(SAVE_PATH):
+		DirAccess.remove_absolute(ProjectSettings.globalize_path(SAVE_PATH))
+
 func reinitialize() -> void:
-	level = 39
+	level = 1
 	lives = 3
 	money = 0
 	envelope_in_level_use_amount = 0
@@ -234,5 +339,6 @@ func reinitialize() -> void:
 	nb_of_orbs_being_bought = 0
 	nb_of_items_being_bought = 0
 	max_lives = 3
+	amount_of_tutorial_items_received = 0
 	current_orbs = ["EMPTY_ORB", "EMPTY_ORB"]
 	current_items = ["EMPTY", "EMPTY", "EMPTY", "EMPTY"]

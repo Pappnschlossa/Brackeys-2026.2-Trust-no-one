@@ -5,7 +5,7 @@
 [ext_resource type="Material" uid="uid://bafyasjxgvhj5" path="res://shaders/colored_text_wobble_material.tres" id="3_8w6tn"]
 [ext_resource type="Theme" uid="uid://de1j6ykjdiqd8" path="res://assets/themes/basic_text.tres" id="4_c3pwq"]
 [ext_resource type="FontFile" uid="uid://b75gmbl18kr1" path="res://assets/fonts/DarumadropOne-Regular.ttf" id="5_8w6tn"]
-[ext_resource type="Texture2D" uid="uid://cdi2td1nhnx3c" path="res://assets/life_potion.png" id="6_c3pwq"]
+[ext_resource type="Script" uid="uid://chlxgdhd4rkk0" path="res://scenes/seed_text.gd" id="7_5jhep"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_c3pwq"]
 bg_color = Color(1, 0.6784314, 0.5254902, 1)
@@ -45,7 +45,6 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 color = Color(0, 0, 0, 0.27450982)
-metadata/_edit_lock_ = true
 
 [node name="DialogBox" parent="." unique_id=1303972556 instance=ExtResource("2_lw2vd")]
 layout_mode = 1
@@ -57,7 +56,7 @@ anchor_bottom = 0.5
 offset_left = -289.5
 offset_top = -145.625
 offset_right = 289.5
-offset_bottom = 145.625
+offset_bottom = 186.0
 grow_horizontal = 2
 grow_vertical = 2
 
@@ -72,12 +71,16 @@ text = "Oh no... You lost all your lives.
 Clicking on the retry button here will grant you one life potion for your next run."
 horizontal_alignment = 1
 
-[node name="HBoxContainer" type="HBoxContainer" parent="DialogBox" unique_id=1112383720]
+[node name="VBoxContainer" type="VBoxContainer" parent="DialogBox" unique_id=1409077318]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="DialogBox/VBoxContainer" unique_id=1112383720]
 layout_mode = 2
 size_flags_horizontal = 4
+size_flags_vertical = 3
 theme_override_constants/separation = 22
 
-[node name="MainMenuButton" type="Button" parent="DialogBox/HBoxContainer" unique_id=726152258]
+[node name="MainMenuButton" type="Button" parent="DialogBox/VBoxContainer/HBoxContainer" unique_id=726152258]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 8
@@ -93,7 +96,7 @@ theme_override_styles/pressed = SubResource("StyleBoxFlat_5jhep")
 theme_override_styles/hover = SubResource("StyleBoxFlat_wknd0")
 text = "  Main Menu  "
 
-[node name="RetryButton" type="Button" parent="DialogBox/HBoxContainer" unique_id=614926725]
+[node name="RetryButton" type="Button" parent="DialogBox/VBoxContainer/HBoxContainer" unique_id=614926725]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 8
@@ -109,36 +112,29 @@ theme_override_styles/pressed = SubResource("StyleBoxFlat_5jhep")
 theme_override_styles/hover = SubResource("StyleBoxFlat_wknd0")
 text = "  Retry (+1     )  "
 
-[node name="TextureRect" type="TextureRect" parent="DialogBox/HBoxContainer/RetryButton" unique_id=1403778205]
-visible = false
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = 37.99997
-offset_top = -19.5
-offset_right = 78.99997
-offset_bottom = 24.5
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-texture = ExtResource("6_c3pwq")
-expand_mode = 5
-stretch_mode = 4
-
-[node name="RichTextLabel" type="RichTextLabel" parent="DialogBox/HBoxContainer/RetryButton" unique_id=555802588]
+[node name="RichTextLabel" type="RichTextLabel" parent="DialogBox/VBoxContainer/HBoxContainer/RetryButton" unique_id=555802588]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 theme = ExtResource("4_c3pwq")
 theme_override_colors/default_color = Color(1, 1, 1, 0)
 bbcode_enabled = true
 text = "  Retry(+1[img width=44 height=44]uid://cdi2td1nhnx3c[/img])"
 
-[connection signal="pressed" from="DialogBox/HBoxContainer/MainMenuButton" to="." method="_on_main_menu_button_pressed"]
-[connection signal="pressed" from="DialogBox/HBoxContainer/RetryButton" to="." method="_on_retry_button_pressed"]
+[node name="Seed" type="RichTextLabel" parent="DialogBox/VBoxContainer" unique_id=949562481]
+layout_mode = 2
+theme = ExtResource("4_c3pwq")
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/normal_font_size = 19
+bbcode_enabled = true
+text = "Seed: 1234567890"
+fit_content = true
+horizontal_alignment = 1
+script = ExtResource("7_5jhep")
+
+[connection signal="pressed" from="DialogBox/VBoxContainer/HBoxContainer/MainMenuButton" to="." method="_on_main_menu_button_pressed"]
+[connection signal="pressed" from="DialogBox/VBoxContainer/HBoxContainer/RetryButton" to="." method="_on_retry_button_pressed"]

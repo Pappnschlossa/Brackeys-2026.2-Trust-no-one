@@ -168,7 +168,7 @@ shader_parameter/pattern = 0
 shader_parameter/inside = false
 shader_parameter/add_margins = true
 
-[node name="TitleScene" type="Control" unique_id=945108710 node_paths=PackedStringArray("check_button")]
+[node name="TitleScene" type="Control" unique_id=945108710 node_paths=PackedStringArray("check_button", "check_button_text", "continue_panel", "error_text")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -177,6 +177,9 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_6jsh8")
 check_button = NodePath("MarginContainer/VBoxContainer/HBoxContainer/CheckBox")
+check_button_text = NodePath("MarginContainer/VBoxContainer/HBoxContainer/MarginContainer/RichTextLabel")
+continue_panel = NodePath("MarginContainer/VBoxContainer/PanelContainer0")
+error_text = NodePath("MarginContainer/VBoxContainer/ErrorText")
 
 [node name="Backgrounds40" type="Node2D" parent="." unique_id=28917868]
 position = Vector2(960, 425)
@@ -243,12 +246,46 @@ the start enabled"
 script = ExtResource("10_bre4b")
 check_box = NodePath("../../CheckBox")
 
-[node name="PanelContainer" type="PanelContainer" parent="MarginContainer/VBoxContainer" unique_id=1526638168]
+[node name="ErrorText" type="RichTextLabel" parent="MarginContainer/VBoxContainer" unique_id=1271695329]
+visible = false
+custom_minimum_size = Vector2(280, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("2_l8sac")
+theme_override_font_sizes/normal_font_size = 36
+text = "ERROR: save file invalid"
+fit_content = true
+horizontal_alignment = 1
+
+[node name="PanelContainer0" type="PanelContainer" parent="MarginContainer/VBoxContainer" unique_id=189483434]
+visible = false
 layout_mode = 2
 size_flags_horizontal = 4
 theme_override_styles/panel = SubResource("StyleBoxFlat_4xkny")
 
-[node name="StartButton" type="Button" parent="MarginContainer/VBoxContainer/PanelContainer" unique_id=532592728]
+[node name="ContinueButton" type="Button" parent="MarginContainer/VBoxContainer/PanelContainer0" unique_id=2122674279]
+custom_minimum_size = Vector2(200, 70)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 8
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
+theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_pressed_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("2_l5n7b")
+theme_override_font_sizes/font_size = 42
+theme_override_styles/normal = SubResource("StyleBoxFlat_s8xmt")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_7rdyk")
+theme_override_styles/hover = SubResource("StyleBoxFlat_ofksa")
+text = "  Continue  "
+
+[node name="PanelContainer1" type="PanelContainer" parent="MarginContainer/VBoxContainer" unique_id=1526638168]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_styles/panel = SubResource("StyleBoxFlat_4xkny")
+
+[node name="StartButton" type="Button" parent="MarginContainer/VBoxContainer/PanelContainer1" unique_id=532592728]
 custom_minimum_size = Vector2(200, 70)
 layout_mode = 2
 size_flags_horizontal = 4
@@ -341,6 +378,7 @@ text = "  en  "
 script = ExtResource("13_bre4b")
 
 [connection signal="pressed" from="MarginContainer/VBoxContainer/HBoxContainer/CheckBox" to="MarginContainer/VBoxContainer/HBoxContainer/MarginContainer/RichTextLabel" method="_on_check_box_pressed"]
-[connection signal="pressed" from="MarginContainer/VBoxContainer/PanelContainer/StartButton" to="." method="_on_start_button_pressed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/PanelContainer0/ContinueButton" to="." method="_on_continue_button_pressed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/PanelContainer1/StartButton" to="." method="_on_start_button_pressed"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/PanelContainer2/QuitButton" to="." method="_on_quit_button_pressed"]
 [connection signal="pressed" from="MarginContainer2/PanelContainer2/LanguageButton" to="MarginContainer2/PanelContainer2/LanguageButton" method="_on_pressed"]

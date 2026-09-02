@@ -21,6 +21,7 @@ signal magnifying_glass_used
 var using_envelope : bool = false
 
 func _ready() -> void:
+	g.save_game()
 	if g.level <= 20:
 		backgrounds_20.show()
 		backgrounds_40.hide()
@@ -93,6 +94,7 @@ func use_item(item_id : String) -> void:
 				0.3
 			)
 			using_envelope = true
+			g.update_save(["current_items", g.current_items])
 		"KEY":
 			await get_tree().create_timer(0.6).timeout
 			g.level += 1

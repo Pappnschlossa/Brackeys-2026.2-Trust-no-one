@@ -10,6 +10,7 @@
 [ext_resource type="Material" uid="uid://bafyasjxgvhj5" path="res://shaders/colored_text_wobble_material.tres" id="8_pfy3u"]
 [ext_resource type="Theme" uid="uid://de1j6ykjdiqd8" path="res://assets/themes/basic_text.tres" id="9_n37b0"]
 [ext_resource type="FontFile" uid="uid://b75gmbl18kr1" path="res://assets/fonts/DarumadropOne-Regular.ttf" id="10_pfy3u"]
+[ext_resource type="Script" uid="uid://chlxgdhd4rkk0" path="res://scenes/seed_text.gd" id="11_n37b0"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_n37b0"]
 bg_color = Color(1, 0.6784314, 0.5254902, 1)
@@ -106,9 +107,9 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -293.0
-offset_top = -194.0
+offset_top = -260.5
 offset_right = 293.0
-offset_bottom = 268.0
+offset_bottom = 260.5
 grow_horizontal = 2
 grow_vertical = 2
 
@@ -145,12 +146,16 @@ text = "
 [font_size=23]You collected %s out of 223 coins during this run![/font_size]"
 horizontal_alignment = 1
 
-[node name="HBoxContainer" type="HBoxContainer" parent="DialogBox" unique_id=2072956048]
+[node name="VBoxContainer" type="VBoxContainer" parent="DialogBox" unique_id=464724438]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="DialogBox/VBoxContainer" unique_id=2072956048]
 layout_mode = 2
 size_flags_horizontal = 4
+size_flags_vertical = 3
 theme_override_constants/separation = 16
 
-[node name="MainMenuButton" type="Button" parent="DialogBox/HBoxContainer" unique_id=505322224]
+[node name="MainMenuButton" type="Button" parent="DialogBox/VBoxContainer/HBoxContainer" unique_id=505322224]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 8
@@ -166,7 +171,7 @@ theme_override_styles/pressed = SubResource("StyleBoxFlat_pqofa")
 theme_override_styles/hover = SubResource("StyleBoxFlat_muops")
 text = "  Main Menu  "
 
-[node name="RetryButton" type="Button" parent="DialogBox/HBoxContainer" unique_id=1611350386]
+[node name="RetryButton" type="Button" parent="DialogBox/VBoxContainer/HBoxContainer" unique_id=1611350386]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 8
@@ -182,5 +187,16 @@ theme_override_styles/pressed = SubResource("StyleBoxFlat_whvk6")
 theme_override_styles/hover = SubResource("StyleBoxFlat_w2rmn")
 text = "  New Run  "
 
-[connection signal="pressed" from="DialogBox/HBoxContainer/MainMenuButton" to="." method="_on_main_menu_button_pressed"]
-[connection signal="pressed" from="DialogBox/HBoxContainer/RetryButton" to="." method="_on_retry_button_pressed"]
+[node name="Seed" type="RichTextLabel" parent="DialogBox/VBoxContainer" unique_id=1680396166]
+layout_mode = 2
+theme = ExtResource("9_n37b0")
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/normal_font_size = 19
+bbcode_enabled = true
+text = "Seed: 1234567890"
+fit_content = true
+horizontal_alignment = 1
+script = ExtResource("11_n37b0")
+
+[connection signal="pressed" from="DialogBox/VBoxContainer/HBoxContainer/MainMenuButton" to="." method="_on_main_menu_button_pressed"]
+[connection signal="pressed" from="DialogBox/VBoxContainer/HBoxContainer/RetryButton" to="." method="_on_retry_button_pressed"]

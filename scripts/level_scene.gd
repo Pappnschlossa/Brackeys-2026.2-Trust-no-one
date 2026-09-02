@@ -80,6 +80,7 @@ var using_envelope : bool = false
 var can_click_other_door : bool = true
 
 func _ready() -> void:
+	g.save_game()
 	if g.level <= 20:
 		backgrounds_20.show()
 		backgrounds_40.hide()
@@ -129,9 +130,15 @@ func _ready() -> void:
 		tutorial_scene.show()
 
 func item_tutorial() -> void:
-	if g.level == 3 or g.level == 6:
+	if g.level == 3 and g.amount_of_tutorial_items_received == 0:
 		left_ui._on_item_bought("MAGNIFYING_GLASS")
-	if g.level == 50:
+		g.amount_of_tutorial_items_received += 1
+		g.update_save(["amount_of_tutorial_items_received"], [g.amount_of_tutorial_items_received])
+	elif g.level == 6 and g.amount_of_tutorial_items_received == 1:
+		left_ui._on_item_bought("MAGNIFYING_GLASS")
+		g.amount_of_tutorial_items_received += 1
+		g.update_save(["amount_of_tutorial_items_received"], [g.amount_of_tutorial_items_received])
+	elif g.level == 50:
 		left_ui._on_item_bought("ENVELOPE")
 
 func _on_add_numpad(numpad_id: int) -> void:
@@ -419,6 +426,10 @@ func _on_door_1_button_pressed() -> void:
 		else:	wrong_door(1)
 
 func wrong_door(door_id : int) -> void:
+	if g.lives == 1:
+		g.erase_save_file()
+	else:
+		g.update_save(["lives"], [g.lives-1])
 	get_node("FootstepsSFX").play()
 	await fake_transition_rect.fake_transition()
 	left_ui.update_health()
@@ -492,6 +503,7 @@ func use_item(item_id : String) -> void:
 			)
 			using_envelope = true
 			g.envelope_in_level_use_amount += 1
+			g.update_save(["current_items"], [g.current_items])
 		"KEY":
 			await get_tree().create_timer(0.6).timeout
 			transition_to_next_level()
@@ -503,6 +515,7 @@ func use_item(item_id : String) -> void:
 					number_nodes[id].reveal_one_with_magnifying_glass()
 					number_guesses[id] = 1
 					break
+			g.update_save(["current_items"], [g.current_items])
 
 func _on_warning_button_pressed() -> void:
 	warning.get_node("DialogBox").size = Vector2(788.0, 563.75)

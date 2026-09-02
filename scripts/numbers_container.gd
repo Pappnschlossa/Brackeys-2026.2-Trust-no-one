@@ -28,10 +28,12 @@ func _on_cage_button_pressed(numpad_id : int) -> void:
 		var old_text : String = level.number_nodes[numpad_id].get_node("%Text").text
 		var new_text : String = old_text
 		if g.level < 50:
+			var state = g.level_rng.state
 			while old_text == new_text:
 				level.generate_text(numpad_id)
 				level.update_nodes(numpad_id)
 				new_text = level.number_nodes[numpad_id].get_node("%Text").text
+			g.level_rng.state = state
 		else:
 			level.numbers[0].clue.text = tr("Alright, I'll tell you. The correct door is the %s one") % level.ANSWER_50
 			level.update_nodes()

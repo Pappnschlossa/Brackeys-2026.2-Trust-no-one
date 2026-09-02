@@ -144,6 +144,7 @@ func _on_item_bought(item_id : String) -> void:
 		sqrt(money_text_previous_value-g.money)/4
 	).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
 	money_text_previous_value = g.money
+	g.update_save(["current_items", "current_orbs", "money"], [g.current_items, g.current_orbs, g.money])
 
 func _on_inventory_reload() -> void:
 	for i in range(g.MAX_ITEM_AMOUNT):
@@ -186,6 +187,7 @@ func use_item(item_id : String) -> void:
 			pass
 		"LIFE_POTION":
 			g.lives = min(g.lives + 1, g.max_lives)
+			g.update_save(["lives", "current_items"], [g.lives, g.current_items])
 			update_health()
 		"MAGNIFYING_GLASS":
 			pass
