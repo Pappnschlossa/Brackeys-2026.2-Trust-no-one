@@ -206,11 +206,11 @@ func initialize_level_variables(odd : bool = false) -> void:
 	possible_ids.erase(id_of_1)
 	for id in possible_ids:
 		if odd:
-			var i = g.level_rng.randi_range(0, len(TRUE_ODD_NUMBERS)-1)
-			numbers[id].val = TRUE_ODD_NUMBERS[i]
+			var k = g.level_rng.randi_range(0, len(TRUE_ODD_NUMBERS)-1)
+			numbers[id].val = TRUE_ODD_NUMBERS[k]
 		else:
-			var i = g.level_rng.randi_range(0, len(TRUE_NUMBERS)-1)
-			numbers[id].val = TRUE_NUMBERS[i]
+			var k = g.level_rng.randi_range(0, len(TRUE_NUMBERS)-1)
+			numbers[id].val = TRUE_NUMBERS[k]
 	for n in g.number_occurences:
 		g.number_occurences[n] = 0
 	for N in numbers:

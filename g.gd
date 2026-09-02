@@ -333,7 +333,7 @@ func erase_save_file() -> void:
 		DirAccess.remove_absolute(ProjectSettings.globalize_path(SAVE_PATH))
 
 func reinitialize() -> void:
-	level = 9
+	level = 1
 	lives = 3
 	money = 0
 	envelope_in_level_use_amount = 0
