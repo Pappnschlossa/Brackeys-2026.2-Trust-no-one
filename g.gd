@@ -13,17 +13,17 @@ func _ready() -> void:
 	shop_rng.seed = master_seed
 	old_level_rng_state = level_rng.state
 	old_shop_rng_state = shop_rng.state
+	update_language()
 	update_directions_language()
 
 func update_language() -> void:
 	var preferred_language = OS.get_locale_language()
+	TranslationServer.set_locale("en")
+	current_language_id = 0
 	for i in range(len(languages)):
 		if preferred_language == languages[i]:
 			TranslationServer.set_locale(preferred_language)
 			current_language_id = i
-		else:
-			TranslationServer.set_locale("en")
-			current_language_id = 0
 
 
 func update_directions_language() -> void:
@@ -248,6 +248,7 @@ func save_game():
 		"nb_orbs_being_bought" : nb_of_items_being_bought,
 		"nb_of_items_being_bought" : nb_of_items_being_bought,
 		"max_lives" : max_lives,
+		"tutorial" : tutorial,
 		"amount_of_tutorial_items_received" : amount_of_tutorial_items_received,
 		"current_orbs" : current_orbs,
 		"current_items": current_items
@@ -273,6 +274,7 @@ func update_save(changed_items : Array[String], values : Array) -> void:
 		"nb_orbs_being_bought" : nb_of_items_being_bought,
 		"nb_of_items_being_bought" : nb_of_items_being_bought,
 		"max_lives" : max_lives,
+		"tutorial" : tutorial,
 		"amount_of_tutorial_items_received" : amount_of_tutorial_items_received,
 		"current_orbs" : current_orbs,
 		"current_items": current_items
@@ -331,7 +333,7 @@ func erase_save_file() -> void:
 		DirAccess.remove_absolute(ProjectSettings.globalize_path(SAVE_PATH))
 
 func reinitialize() -> void:
-	level = 1
+	level = 9
 	lives = 3
 	money = 0
 	envelope_in_level_use_amount = 0

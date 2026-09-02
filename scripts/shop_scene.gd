@@ -94,7 +94,7 @@ func use_item(item_id : String) -> void:
 				0.3
 			)
 			using_envelope = true
-			g.update_save(["current_items", g.current_items])
+			g.update_save(["current_items"], [g.current_items])
 		"KEY":
 			await get_tree().create_timer(0.6).timeout
 			g.level += 1

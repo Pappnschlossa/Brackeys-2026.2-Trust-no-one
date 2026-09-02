@@ -360,7 +360,7 @@ layout_mode = 2
 size_flags_horizontal = 4
 theme_override_styles/panel = SubResource("StyleBoxFlat_4xkny")
 
-[node name="LanguageButton" type="Button" parent="MarginContainer2/PanelContainer2" unique_id=1295103378]
+[node name="LanguageButton" type="Button" parent="MarginContainer2/PanelContainer2" unique_id=1295103378 node_paths=PackedStringArray("check_box_text")]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 8
@@ -376,6 +376,7 @@ theme_override_styles/pressed = SubResource("StyleBoxFlat_7rdyk")
 theme_override_styles/hover = SubResource("StyleBoxFlat_ofksa")
 text = "  en  "
 script = ExtResource("13_bre4b")
+check_box_text = NodePath("../../../MarginContainer/VBoxContainer/HBoxContainer/MarginContainer/RichTextLabel")
 
 [connection signal="pressed" from="MarginContainer/VBoxContainer/HBoxContainer/CheckBox" to="MarginContainer/VBoxContainer/HBoxContainer/MarginContainer/RichTextLabel" method="_on_check_box_pressed"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/PanelContainer0/ContinueButton" to="." method="_on_continue_button_pressed"]
