@@ -8,6 +8,9 @@ extends Node
 @export var wipe_fade_in_duration = 0.1
 @export var wipe_fade_out_duration = 0.3
 @export var camera_node : Camera2D
+@export var music_player : Node
+@onready var ui_hover_player: AudioStreamPlayer = AudioManager.get_node("UIHoverPlayer")
+@onready var ui_click_player: AudioStreamPlayer = AudioManager.get_node("UIClickPlayer")
 
 const SCENES = {
 	"title_scene" : "uid://bv0o1kuyl8te6",
@@ -21,17 +24,41 @@ const SCENES = {
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	g.reinitialize()
-	_on_change_scene("title_scene", null)
 	
+	get_tree().node_added.connect(_on_node_added)
+
+	_on_change_scene("title_scene", null)
+
+func _on_node_added(node: Node) -> void:
+	if node is BaseButton:
+		_setup_button(node)
+
+func _setup_button(button: BaseButton) -> void:
+	if button.mouse_entered.is_connected(_on_button_hover):
+		return
+	button.mouse_entered.connect(_on_button_hover)
+	button.pressed.connect(_on_button_pressed)
+
+func _on_button_hover() -> void:
+	ui_hover_player.play()
+
+func _on_button_pressed() -> void:
+	ui_click_player.play()
 
 func _on_change_scene(scene_name, transition_type = null):
+	if scene_name == "title_scene":
+		music_player.reset()
+	for child in get_children():
+		if child.name == "TitleScene" and scene_name == "level_scene":
+			music_player.new_game()
+	
 	var scene = load(SCENES[scene_name])
 	var instance = scene.instantiate()
 	
 	await transition_in(transition_type)
 
 	for child in get_children():
-		if child != transition_rect and child != canvas_layer and child != camera_node:
+		if child != transition_rect and child != canvas_layer and child != camera_node and child != music_node and child != music_player:
 			remove_child(child)
 	instance.change_scene.connect(_on_change_scene)
 	instance.add_scene_as_an_overlay.connect(_on_add_scene_as_an_overlay)
@@ -64,7 +91,7 @@ func _on_add_scene_as_an_overlay(scene_name, pos = Vector2(0, 0)):
 			instance,
 			"position",
 			pos,
-			wipe_fade_in_duration
+			0.1
 		).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
 	
 	add_child(instance)
@@ -110,7 +137,7 @@ func transition_in(transition_type):
 			mat,
 			"shader_parameter/progress",
 			0.0,
-			wipe_fade_in_duration
+			0.1
 		).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
 	transition_rect.mouse_filter = Control.MOUSE_FILTER_STOP
 	await tween.finished

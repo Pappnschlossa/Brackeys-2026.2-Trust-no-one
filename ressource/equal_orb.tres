@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="Orb" format=3 uid="uid://bm4fysp5kfwb0"]
+
+[ext_resource type="Script" uid="uid://cmxm1mjn50e11" path="res://ressource/orb.gd" id="1_rvacc"]
+[ext_resource type="Texture2D" uid="uid://bthdwaigrm2v7" path="res://assets/orbs/equal_orb.png" id="2_3wwyh"]
+
+[resource]
+script = ExtResource("1_rvacc")
+id = "EQUAL"
+texture = ExtResource("2_3wwyh")
+average_price = 10
+metadata/_custom_type_script = "uid://cmxm1mjn50e11"

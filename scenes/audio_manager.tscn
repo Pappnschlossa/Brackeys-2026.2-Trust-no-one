@@ -1,0 +1,14 @@
+[gd_scene format=3 uid="uid://wmrh6x21icx4"]
+
+[ext_resource type="AudioStream" uid="uid://dr365e0cn57gs" path="res://assets/audio/sfx/Hover.ogg" id="1_liach"]
+[ext_resource type="AudioStream" uid="uid://q4jsqvnas8yh" path="res://assets/audio/sfx/Click.ogg" id="2_3asnw"]
+
+[node name="AudioManager" type="Node" unique_id=899749823]
+
+[node name="UIHoverPlayer" type="AudioStreamPlayer" parent="." unique_id=758695668]
+stream = ExtResource("1_liach")
+volume_db = -33.0
+
+[node name="UIClickPlayer" type="AudioStreamPlayer" parent="." unique_id=914590655]
+stream = ExtResource("2_3asnw")
+volume_db = -8.0

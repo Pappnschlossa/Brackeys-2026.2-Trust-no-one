@@ -1,0 +1,28 @@
+[gd_resource type="ShaderMaterial" format=3 uid="uid://drl3yh0c0gmfi"]
+
+[ext_resource type="Shader" uid="uid://ovrd5ydp8p0q" path="res://shaders/transition.gdshader" id="1_1oj7n"]
+[ext_resource type="Texture2D" uid="uid://k1aibvkejh6a" path="res://TransitionKit/noise/ridge_02.tres" id="2_1lwi3"]
+
+[sub_resource type="Gradient" id="Gradient_ayr5r"]
+colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_vfeax"]
+gradient = SubResource("Gradient_ayr5r")
+fill = 1
+fill_from = Vector2(0.535, 0.5)
+fill_to = Vector2(1, -0.1)
+
+[resource]
+shader = ExtResource("1_1oj7n")
+shader_parameter/base_color = Color(0, 0, 0, 1)
+shader_parameter/node_resolution = Vector2(1920, 1080)
+shader_parameter/factor = 0.5
+shader_parameter/width = 0.4
+shader_parameter/gradient_texture = SubResource("GradientTexture2D_vfeax")
+shader_parameter/gradient_fixed = true
+shader_parameter/shape_texture = ExtResource("2_1lwi3")
+shader_parameter/shape_tiling = 4.0
+shader_parameter/shape_rotation = 0.0
+shader_parameter/shape_scroll = Vector2(0.065, 0.05)
+shader_parameter/shape_feathering = 0.8999999798832
+shader_parameter/shape_treshold = 1.26999997161296

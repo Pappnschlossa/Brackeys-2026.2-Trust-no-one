@@ -4,16 +4,28 @@
 [ext_resource type="Texture2D" uid="uid://dxxhi5rhqq267" path="res://assets/level_background.png" id="2_agchy"]
 [ext_resource type="Script" uid="uid://bis2ccijh3k6f" path="res://scripts/numbers_container.gd" id="2_bl4ss"]
 [ext_resource type="PackedScene" uid="uid://c7ylr0khyv7u4" path="res://scenes/left_ui.tscn" id="2_c8xsp"]
+[ext_resource type="Texture2D" uid="uid://dxd12m67yopl1" path="res://assets/Backgrounds/base/layers/ground_decor.png" id="2_ddp5f"]
 [ext_resource type="Theme" uid="uid://bo40cw5tanri6" path="res://assets/themes/title_text.tres" id="3_2m3ut"]
 [ext_resource type="Texture2D" uid="uid://d1felggl4g2s3" path="res://shaders/flow_map_1.jpg" id="4_0jxn2"]
+[ext_resource type="Texture2D" uid="uid://bwhbf6vaqonce" path="res://assets/Backgrounds/base/layers/battleground.png" id="4_47n7i"]
+[ext_resource type="Texture2D" uid="uid://dfwjdv60yq3ll" path="res://assets/Backgrounds/title/layers/back_land.png" id="4_ayr5r"]
 [ext_resource type="Script" uid="uid://38i0j54yej6w" path="res://scripts/highlight.gd" id="4_cu2va"]
 [ext_resource type="PackedScene" uid="uid://dev0ijjb7kua6" path="res://scenes/levels_map.tscn" id="4_fkwfp"]
 [ext_resource type="Texture2D" uid="uid://dskpc6rj5lkeu" path="res://assets/door.png" id="4_ojpky"]
 [ext_resource type="Theme" uid="uid://fxj3p4ueiqg2" path="res://assets/themes/transparent_button.tres" id="5_1lj4f"]
+[ext_resource type="Texture2D" uid="uid://bkeoykex1tq13" path="res://assets/Backgrounds/lava/layers/battleground.png" id="5_47n7i"]
+[ext_resource type="Texture2D" uid="uid://d2yv728yoxehh" path="res://assets/Backgrounds/base/layers/back_land.png" id="5_xii70"]
+[ext_resource type="Texture2D" uid="uid://cdja4hd4thvti" path="res://assets/Backgrounds/lava/layers/back_land.png" id="6_xii70"]
+[ext_resource type="Texture2D" uid="uid://cnp7je8qtt26v" path="res://assets/Backgrounds/lava/layers/ground_decor.png" id="7_10qpx"]
 [ext_resource type="Theme" uid="uid://de1j6ykjdiqd8" path="res://assets/themes/basic_text.tres" id="7_78t5s"]
+[ext_resource type="Texture2D" uid="uid://c64osl6f4xdxp" path="res://assets/Backgrounds/lava/layers/front_decor.png" id="8_lw5jg"]
+[ext_resource type="Texture2D" uid="uid://k8vorc84c134" path="res://assets/Backgrounds/lava2/layers/battleground.png" id="9_lw5jg"]
 [ext_resource type="Texture2D" uid="uid://dus2s06jr3xun" path="res://assets/door_eyes.png" id="9_y1xxd"]
 [ext_resource type="PackedScene" uid="uid://bh8a77f3toafp" path="res://scenes/number_cage.tscn" id="10_cu2va"]
+[ext_resource type="Texture2D" uid="uid://bvnhhehrswikt" path="res://assets/Backgrounds/lava2/layers/back_decor.png" id="10_u8fe7"]
+[ext_resource type="Shader" uid="uid://b30q36o4ty1by" path="res://shaders/hue_shader.gdshader" id="10_vfeax"]
 [ext_resource type="Texture2D" uid="uid://dpey7kehsyvwu" path="res://assets/door_eyes_1.png" id="10_wcwpw"]
+[ext_resource type="Texture2D" uid="uid://b4hkwk0dur7mh" path="res://assets/Backgrounds/lava2/layers/ground_decor.png" id="11_ayr5r"]
 [ext_resource type="Material" uid="uid://bafyasjxgvhj5" path="res://shaders/colored_text_wobble_material.tres" id="11_lkilr"]
 [ext_resource type="Texture2D" uid="uid://dumo4s7r3u1p4" path="res://assets/door_eyes_2.png" id="11_ytrdw"]
 [ext_resource type="Texture2D" uid="uid://cl71esw7yroi2" path="res://assets/door_eyes_3.png" id="12_ir4rs"]
@@ -35,6 +47,7 @@
 [ext_resource type="Texture2D" uid="uid://b4744yp21pkfe" path="res://assets/level_foreground.png" id="22_b0ykq"]
 [ext_resource type="Texture2D" uid="uid://g4g3edhxdkpu" path="res://assets/heart_break/heartbreak_0.png" id="25_80qai"]
 [ext_resource type="Texture2D" uid="uid://e8ufar40878m" path="res://assets/heart_break/heartbreak_1.png" id="26_wmw8n"]
+[ext_resource type="AudioStream" uid="uid://dcg47vkm06aqr" path="res://assets/audio/sfx/Blink.ogg" id="26_yf0bk"]
 [ext_resource type="Texture2D" uid="uid://dh2p7x2bmu156" path="res://assets/heart_break/heartbreak_2.png" id="27_vcw7i"]
 [ext_resource type="Texture2D" uid="uid://cc36g8diyv47u" path="res://assets/heart_break/heartbreak_3.png" id="28_wdw0c"]
 [ext_resource type="Texture2D" uid="uid://bn7bost7cgyk2" path="res://assets/heart_break/heartbreak_4.png" id="29_luuy5"]
@@ -42,6 +55,22 @@
 [ext_resource type="PackedScene" uid="uid://dmvvj7vsox4av" path="res://scenes/dialog_box.tscn" id="40_wmw8n"]
 [ext_resource type="FontFile" uid="uid://b75gmbl18kr1" path="res://assets/fonts/DarumadropOne-Regular.ttf" id="41_vcw7i"]
 [ext_resource type="PackedScene" uid="uid://dpe25lmps37pr" path="res://scenes/tutorial_scene.tscn" id="42_wdw0c"]
+[ext_resource type="AudioStream" uid="uid://cd6mc6fnspbfm" path="res://assets/audio/sfx/Attack.ogg" id="52_nq0hr"]
+[ext_resource type="Material" uid="uid://drl3yh0c0gmfi" path="res://shaders/dark_zone_material.tres" id="53_u8fe7"]
+[ext_resource type="Shader" uid="uid://ovrd5ydp8p0q" path="res://shaders/transition.gdshader" id="58_p45ax"]
+[ext_resource type="AudioStream" uid="uid://dwh0ijhqgroo8" path="res://assets/audio/sfx/Footsteps.ogg" id="58_qpprj"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_vfeax"]
+shader = ExtResource("10_vfeax")
+shader_parameter/hue_shift = 0.3170000150575
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_lqobm"]
+shader = ExtResource("10_vfeax")
+shader_parameter/hue_shift = 0.382000018145
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_nq0hr"]
+shader = ExtResource("10_vfeax")
+shader_parameter/hue_shift = 0.578000027455
 
 [sub_resource type="Shader" id="Shader_mycgk"]
 code = "shader_type canvas_item;
@@ -281,7 +310,42 @@ corner_radius_top_right = 20
 corner_radius_bottom_right = 20
 corner_radius_bottom_left = 20
 
-[node name="Level" type="Control" unique_id=1635183676 node_paths=PackedStringArray("A", "B", "C", "D", "E", "F", "left_ui", "question", "door0", "door1", "numbers_container", "fake_transition_rect", "envelope_overlay", "warning", "tutorial_scene")]
+[sub_resource type="Gradient" id="Gradient_dbqim"]
+colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_0i6t3"]
+gradient = SubResource("Gradient_dbqim")
+fill = 1
+fill_from = Vector2(0.005, 0.685)
+fill_to = Vector2(1, -0.1)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_0aw0m"]
+noise_type = 4
+seed = 13
+fractal_type = 2
+fractal_octaves = 1
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_1qddu"]
+noise = SubResource("FastNoiseLite_0aw0m")
+seamless = true
+seamless_blend_skirt = 0.4
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ribqp"]
+shader = ExtResource("58_p45ax")
+shader_parameter/base_color = Color(0, 0, 0, 1)
+shader_parameter/node_resolution = Vector2(1920, 1080)
+shader_parameter/factor = 0.5
+shader_parameter/width = 0.4
+shader_parameter/gradient_texture = SubResource("GradientTexture2D_0i6t3")
+shader_parameter/gradient_fixed = true
+shader_parameter/shape_texture = SubResource("NoiseTexture2D_1qddu")
+shader_parameter/shape_tiling = 4.0
+shader_parameter/shape_rotation = 0.0
+shader_parameter/shape_scroll = Vector2(0.065, 0.05)
+shader_parameter/shape_feathering = 0.8999999798832
+shader_parameter/shape_treshold = 0.51999998837696
+
+[node name="Level" type="Control" unique_id=1635183676 node_paths=PackedStringArray("A", "B", "C", "D", "E", "F", "left_ui", "question", "door0", "door1", "numbers_container", "fake_transition_rect", "envelope_overlay", "warning", "tutorial_scene", "backgrounds_20", "backgrounds_40", "backgrounds_50")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -304,6 +368,72 @@ fake_transition_rect = NodePath("FakeTransitionRect")
 envelope_overlay = NodePath("EnvelopeOverlay")
 warning = NodePath("Warning")
 tutorial_scene = NodePath("TutorialScene")
+backgrounds_20 = NodePath("Backgrounds20")
+backgrounds_40 = NodePath("Backgrounds40")
+backgrounds_50 = NodePath("Backgrounds50")
+
+[node name="Backgrounds20" type="Node2D" parent="." unique_id=1689315978]
+visible = false
+position = Vector2(960, 425)
+scale = Vector2(0.5, 0.62)
+
+[node name="BattleGround" type="Sprite2D" parent="Backgrounds20" unique_id=453744181]
+texture = ExtResource("4_47n7i")
+
+[node name="BackLand" type="Sprite2D" parent="Backgrounds20" unique_id=545566881]
+texture = ExtResource("5_xii70")
+
+[node name="GroundDecor" type="Sprite2D" parent="Backgrounds20" unique_id=502723131]
+texture = ExtResource("2_ddp5f")
+
+[node name="BackLand2" type="Sprite2D" parent="Backgrounds20" unique_id=143609266]
+material = SubResource("ShaderMaterial_vfeax")
+position = Vector2(216, 691.9354)
+scale = Vector2(1.4221923, 1.4221923)
+texture = ExtResource("4_ayr5r")
+
+[node name="Backgrounds40" type="Node2D" parent="." unique_id=1849121396]
+visible = false
+position = Vector2(960, 425)
+scale = Vector2(0.5, 0.62)
+
+[node name="BattleGround" type="Sprite2D" parent="Backgrounds40" unique_id=1762813745]
+texture = ExtResource("5_47n7i")
+
+[node name="BackLand" type="Sprite2D" parent="Backgrounds40" unique_id=1881987122]
+texture = ExtResource("6_xii70")
+
+[node name="GroundDecor" type="Sprite2D" parent="Backgrounds40" unique_id=1139921700]
+texture = ExtResource("7_10qpx")
+
+[node name="FrontDecor" type="Sprite2D" parent="Backgrounds40" unique_id=631002966]
+texture = ExtResource("8_lw5jg")
+
+[node name="BackLand2" type="Sprite2D" parent="Backgrounds40" unique_id=1176914195]
+material = SubResource("ShaderMaterial_lqobm")
+position = Vector2(216, 691.9354)
+scale = Vector2(1.4221923, 1.4221923)
+texture = ExtResource("4_ayr5r")
+
+[node name="Backgrounds50" type="Node2D" parent="." unique_id=1365494049]
+visible = false
+position = Vector2(960, 425)
+scale = Vector2(0.5, 0.62)
+
+[node name="BattleGround" type="Sprite2D" parent="Backgrounds50" unique_id=1547904943]
+texture = ExtResource("9_lw5jg")
+
+[node name="BackDecor" type="Sprite2D" parent="Backgrounds50" unique_id=3853091]
+texture = ExtResource("10_u8fe7")
+
+[node name="GroundDecor" type="Sprite2D" parent="Backgrounds50" unique_id=1980574985]
+texture = ExtResource("11_ayr5r")
+
+[node name="BackLand2" type="Sprite2D" parent="Backgrounds50" unique_id=639204349]
+material = SubResource("ShaderMaterial_nq0hr")
+position = Vector2(216, 691.9355)
+scale = Vector2(1.4221923, 1.4221923)
+texture = ExtResource("4_ayr5r")
 
 [node name="Marker2D" type="Marker2D" parent="." unique_id=229607956]
 position = Vector2(146, 1040)
@@ -418,6 +548,10 @@ grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("5_1lj4f")
 
+[node name="SFX" type="AudioStreamPlayer2D" parent="HBoxContainer/Middle/DoorsContainer/Door0/DoorEyes" unique_id=1613741865]
+stream = ExtResource("26_yf0bk")
+bus = &"SFX"
+
 [node name="SignTexture" type="TextureRect" parent="HBoxContainer/Middle/DoorsContainer/Door0" unique_id=1497229926]
 material = ExtResource("12_vw353")
 layout_mode = 0
@@ -504,6 +638,10 @@ offset_bottom = -51.0
 grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("5_1lj4f")
+
+[node name="SFX" type="AudioStreamPlayer2D" parent="HBoxContainer/Middle/DoorsContainer/Door1/DoorEyes" unique_id=36759353]
+stream = ExtResource("26_yf0bk")
+bus = &"SFX"
 
 [node name="SignTexture" type="TextureRect" parent="HBoxContainer/Middle/DoorsContainer/Door1" unique_id=1122608212]
 material = ExtResource("12_vw353")
@@ -658,6 +796,12 @@ sprite_frames = SubResource("SpriteFrames_4xkny")
 animation = &"scratch"
 speed_scale = 3.0
 
+[node name="SFX" type="AudioStreamPlayer2D" parent="FakeTransitionRect/AnimatedSprite2D" unique_id=936194380]
+position = Vector2(-121.17169, -64.062096)
+scale = Vector2(0.12415133, 0.12415133)
+stream = ExtResource("52_nq0hr")
+bus = &"SFX"
+
 [node name="Warning" type="Control" parent="." unique_id=457052574]
 visible = false
 layout_mode = 1
@@ -725,6 +869,33 @@ text = " Click here to continue "
 [node name="TutorialScene" parent="." unique_id=987435827 instance=ExtResource("42_wdw0c")]
 visible = false
 layout_mode = 1
+
+[node name="Shadow40" type="ColorRect" parent="." unique_id=1070114479]
+visible = false
+material = ExtResource("53_u8fe7")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="ShadowSun" type="ColorRect" parent="." unique_id=939008265]
+visible = false
+material = SubResource("ShaderMaterial_ribqp")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="FootstepsSFX" type="AudioStreamPlayer2D" parent="." unique_id=743584414]
+stream = ExtResource("58_qpprj")
+volume_db = 24.0
+bus = &"SFX"
 
 [connection signal="mouse_entered" from="HBoxContainer/Middle/DoorsContainer/Door0/Texture/MarginContainer/Door0Button" to="HBoxContainer/Middle/DoorsContainer/Door0" method="_on_button_mouse_entered"]
 [connection signal="mouse_exited" from="HBoxContainer/Middle/DoorsContainer/Door0/Texture/MarginContainer/Door0Button" to="HBoxContainer/Middle/DoorsContainer/Door0" method="_on_button_mouse_exited"]

@@ -1,5 +1,39 @@
 extends Node
 
+var level_rng = RandomNumberGenerator.new()
+var shop_rng = RandomNumberGenerator.new()
+const languages : Array[String] = ["en", "fr"]
+var current_language_id : int = 0
+
+func _ready() -> void:
+	var master_seed : int = "T tee".hash()
+	level_rng.seed = master_seed
+	shop_rng.seed = master_seed
+	update_directions_language()
+
+func update_language() -> void:
+	var preferred_language = OS.get_locale_language()
+	for i in range(len(languages)):
+		if preferred_language == languages[i]:
+			TranslationServer.set_locale(preferred_language)
+			current_language_id = i
+		else:
+			TranslationServer.set_locale("en")
+			current_language_id = 0
+
+
+func update_directions_language() -> void:
+	DIRECTIONS = {
+		0 : tr("above me"),
+		1 : tr("to my upper right"),
+		2 : tr("to my right"),
+		3 : tr("to my lower right"),
+		4 : tr("below me"),
+		5 : tr("to my lower left"),
+		6 : tr("to my left"),
+		7 : tr("to my upper left")
+	}
+
 var level : int = 1
 const tutorial_level_threshold : int = 4
 func amount_of_numbers() -> int:
@@ -35,6 +69,7 @@ func get_array_of_numbers_in_use_without_multiplicity() -> Array[int]:
 	return numbers_in_use
 
 var lives : int = 3
+var max_lives : int = 3
 
 func possible_targets(id : int) -> Array[int]:
 	match amount_of_numbers():
@@ -60,16 +95,7 @@ func possible_targets(id : int) -> Array[int]:
 					return [1, 2, 4, 5, 5, 5]
 	return [-1]
 
-const DIRECTIONS : Dictionary[int, String] = {
-	0 : "above me",
-	1 : "to my upper right",
-	2 : "to my right",
-	3 : "to my lower right",
-	4 : "below me",
-	5 : "to my lower left",
-	6 : "to my left",
-	7 : "to my upper left"
-}
+var DIRECTIONS : Dictionary[int, String]
 
 func direction_of_number(source_id : int, target_id : int) -> String:
 	match amount_of_numbers():
@@ -141,6 +167,7 @@ var ITEMS : Dictionary[String, Item] = {
 }
 
 var current_items : Array[String] = ["EMPTY", "EMPTY", "EMPTY", "EMPTY"]
+
 func get_nb_of_items() -> int:
 	var count : int = 0
 	for item in current_items:
@@ -155,7 +182,14 @@ func can_buy_item(price : int) -> bool:
 		return true
 	return false
 
+func can_buy_orb(price : int) -> bool:
+	if money >= price and get_nb_of_orbs() < (2 - nb_of_orbs_being_bought):
+		return true
+	return false
+
 func can_use_item(item_id : String) -> bool:
+	if item_id == "DICE" and level == 40:
+		return false
 	return true
 
 const ID_TO_LETTER : Dictionary[int, String] = {
@@ -171,9 +205,34 @@ var tutorial : bool = false
 
 var envelope_in_level_use_amount : int = 0
 
+var total_coins_collected : int = 0
+
+var ORBS : Dictionary[String, Orb] = {
+	"EQUAL" : preload("uid://bm4fysp5kfwb0"),
+	"HEART" : preload("uid://bbgtksphsk3nb"),
+	"QUESTIONMARK" : preload("uid://cdv27yxdcdobp"),
+	"SUN" : preload("uid://bqg3cm4psd8m0")
+	}
+
+var current_orbs : Array[String] = ["EMPTY_ORB", "EMPTY_ORB"]
+
+var nb_of_orbs_being_bought : int = 0
+
+func get_nb_of_orbs() -> int:
+	var count : int = 0
+	for item in current_orbs:
+		if item != "EMPTY_ORB":
+			count += 1
+	return count
+
 func reinitialize() -> void:
-	level = 5
-	lives = 1
+	level = 39
+	lives = 3
 	money = 0
 	envelope_in_level_use_amount = 0
+	total_coins_collected = 0
+	nb_of_orbs_being_bought = 0
+	nb_of_items_being_bought = 0
+	max_lives = 3
+	current_orbs = ["EMPTY_ORB", "EMPTY_ORB"]
 	current_items = ["EMPTY", "EMPTY", "EMPTY", "EMPTY"]

@@ -42,6 +42,7 @@ func _on_button_pressed() -> void:
 			burnCard(uv)
 			g.current_items[item_pos] = "EMPTY"
 			item_effect.emit(item_id)
+			get_node("SFX").play()
 
 func get_uv_from_click(local_click_pos: Vector2) -> Vector2:
 	var top_left_pos = local_click_pos

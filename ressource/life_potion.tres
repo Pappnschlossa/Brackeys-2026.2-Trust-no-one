@@ -7,6 +7,6 @@
 script = ExtResource("1_ivp62")
 id = "LIFE_POTION"
 texture = ExtResource("2_eubtf")
-average_price = 50
+average_price = 30
 description = "Heals 1 HP"
 metadata/_custom_type_script = "uid://mwlqykq1cuuq"

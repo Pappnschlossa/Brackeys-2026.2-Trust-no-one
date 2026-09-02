@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://cdhnbmfkqwuhi" path="res://scripts/pocket_item.gd" id="1_5vj0f"]
 [ext_resource type="Texture2D" uid="uid://cdi2td1nhnx3c" path="res://assets/life_potion.png" id="1_5688f"]
 [ext_resource type="Theme" uid="uid://fxj3p4ueiqg2" path="res://assets/themes/transparent_button.tres" id="2_5vj0f"]
+[ext_resource type="AudioStream" uid="uid://5hsaaon4ps1m" path="res://assets/audio/sfx/Fire.ogg" id="4_6snns"]
 
 [sub_resource type="Shader" id="Shader_5vj0f"]
 code = "shader_type canvas_item;
@@ -145,6 +146,11 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("2_5vj0f")
+
+[node name="SFX" type="AudioStreamPlayer2D" parent="." unique_id=146854042]
+stream = ExtResource("4_6snns")
+volume_db = 3.141
+bus = &"SFX"
 
 [connection signal="mouse_entered" from="Texture/Button" to="." method="_on_button_mouse_entered"]
 [connection signal="mouse_exited" from="Texture/Button" to="." method="_on_button_mouse_exited"]

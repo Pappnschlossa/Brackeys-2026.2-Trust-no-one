@@ -13,10 +13,26 @@ signal magnifying_glass_used
 @export var shop_item_3 : Control
 @onready var shop_items : Array[Control] = [shop_item_0, shop_item_1, shop_item_2, shop_item_3]
 @export var envelope_overlay : Control
+@export var backgrounds_20 : Node2D
+@export var backgrounds_40 : Node2D
+@export var backgrounds_50 : Node2D
+
 
 var using_envelope : bool = false
 
 func _ready() -> void:
+	if g.level <= 20:
+		backgrounds_20.show()
+		backgrounds_40.hide()
+		backgrounds_50.hide()
+	elif g.level < 40:
+		backgrounds_20.hide()
+		backgrounds_40.show()
+		backgrounds_50.hide()
+	else:
+		backgrounds_20.hide()
+		backgrounds_40.hide()
+		backgrounds_50.show()
 	randomize_items()
 	for item in shop_items:
 		item.item_bought.connect(left_ui._on_item_bought)
@@ -25,13 +41,22 @@ func _ready() -> void:
 
 func randomize_items() -> void:
 	var available_items = g.ITEMS.keys()
+	var available_orbs = g.ORBS.keys()
 	for item in shop_items:
-		var chosen_item_id: String = available_items.pick_random()
-		available_items.erase(chosen_item_id)
-		item.update_item(chosen_item_id)
+		if g.level != 40:
+			var i : int = g.shop_rng.randi_range(0, len(available_items)-1)
+			var chosen_item_id: String = available_items[i]
+			available_items.erase(chosen_item_id)
+			item.update_item(chosen_item_id)
+		else:
+			var i : int = g.shop_rng.randi_range(0, len(available_orbs)-1)
+			var chosen_item_id: String = available_orbs[i]
+			available_orbs.erase(chosen_item_id)
+			item.update_item(chosen_item_id)
 
 func _on_shop_exit_button_pressed() -> void:
 	g.level += 1
+	get_node("FootstepsSFX").play()
 	change_scene.emit("level_scene", "bubble_transition")
 
 
@@ -77,4 +102,7 @@ func use_item(item_id : String) -> void:
 		"MAGNIFYING_GLASS":
 			var available_items = g.ITEMS.keys()
 			available_items.erase("MAGNIFYING_GLASS")
-			magnifying_glass_used.emit(available_items.pick_random())
+			var magnifying_glass_rng = RandomNumberGenerator.new()
+			magnifying_glass_rng.seed = g.shop_rng.state
+			var i : int = g.shop_rng.randi_range(0, len(available_items)-1)
+			magnifying_glass_used.emit(available_items[i])

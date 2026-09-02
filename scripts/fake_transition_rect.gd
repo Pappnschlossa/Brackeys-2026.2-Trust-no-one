@@ -15,7 +15,9 @@ func fake_transition() -> void:
 	).set_ease(Tween.EASE_OUT)
 	await tween_in.finished
 	
-	await get_tree().create_timer(1.0).timeout
+	await get_tree().create_timer(0.6).timeout
+	$AnimatedSprite2D.get_node("SFX").play()
+	await get_tree().create_timer(0.4).timeout
 	$AnimatedSprite2D.show()
 	$AnimatedSprite2D.play("scratch")
 	$HeartBreak.show()

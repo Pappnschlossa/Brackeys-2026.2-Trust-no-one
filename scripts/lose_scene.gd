@@ -13,4 +13,4 @@ func _on_retry_button_pressed() -> void:
 
 
 func _on_main_menu_button_pressed() -> void:
-	change_scene.emit("title_scene") # TO DO : ADD TRANSITION
+	change_scene.emit("title_scene", "bubble_transition")

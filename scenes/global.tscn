@@ -3,11 +3,19 @@
 [ext_resource type="Script" uid="uid://itknkhfxjdni" path="res://scripts/global_scene.gd" id="1_4pk28"]
 [ext_resource type="Material" uid="uid://bmp2oqi20jmk5" path="res://shaders/bubble_transition_material.tres" id="2_nmxvb"]
 [ext_resource type="Script" uid="uid://cut8cbwb6oi32" path="res://scripts/camera_2d.gd" id="3_opebo"]
+[ext_resource type="AudioStream" uid="uid://b66lefg36xf2w" path="res://assets/audio/music/Stalagmites.mp3" id="4_m3l3d"]
+[ext_resource type="Script" uid="uid://c0kudf2orft38" path="res://scenes/music_player.gd" id="5_nelfd"]
 
-[node name="Global" type="Node" unique_id=2032605609 node_paths=PackedStringArray("transition_rect", "camera_node")]
+[node name="Global" type="Node" unique_id=2032605609 node_paths=PackedStringArray("music_node", "transition_rect", "camera_node", "music_player")]
 script = ExtResource("1_4pk28")
+music_node = NodePath("MusicPlayer")
 transition_rect = NodePath("ColorRect")
+gear_fade_in_duration = null
+gear_fade_out_duration = null
+wipe_fade_in_duration = null
+wipe_fade_out_duration = null
 camera_node = NodePath("Camera2D")
+music_player = NodePath("MusicPlayer")
 
 [node name="ColorRect" type="ColorRect" parent="." unique_id=2101861654]
 visible = false
@@ -21,3 +29,12 @@ grow_vertical = 2
 [node name="Camera2D" type="Camera2D" parent="." unique_id=1852322681]
 position = Vector2(960, 540)
 script = ExtResource("3_opebo")
+
+[node name="AudioListener2D" type="AudioListener2D" parent="." unique_id=997708585]
+position = Vector2(960, 540)
+
+[node name="MusicPlayer" type="AudioStreamPlayer" parent="." unique_id=613166843]
+stream = ExtResource("4_m3l3d")
+autoplay = true
+bus = &"Music"
+script = ExtResource("5_nelfd")

@@ -21,6 +21,9 @@ signal shake_screen
 @export var envelope_overlay : Control
 @export var warning : Control
 @export var tutorial_scene : Control
+@export var backgrounds_20 : Node2D
+@export var backgrounds_40 : Node2D
+@export var backgrounds_50 : Node2D
 
 const TRUE_NUMBERS : Array[int] = [0, 2, 3, 4, 5, 6, 7, 8, 9]
 const TRUE_ODD_NUMBERS : Array[int] = [3, 5, 7, 9]
@@ -31,9 +34,9 @@ const OPERATOR_TO_SIGN : Dictionary[String, String] = {
 	"mult" : "x"
 }
 
-const FORMAT_PARITY : Dictionary[int, String] = {
-	-2 : "even",
-	-1 : "odd",
+var FORMAT_PARITY : Dictionary[int, String] = {
+	-2 : tr("even"),
+	-1 : tr("odd"),
 	0 : "0",
 	1 : "1",
 	2 : "2",
@@ -46,19 +49,19 @@ const FORMAT_PARITY : Dictionary[int, String] = {
 	9 : "9"
 }
 
-const FORMAT_PARITY_SELF : Dictionary[int, String] = {
-	-2 : "even number",
-	-1 : "an odd number",
-	0 : "the number 0",
-	1 : "the number 1",
-	2 : "the number 2",
-	3 : "the number 3",
-	4 : "the number 4",
-	5 : "the number 5",
-	6 : "the number 6",
-	7 : "the number 7",
-	8 : "the number 8",
-	9 : "the number 9"
+var FORMAT_PARITY_SELF : Dictionary[int, String] = {
+	-2 : tr("an even number"),
+	-1 : tr("an odd number"),
+	0 : tr("the number 0"),
+	1 : tr("the number 1"),
+	2 : tr("the number 2"),
+	3 : tr("the number 3"),
+	4 : tr("the number 4"),
+	5 : tr("the number 5"),
+	6 : tr("the number 6"),
+	7 : tr("the number 7"),
+	8 : tr("the number 8"),
+	9 : tr("the number 9")
 }
 
 var TRUE_DOOR_ID : int
@@ -74,8 +77,36 @@ var ANSWER_50 : String
 var active_numpad : int = -1
 var number_guesses : Array[int]
 var using_envelope : bool = false
+var can_click_other_door : bool = true
 
 func _ready() -> void:
+	if g.level <= 20:
+		backgrounds_20.show()
+		backgrounds_40.hide()
+		backgrounds_50.hide()
+	elif g.level <= 40:
+		backgrounds_20.hide()
+		backgrounds_40.show()
+		backgrounds_50.hide()
+	else:
+		backgrounds_20.hide()
+		backgrounds_40.hide()
+		backgrounds_50.show()
+		if "SUN" in g.current_orbs and g.level != 50:
+			$ShadowSun.show()
+		else:
+			$Shadow40.show()
+			if g.level == 50:
+				var material = $Shadow40.material as ShaderMaterial
+				var start_value = material.get_shader_parameter("shape_treshold")
+				var tween = create_tween()
+				tween.tween_method(
+					func(value):
+						material.set_shader_parameter("shape_treshold", value),
+					start_value,
+					0.5,
+					5.0
+				)
 	if g.level < g.tutorial_level_threshold:
 		initialize_level_variables(true)
 		generate_tutorial_text()
@@ -128,7 +159,7 @@ func generate_tutorial_text() -> void:
 				if N.val == 1:
 					N.clue.target = id
 					if other_number == 0:
-						N.clue.value = [2, 3, 4, 5, 6, 7, 8, 9].pick_random() # To avoid saying the truth about being 1
+						N.clue.value = g.level_rng.randi_range(2, 9) # To avoid saying the truth about being 1
 					else:
 						N.clue.value = (other_number+1) % 10
 				else:
@@ -151,7 +182,7 @@ func generate_tutorial_text() -> void:
 		id += 1
 
 func initialize_level_variables(odd : bool = false) -> void:
-	TRUE_DOOR_ID = randi_range(0, 1)
+	TRUE_DOOR_ID = g.level_rng.randi_range(0, 1)
 	FALSE_DOOR_ID = abs(TRUE_DOOR_ID - 1)
 	AMOUNT = g.amount_of_numbers()
 	MAX_ID = AMOUNT - 1
@@ -163,25 +194,29 @@ func initialize_level_variables(odd : bool = false) -> void:
 		N.clue = Clue.new()
 		numbers.append(N)
 		possible_ids.append(i)
-	var id_of_1 : int = randi_range(0, MAX_ID)
+	var id_of_1 : int = g.level_rng.randi_range(0, MAX_ID)
 	numbers[id_of_1].val = 1
 	possible_ids.erase(id_of_1)
 	for id in possible_ids:
 		if odd:
-			numbers[id].val = TRUE_ODD_NUMBERS.pick_random()
+			var i = g.level_rng.randi_range(0, len(TRUE_ODD_NUMBERS)-1)
+			numbers[id].val = TRUE_ODD_NUMBERS[i]
 		else:
-			numbers[id].val = TRUE_NUMBERS.pick_random()
+			var i = g.level_rng.randi_range(0, len(TRUE_NUMBERS)-1)
+			numbers[id].val = TRUE_NUMBERS[i]
 	for n in g.number_occurences:
 		g.number_occurences[n] = 0
 	for N in numbers:
 		g.number_occurences[N.val] += 1
 	# Choose question
 	var numbers_in_use : Array[int] = g.get_array_of_numbers_in_use_without_multiplicity()
-	TRUE_ANSWER = numbers_in_use.pick_random()
+	var i = g.level_rng.randi_range(0, len(numbers_in_use)-1)
+	TRUE_ANSWER = numbers_in_use[i]
 	numbers_in_use.erase(TRUE_ANSWER)
-	FALSE_ANSWER = numbers_in_use.pick_random()
+	var j = g.level_rng.randi_range(0, len(numbers_in_use)-1)
+	FALSE_ANSWER = numbers_in_use[j]
 	# Pick random number that is equal to this number:
-	var random_number_equal_to_answer : int = randi_range(0, g.number_occurences[TRUE_ANSWER]-1)
+	var random_number_equal_to_answer : int = g.level_rng.randi_range(0, g.number_occurences[TRUE_ANSWER]-1)
 	var n : int = 0
 	for N in numbers:
 		if N.val == TRUE_ANSWER:
@@ -189,6 +224,8 @@ func initialize_level_variables(odd : bool = false) -> void:
 				random_number_equal_to_answer -= 1
 			else:
 				QUESTION = n
+				for node in number_nodes:
+					node.is_not_question()
 				number_nodes[n].is_question()
 		n += 1
 
@@ -202,13 +239,17 @@ func generate_text(envelope_id = null) -> void:
 
 		var possible_types : Array[bool] = [true, false]
 		if can_be_equation(id) or (N.val == 1 and AMOUNT >= 3):
-			N.clue.is_equation = possible_types.pick_random()
+			var i : int = g.level_rng.randi_range(0, len(possible_types)-1)
+			N.clue.is_equation = possible_types[i]
 		else:
+			N.clue.is_equation = false
+		if "EQUAL" in g.current_orbs and g.level_rng.randf() < 0.8:
 			N.clue.is_equation = false
 		if !N.clue.is_equation:
 			var possible_targets : Array[int] = g.possible_targets(id)
-			N.clue.target = possible_targets.pick_random()
-			if randf() < 0.2: # chances to show parity:
+			var i : int = g.level_rng.randi_range(0, len(possible_targets)-1)
+			N.clue.target = possible_targets[i]
+			if g.level_rng.randf() < 0.2: # chances to show parity:
 				if numbers[N.clue.target].val % 2 == 0: # Even
 					N.clue.value = -2
 				else: # Odd
@@ -222,30 +263,38 @@ func generate_text(envelope_id = null) -> void:
 					-1: N.clue.value = -2
 					_:
 						if g.level < 30:
-							N.clue.value = randi_range(0, 9)
+							N.clue.value = g.level_rng.randi_range(0, 9)
 							if N.clue.value >= old_value:
-								N.clue.value = (N.clue.value + 1) % 10
+								if N.clue.value == 9 and old_value == 0:
+									N.clue.value = g.level_rng.randi_range(1, 9) # Bug fixed
+								else:
+									N.clue.value = (N.clue.value + 1) % 10
 						else: # Only use numbers that are in present
 							var possible_numbers : Array[int] = g.get_array_of_numbers_in_use_without_multiplicity()
 							possible_numbers.erase(old_value)
-							N.clue.value = possible_numbers.pick_random()
+							var j : int = g.level_rng.randi_range(0, len(possible_numbers)-1)
+							N.clue.value = possible_numbers[j]
 		else: # N.clue.is_equation:
 			if N.val != 1:
 				var possible_equations : Array[Array] = find_equations(id)
-				var equation : Array = possible_equations.pick_random()
+				var i : int = g.level_rng.randi_range(0, len(possible_equations)-1)
+				var equation : Array = possible_equations[i]
 				N.clue.equation_targets = [equation[0], equation[1]]
 				N.clue.operator = equation[2]
 			else: # N.val == 1: # Turn clue into a lie if number is 1
 				var possible_targets : Array = Array(range(AMOUNT))
 				possible_targets.erase(id)
-				var first_member : int = possible_targets.pick_random()
+				var i : int = g.level_rng.randi_range(0, len(possible_targets)-1)
+				var first_member : int = possible_targets[i]
 				possible_targets.erase(first_member)
-				var second_member : int = possible_targets.pick_random()
+				var j : int = g.level_rng.randi_range(0, len(possible_targets)-1)
+				var second_member : int = possible_targets[j]
 				N.clue.equation_targets = [first_member, second_member]
 				N.clue.equation_targets.sort()
-				N.clue.operator = ["plus", "minus", "mult"].pick_random()
+				var k : int = g.level_rng.randi_range(0, 2)
+				N.clue.operator = ["plus", "minus", "mult"][k]
 				if N.clue.operator == "minus":
-					if randf() < 0.5: # if substraction then 1/2 chances to swap
+					if g.level_rng.randf() < 0.5: # if substraction then 1/2 chances to swap
 						N.clue.equation_targets.reverse()
 					if numbers[N.clue.equation_targets[0]].val - numbers[N.clue.equation_targets[1]].val == 1:
 						# Checks if equation remains false
@@ -254,12 +303,12 @@ func generate_text(envelope_id = null) -> void:
 		id += 1
 
 func generate_level_50() -> void:
-	TRUE_DOOR_ID = randi_range(0, 1)
+	TRUE_DOOR_ID = g.level_rng.randi_range(0, 1)
 	FALSE_DOOR_ID = abs(TRUE_DOOR_ID - 1)
 	if TRUE_DOOR_ID == 0:
-		ANSWER_50 = "right"
+		ANSWER_50 = tr("right")
 	else:
-		ANSWER_50 = "left"
+		ANSWER_50 = tr("left")
 	AMOUNT = 1
 	MAX_ID = AMOUNT - 1
 	number_guesses.resize(AMOUNT)
@@ -277,7 +326,7 @@ func generate_level_50() -> void:
 	# Key does something
 	QUESTION = -1
 	N.clue.is_text = true
-	N.clue.text = "There is no way for you to pick the correct door"
+	N.clue.text = tr("There is no way for you to pick the correct door")
 
 func update_nodes(envelope_id = null) -> void:
 	for i in range(len(number_nodes)):
@@ -290,11 +339,11 @@ func update_nodes(envelope_id = null) -> void:
 			if !N.clue.is_text:
 				if !N.clue.is_equation:
 					if N.clue.target == i: # Target is self
-						text_line = "I am\n%s" % FORMAT_PARITY_SELF[N.clue.value]
+						text_line = tr("I am\n%s") % FORMAT_PARITY_SELF[N.clue.value]
 					else:
-						text_line = "The number %s is %s" % [g.direction_of_number(i, N.clue.target), FORMAT_PARITY[N.clue.value]]
+						text_line = tr("The number %s is %s") % [g.direction_of_number(i, N.clue.target), FORMAT_PARITY[N.clue.value]]
 				else:
-					text_line = "I'm equal to\n%s %s %s" % [g.ID_TO_LETTER[N.clue.equation_targets[0]], OPERATOR_TO_SIGN[N.clue.operator], g.ID_TO_LETTER[N.clue.equation_targets[1]]]
+					text_line = tr("I'm equal to\n%s %s %s") % [g.ID_TO_LETTER[N.clue.equation_targets[0]], OPERATOR_TO_SIGN[N.clue.operator], g.ID_TO_LETTER[N.clue.equation_targets[1]]]
 			else:
 				text_line = N.clue.text
 				number_nodes[0].get_node("%Text").add_theme_font_size_override("normal_font_size", 28)
@@ -306,7 +355,7 @@ func update_nodes(envelope_id = null) -> void:
 		return
 	left_ui.update_hidden_numbers()
 	if g.level < 50:
-		question.get_node("Text").text = "Which number is in cage %s?" % g.ID_TO_LETTER[QUESTION]
+		question.get_node("Text").text = tr("Which number is in cage %s?") % g.ID_TO_LETTER[QUESTION]
 		if TRUE_DOOR_ID == 0:
 			door0.get_node("SignTexture/Text").text = str(TRUE_ANSWER)
 			door1.get_node("SignTexture/Text").text = str(FALSE_ANSWER)
@@ -314,7 +363,7 @@ func update_nodes(envelope_id = null) -> void:
 			door0.get_node("SignTexture/Text").text = str(FALSE_ANSWER)
 			door1.get_node("SignTexture/Text").text = str(TRUE_ANSWER)
 	else:
-		question.get_node("Text").text = "Which is the correct door?"
+		question.get_node("Text").text = tr("Which is the correct door?")
 		door0.get_node("SignTexture/Text").text = "?"
 		door1.get_node("SignTexture/Text").text = "?"
 
@@ -348,26 +397,29 @@ func find_equations(id) -> Array[Array]:
 	return equations
 
 func _on_door_0_button_pressed() -> void:
-	if g.level != 50 and number_guesses[QUESTION] == -1:
-		guess_needed_warning()
-		return
-	if g.level == 50 and g.current_items[0] == "ENVELOPE":
-		envelope_needed_warning()
-		return
-	if TRUE_DOOR_ID == 0:	transition_to_next_level()
-	else:	wrong_door(0)
+	if can_click_other_door:
+		if g.level != 50 and number_guesses[QUESTION] == -1:
+			guess_needed_warning()
+			return
+		if g.level == 50 and g.current_items[0] == "ENVELOPE":
+			envelope_needed_warning()
+			return
+		if TRUE_DOOR_ID == 0:	transition_to_next_level()
+		else:	wrong_door(0)
 
 func _on_door_1_button_pressed() -> void:
-	if g.level != 50 and number_guesses[QUESTION] == -1:
-		guess_needed_warning()
-		return
-	if g.level == 50 and g.current_items[0] == "ENVELOPE":
-		envelope_needed_warning()
-		return
-	if TRUE_DOOR_ID == 1:	transition_to_next_level()
-	else:	wrong_door(1)
+	if can_click_other_door:
+		if g.level != 50 and number_guesses[QUESTION] == -1:
+			guess_needed_warning()
+			return
+		if g.level == 50 and g.current_items[0] == "ENVELOPE":
+			envelope_needed_warning()
+			return
+		if TRUE_DOOR_ID == 1:	transition_to_next_level()
+		else:	wrong_door(1)
 
 func wrong_door(door_id : int) -> void:
+	get_node("FootstepsSFX").play()
 	await fake_transition_rect.fake_transition()
 	left_ui.update_health()
 	if g.lives == 0:
@@ -388,24 +440,30 @@ func guess_needed_warning() -> void:
 
 func envelope_needed_warning() -> void:
 	warning.get_node("DialogBox").size.y -= 250
-	warning.get_node("DialogBox/Wait").text = "Are you sure?"
+	warning.get_node("DialogBox/Wait").text = tr("Are you sure?")
 	var additional_text : String = ""
 	if g.envelope_in_level_use_amount <= 2:
 		warning.get_node("DialogBox").size.y += 100
-		additional_text = "\n\nThe envelope in your items forces the selected number to say something else."
-	warning.get_node("DialogBox/Text").text = "\n\n\nYou collected an item on your path you might need to use.%s" % additional_text
+		additional_text = tr("\n\nThe envelope in your items forces the selected number to say something else.")
+	warning.get_node("DialogBox/Text").text = tr("\n\n\nYou collected an item on your path you might need to use.%s") % additional_text
 	warning.show()
 
 func transition_to_next_level() -> void:
+	can_click_other_door = false
 	g.level += 1
+	var wait_duration = 0.6
+	var move_duration = 1.0
 	var has_correct_guesses : bool = false
 	for id in range(len(number_guesses)):
 		if numbers[id].val == number_guesses[id]:
-			number_nodes[id].collect_coin(Vector2(146.0, 1040.0))
-			await get_tree().create_timer(0.7).timeout
+			number_nodes[id].collect_coin(Vector2(146.0, 1040.0), wait_duration, move_duration)
+			wait_duration *= 0.9
+			move_duration *= 0.8
+			await get_tree().create_timer(wait_duration).timeout
 			has_correct_guesses = true
 	if has_correct_guesses:
-		await get_tree().create_timer(1.5).timeout
+		await get_tree().create_timer(1.1).timeout
+	get_node("FootstepsSFX").play()
 	if g.level == 51:
 		change_scene.emit("win_scene", "bubble_transition")
 	elif g.level%10 == 0 and g.level != 50:
@@ -449,3 +507,13 @@ func use_item(item_id : String) -> void:
 func _on_warning_button_pressed() -> void:
 	warning.get_node("DialogBox").size = Vector2(788.0, 563.75)
 	warning.hide()
+
+func reveal_one_number() -> void:
+	var id : int = g.level_rng.randi_range(0, 5)
+	if g.level == 50:
+		id = 0
+	number_guesses[id] = numbers[id].val
+	var number_guess : MarginContainer = number_nodes[id].get_node("%NumberGuess")
+	number_guess.number = numbers[id].val
+	number_guess.update_number()
+	number_guess.update_opacity(1)

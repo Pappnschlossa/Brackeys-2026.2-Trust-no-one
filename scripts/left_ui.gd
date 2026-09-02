@@ -10,6 +10,9 @@ extends Control
 @export var numbers_container : Control
 @export var center : Marker2D
 @export var level : Control
+@export var orb_slot_0 : ColorRect
+@export var orb_slot_1 : ColorRect
+@onready var orb_slots : Array[ColorRect] = [orb_slot_0, orb_slot_1]
 
 var money_text_previous_value : int
 var money_to_display
@@ -65,40 +68,70 @@ func update_hidden_numbers() -> void:
 	numbers_hiding_text.text = "Numbers Hiding : %s%s%s%s%s%s%s%s%s%s%s%s" % strings_array
 
 func update_health() -> void:
-	if g.lives == 3:
+	if g.lives == 4:
 		get_node("%FullHeart0").visible = true
 		get_node("%FullHeart1").visible = true
 		get_node("%FullHeart2").visible = true
+		get_node("%FullHeart3").visible = true
+	elif g.lives == 3:
+		get_node("%FullHeart0").visible = true
+		get_node("%FullHeart1").visible = true
+		get_node("%FullHeart2").visible = true
+		get_node("%FullHeart3").visible = false
 	elif g.lives == 2:
 		get_node("%FullHeart0").visible = true
 		get_node("%FullHeart1").visible = true
 		get_node("%FullHeart2").visible = false
+		get_node("%FullHeart3").visible = false
 	elif g.lives == 1:
 		get_node("%FullHeart0").visible = true
 		get_node("%FullHeart1").visible = false
 		get_node("%FullHeart2").visible = false
+		get_node("%FullHeart3").visible = false
 	else:
 		get_node("%FullHeart0").visible = false
 		get_node("%FullHeart1").visible = false
 		get_node("%FullHeart2").visible = false
+		get_node("%FullHeart3").visible = false
 	get_node("%EmptyHeart0").visible = !get_node("%FullHeart0").visible
 	get_node("%EmptyHeart1").visible = !get_node("%FullHeart1").visible
 	get_node("%EmptyHeart2").visible = !get_node("%FullHeart2").visible
+	if g.max_lives == 4:
+		get_node("%EmptyHeart3").visible = !get_node("%FullHeart3").visible
 
 func _on_item_bought(item_id : String) -> void:
-	# Add item
-	for i in range(g.MAX_ITEM_AMOUNT):
-		if g.current_items[i] == "EMPTY":
-			g.current_items[i] = item_id
-			var item = load("uid://ces2bhel05kdm")
-			var instance = item.instantiate()
-			instance.item_id = item_id
-			instance.item_pos = i
-			instance.item_effect.connect(level.use_item)
-			instance.item_effect.connect(use_item)
-			instance.just_bought = true
-			item_slots[i].add_child(instance)
-			break
+	if item_id in g.ITEMS.keys():
+		# Add item
+		for i in range(g.MAX_ITEM_AMOUNT):
+			if g.current_items[i] == "EMPTY":
+				g.current_items[i] = item_id
+				var item = load("uid://ces2bhel05kdm")
+				var instance = item.instantiate()
+				instance.item_id = item_id
+				instance.item_pos = i
+				instance.item_effect.connect(level.use_item)
+				instance.item_effect.connect(use_item)
+				instance.just_bought = true
+				item_slots[i].add_child(instance)
+				break
+	else:
+		# Add orb
+		for i in range(2):
+			if g.current_orbs[i] == "EMPTY_ORB":
+				g.current_orbs[i] = item_id
+				var orb = load("uid://ctydct30b3etn")
+				var instance = orb.instantiate()
+				instance.item_id = item_id
+				instance.item_pos = i
+				instance.item_effect.connect(level.use_item)
+				instance.item_effect.connect(use_item)
+				instance.just_bought = true
+				orb_slots[i].add_child(instance)
+				if g.current_orbs[i] == "HEART":
+					g.max_lives = 4
+					g.lives = 4
+					update_health()
+				break
 	# Update Money
 	money_to_display = money_text_previous_value
 	var tween = create_tween()
@@ -123,6 +156,25 @@ func _on_inventory_reload() -> void:
 		instance.item_effect.connect(level.use_item)
 		instance.item_effect.connect(use_item)
 		item_slots[i].add_child(instance)
+	for i in range(2):
+		if g.current_orbs[i] == "EMPTY_ORB":
+			continue
+		var orb = load("uid://ctydct30b3etn")
+		var instance = orb.instantiate()
+		instance.item_id = g.current_orbs[i]
+		instance.item_pos = i
+		instance.item_effect.connect(level.use_item)
+		instance.item_effect.connect(use_item)
+		orb_slots[i].add_child(instance)
+		match g.current_orbs[i]:
+			"EQUAL":
+				pass
+			"HEART":
+				pass
+			"QUESTIONMARK":
+				level.reveal_one_number()
+			"SUN":
+				pass
 
 func use_item(item_id : String) -> void:
 	match item_id:
@@ -133,7 +185,7 @@ func use_item(item_id : String) -> void:
 		"KEY":
 			pass
 		"LIFE_POTION":
-			g.lives = min(g.lives + 1, 3)
+			g.lives = min(g.lives + 1, g.max_lives)
 			update_health()
 		"MAGNIFYING_GLASS":
 			pass

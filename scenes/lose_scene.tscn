@@ -54,10 +54,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -192.0
-offset_top = -296.0
-offset_right = 338.0
-offset_bottom = -4.75
+offset_left = -289.5
+offset_top = -145.625
+offset_right = 289.5
+offset_bottom = 145.625
 grow_horizontal = 2
 grow_vertical = 2
 
@@ -110,6 +110,7 @@ theme_override_styles/hover = SubResource("StyleBoxFlat_wknd0")
 text = "  Retry (+1     )  "
 
 [node name="TextureRect" type="TextureRect" parent="DialogBox/HBoxContainer/RetryButton" unique_id=1403778205]
+visible = false
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -126,6 +127,18 @@ mouse_filter = 2
 texture = ExtResource("6_c3pwq")
 expand_mode = 5
 stretch_mode = 4
+
+[node name="RichTextLabel" type="RichTextLabel" parent="DialogBox/HBoxContainer/RetryButton" unique_id=555802588]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("4_c3pwq")
+theme_override_colors/default_color = Color(1, 1, 1, 0)
+bbcode_enabled = true
+text = "  Retry(+1[img width=44 height=44]uid://cdi2td1nhnx3c[/img])"
 
 [connection signal="pressed" from="DialogBox/HBoxContainer/MainMenuButton" to="." method="_on_main_menu_button_pressed"]
 [connection signal="pressed" from="DialogBox/HBoxContainer/RetryButton" to="." method="_on_retry_button_pressed"]

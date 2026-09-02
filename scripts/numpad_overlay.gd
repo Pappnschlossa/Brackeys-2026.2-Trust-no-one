@@ -22,7 +22,7 @@ func _ready() -> void:
 
 func update_buttons_visibility() -> void:
 	for n in g.number_occurences:
-		if g.number_occurences[n] >= 1:
+		if g.number_occurences[n] >= 1 or (g.level >= 40 and g.level < 50 and "SUN" not in g.current_orbs):
 			buttons[n].visible = true
 		else:
 			buttons[n].visible = false

@@ -1,0 +1,211 @@
+key,_locations,en,fr
+Numbers on this level:,res://scenes/left_ui.tscn,Numbers on this level:,Nombres dans ce niveau :
+12,res://scenes/left_ui.tscn,12,12
+Numbers on this f[font_size=1] [/font_size]loor,res://scenes/left_ui.tscn,Numbers on this f[font_size=1] [/font_size]loor,Nombres dans ce niveau
+Floor 50,res://scenes/levels_map.tscn,Floor 50,Niveau 50
+Question,res://scenes/level_scene.tscn,Question,Question
+3,res://scenes/level_scene.tscn,3,3
+1,res://scenes/level_scene.tscn,1,1
+Wait!,res://scenes/level_scene.tscn,Wait!,Attention !
+"
+
+
+To enter the door of your choice, you must first select the number you think is in the bronze cage.
+
+Just click on that cage to assign a number.
+
+You can also do the same with the other cages.
+
+Each correct guess will grant you one gold coin upon entering the correct door.",res://scenes/level_scene.tscn,"
+
+
+To enter the door of your choice, you must first select the number you think is in the bronze cage.
+
+Just click on that cage to assign a number.
+
+You can also do the same with the other cages.
+
+Each correct guess will grant you one gold coin upon entering the correct door.","
+
+
+Pour entrer dans la porte de ton choix, tu dois d’abord sélectionner le nombre que tu penses être dans la cage de bronze.
+
+Clique dessus pour lui assigner un nombre.
+
+Tu peux aussi faire la même chose avec les autres cages.
+
+Chaque nombre correct te fera gagner une pièce après être passé par la bonne porte."
+ Click here to continue ,"res://scenes/level_scene.tscn
+res://scenes/tutorial_scene.tscn", Click here to continue , Clique ici pour continuer 
+"Oh no... You lost all your lives.
+
+Clicking on the retry button here will grant you one life potion for your next run.",res://scenes/lose_scene.tscn,"Oh no... You lost all your lives.
+
+Clicking on the retry button here will grant you one life potion for your next run.","Oh non... Tu as perdu toutes tes vies.
+
+Cliquer sur le bouton Réessayer te donnera une potion de vie pour ta prochaine partie."
+  Main Menu  ,"res://scenes/lose_scene.tscn
+res://scenes/win_scene.tscn",  Main Menu  ,  Menu Principal  
+  Retry (+1     )  ,res://scenes/lose_scene.tscn,  Retry (+1     )  ,  Réessayer (+1     )  
+  Retry(+1[img width=44 height=44]uid://cdi2td1nhnx3c[/img]),res://scenes/lose_scene.tscn,  Retry(+1[img width=44 height=44]uid://cdi2td1nhnx3c[/img]),  Réessayer(+1[img width=44 height=44]uid://cdi2td1nhnx3c[/img])
+"Alright, I'll tell you. The correct door is the right one.",res://scenes/number_cage.tscn,"Alright, I'll tell you. The correct door is the right one.","Ok, je vais te dire. La bonne porte est celle de droite."
+A,res://scenes/number_cage.tscn,A,A
+50 G,res://scenes/shop_item.tscn,50 G,50 G
+I will reveal one random number at the start of each floor,"res://scenes/shop_item.tscn
+res://scripts/shop_item.gd:30",I will reveal one random number at the start of each floor.,"Je révélerai un
+nombre au début de chaque niveau"
+Shop,res://scenes/shop_scene.tscn,Shop,Boutique
+The next floors are dangerous. I'll let you buy two of my charms.,res://scenes/shop_scene.tscn,The next floors are dangerous. I'll let you buy two of my charms.,"Les prochains niveaux sont dangereux, je te laisse acheter deux de mes amulettes"
+"Tutorial at
+the start enabled","res://scenes/title_scene.tscn
+res://scripts/check_box_text.gd:6
+res://scripts/check_box_text.gd:10","Tutorial at
+the start enabled","Tutoriel du
+début activé"
+  New Run  ,"res://scenes/title_scene.tscn
+res://scenes/win_scene.tscn",  New Run  ,  Nouvelle Partie  
+  Quit  ,res://scenes/title_scene.tscn,  Quit  ,  Quitter  
+The goal of each floor is to choose the door which corresponds to the correct answer to the question.,res://scenes/tutorial_scene.tscn,The goal of each floor is to choose the door which corresponds to the correct answer to the question.,Le but de chaque niveau est de choisir la porte qui correspond à la bonne réponse.
+"To find it, you have to listen to what the numbers in the cages say.
+[shake rate=20.0 level=5 connected=1]Careful[/shake]: every number will say the truth except the number 1, which will always lie.
+",res://scenes/tutorial_scene.tscn,"To find it, you have to listen to what the numbers in the cages say.
+[shake rate=20.0 level=5 connected=1]Careful[/shake]: every number will say the truth except the number 1, which will always lie.
+","Pour la trouver, tu dois écouter ce que les nombres dans les cages ont à dire,
+[shake rate=20.0 level=5 connected=1]Attention[/shake] : tous les nombres disent la vérité sauf le nombre 1 qui ment toujours."
+Your Crystal Ball can help you guess what the numbers in the cages are. The numbers appearing in it are the numbers locked in the cages. Also note that there is always only one number 1 on each floor.,res://scenes/tutorial_scene.tscn,Your Crystal Ball can help you guess what the numbers in the cages are. The numbers appearing in it are the numbers locked in the cages. Also note that there is always only one number 1 on each floor.,"Ta boule de cristal te permet de déterminer quels nombres sont dans les cages.
+Les nombres à l’intérieur sont ceux dans les cages du niveau.
+Note : Il n’y a qu’un seul 1 par niveau."
+"You will be able to click the cages to assign the number you think is locked in. At the end of the floor, each correct guess will be rewarded with 1 gold coin.
+",res://scenes/tutorial_scene.tscn,"You will be able to click the cages to assign the number you think is locked in. At the end of the floor, each correct guess will be rewarded with 1 gold coin.
+","Tu pourras cliquer sur les cages pour assigner le nombre que tu pense être enfermé à l’intérieur. À la fin du niveau, chaque bonne réponse sera récompensée par une pièce d’or."
+"Can you figure out who is lying here with the help of your crystal ball?
+Once you have guessed what numbers are inside the cages, enter the correct door by clicking on it.",res://scenes/tutorial_scene.tscn,"Can you figure out who is lying here with the help of your crystal ball?
+Once you have guessed what numbers are inside the cages, enter the correct door by clicking on it.","Peux-tu déterminer qui ment ici à l’aide de ta boule de cristal ?
+Dès que tu auras déterminé quels nombres sont dans les cages, passe par la bonne porte en cliquant dessus."
+"Sometimes, it will be impossible to know the solution. This is a good occasion to use items. Choosing the wrong door will cost you a heart.",res://scenes/tutorial_scene.tscn,"Sometimes, it will be impossible to know the solution. This is a good occasion to use items. Choosing the wrong door will cost you a heart.","Parfois, il peut être impossible de connaître la solution. C’est un bon moment pour utiliser un item. Choisir une mauvaise porte te fera perdre un cœur."
+"If you collect enough gold by clicking on cages and assigning the right number, you may buy items at the shops you will find on your path.",res://scenes/tutorial_scene.tscn,"If you collect enough gold by clicking on cages and assigning the right number, you may buy items at the shops you will find on your path.",Collecter assez de pièces d’or en cliquant sur les cages et en assignant le bon nombre te permettra d’acheter des items dans la boutique sur ton chemin.
+"Try using the magnifying glass (on the left) by clicking on it, to see what it does!",res://scenes/tutorial_scene.tscn,"Try using the magnifying glass (on the left) by clicking on it, to see what it does!",Essaie d’utiliser la loupe (à gauche de l’écran) en cliquant dessus pour appliquer son effet.
+1 / 6,res://scenes/tutorial_scene.tscn,1 / 6,1 / 6
+"YOU WIN
+",res://scenes/win_scene.tscn,"YOU WIN
+",VICTOIRE
+"Deep under the earth, you find riches that were long forgotten.
+
+Climbing back out of the dungeon, you realize all numbers has been freed from their cages.
+
+Where might they have gone and why were they locked in the first place?
+[font_size=50]You win![/font_size]",res://scenes/win_scene.tscn,"Deep under the earth, you find riches that were long forgotten.
+
+Climbing back out of the dungeon, you realize all numbers has been freed from their cages.
+
+Where might they have gone and why were they locked in the first place?
+[font_size=50]You win![/font_size]","Au plus profond de la terre, tu trouves un trésor très ancien.
+
+En remontant le donjon, tu réalises que tous les nombres ont été libérés de leurs cages.
+
+Où ont-ils bien pu aller et pourquoi étaient-ils enfermés initialement ?
+[font_size=50]VICTOIRE[/font_size]"
+"	
+	
+
+	
+	
+	
+
+	
+	
+[font_size=50]	[/font_size]
+[font_size=23]You collected %s out of 223 coins during this run![/font_size]",res://scenes/win_scene.tscn,"	
+	
+
+	
+	
+	
+
+	
+	
+[font_size=50]	[/font_size]
+[font_size=23]You collected %s out of 223 coins during this run![/font_size]","	
+	
+
+	
+	
+	
+
+	
+	
+[font_size=50]	[/font_size]
+[font_size=23]Tu as collecté %s sur 223 pièces d’or le long de ta partie ![/font_size]"
+"Tutorial at
+the start disabled",res://scripts/check_box_text.gd:12,"Tutorial at
+the start disabled","Tutoriel du
+début désactivé"
+Floor %s,"res://scripts/levels_map.gd:8
+res://scripts/levels_map.gd:13",Floor %s,Niveau %s
+even,res://scripts/level_scene.gd:38,even,pair
+odd,res://scripts/level_scene.gd:39,odd,impair
+an even number,res://scripts/level_scene.gd:53,an even number,un nombre pair
+an odd number,res://scripts/level_scene.gd:54,an odd number,un nombre impair
+the number 0,res://scripts/level_scene.gd:55,the number 0,le nombre 0
+the number 1,res://scripts/level_scene.gd:56,the number 1,le nombre 1
+the number 2,res://scripts/level_scene.gd:57,the number 2,le nombre 2
+the number 3,res://scripts/level_scene.gd:58,the number 3,le nombre 3
+the number 4,res://scripts/level_scene.gd:59,the number 4,le nombre 4
+the number 5,res://scripts/level_scene.gd:60,the number 5,le nombre 5
+the number 6,res://scripts/level_scene.gd:61,the number 6,le nombre 6
+the number 7,res://scripts/level_scene.gd:62,the number 7,le nombre 7
+the number 8,res://scripts/level_scene.gd:63,the number 8,le nombre 8
+the number 9,res://scripts/level_scene.gd:64,the number 9,le nombre 9
+right,res://scripts/level_scene.gd:298,right,droite
+left,res://scripts/level_scene.gd:300,left,gauche
+There is no way for you to pick the correct door,res://scripts/level_scene.gd:318,There is no way for you to pick the correct door,C’est impossible pour toi de choisir la bonne porte
+"I am
+%s",res://scripts/level_scene.gd:331,"I am
+%s","Je suis
+%s"
+The number %s is %s,res://scripts/level_scene.gd:333,The number %s is %s,Le nombre %s est %s
+"I'm equal to
+%s %s %s",res://scripts/level_scene.gd:335,"I'm equal to
+%s %s %s","Je suis égal à
+%s %s %s"
+Which number is in cage %s?,res://scripts/level_scene.gd:347,Which number is in cage %s?,Quel nombre est dans la cage %s ?
+Which is the correct door?,res://scripts/level_scene.gd:355,Which is the correct door?,Quelle est la bonne porte ?
+?,"res://scripts/level_scene.gd:356
+res://scripts/level_scene.gd:357",?,?
+Are you sure?,res://scripts/level_scene.gd:432,Are you sure?,Es-tu sûr ?
+"
+
+The envelope in your items forces the selected number to say something else.",res://scripts/level_scene.gd:436,"
+
+The envelope in your items forces the selected number to say something else.",L’enveloppe dans tes items oblige le nombre choisi à dire autre chose.
+"
+
+
+You collected an item on your path you might need to use.%s",res://scripts/level_scene.gd:437,"
+
+
+You collected an item on your path you might need to use.%s",Tu as obtenu un item sur ton chemin que tu aurais sûrement besoin d’utiliser.%s
+"Alright, I'll tell you. The correct door is the %s one",res://scripts/numbers_container.gd:36,"Alright, I'll tell you. The correct door is the %s one","Ok, je vais te dire. La bonne porte est celle de %s."
+I will make equations less likely to appear,res://scripts/shop_item.gd:26,I will make equations less likely to appear,"Je diminuerai la probabilité de
+trouver des équations"
+"I will restore all your
+lives and grant you
+one extra life",res://scripts/shop_item.gd:28,"I will restore all your
+lives and grant you
+one extra life","Je restaurerai toutes
+tes vies et t’en
+donnerai une de plus"
+I will light your path for the next floors,res://scripts/shop_item.gd:32,I will light your path for the next floors,"J’éclairerai ton
+chemin pour les prochains niveaux"
+%s G,res://scripts/shop_item.gd:52,%s G,%s G
+99 G?,res://scripts/shop_item.gd:55,99 G?,99 G ?
+Sold,res://scripts/shop_item.gd:79,Sold,Vendu
+above me,res://scripts/g.gd:65,above me,au-dessus
+to my upper right,res://scripts/g.gd:66,to my upper right,en haut à droite
+to my right,res://scripts/g.gd:67,to my right,à ma droite
+to my lower right,res://scripts/g.gd:68,to my lower right,en bas à droite
+below me,res://scripts/g.gd:69,below me,en dessous
+to my lower left,res://scripts/g.gd:70,to my lower left,en bas à gauche
+to my left,res://scripts/g.gd:71,to my left,à ma gauche
+to my upper left,res://scripts/g.gd:72,to my upper left,en haut à gauche
+Curse of the Number Dungeon,,Curse of the Number Dungeon,Curse of the Number Dungeon
